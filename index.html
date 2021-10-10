@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info gempa BMKG</title>
+    <style>
+        table {border: 2px solid black; border-collapse: collapse;}
+        th {border:1px solid black; padding: 10px; border-collapse: collapse;}
+        td {border:1px solid black; padding: 2px; }
+    </style>
+</head>
+<body>
+    <h1>Informasi gempa dari BMKG akan tampil di bawah ini:</h1>
+    <audio src="warn.mp3" hidden id="Warning"></audio>
+    <audio src="alert.mp3" hidden id="Alert"></audio>
+    <div>
+        <p id="informasi">
+            Sedang mengakses info gempa...
+        </p>
+        <table>
+            <tr>
+                <th>Data</th><th>Isi</th>
+            </tr>
+            <tr>
+                <td>Bujur</td><td class="tblGempa" name="Bujur">x</td>
+            </tr>
+            <tr>
+                <td>Coordinates</td><td class="tblGempa" name="Coordinates">x</td>
+            </tr>
+            <tr>
+                <td>DateTime</td><td class="tblGempa" name="DateTime">x</td>
+            </tr>
+            <tr>
+                <td>Dirasakan</td><td class="tblGempa" name="Dirasakan">x</td>
+            </tr>
+            <tr>
+                <td>Jam</td><td class="tblGempa" name="Jam">x</td>
+            </tr>
+            <tr>
+                <td>Kedalaman</td><td class="tblGempa" name="Kedalaman">x</td>
+            </tr>
+            <tr>
+                <td>Lintang</td><td class="tblGempa" name="Lintang">x</td>
+            </tr>
+            <tr>
+                <td>Magnitude</td><td class="tblGempa" name="Magnitude">x</td>
+            </tr>
+            <tr>
+                <td>Potensi</td><td class="tblGempa" name="Potensi">x</td>
+            </tr>
+            <tr>
+                <td>Shakemap</td>
+                <td class="tblGempa" name="Shakemap">
+                    <img src="https://data.bmkg.go.id/DataMKG/TEWS/20211009200907.mmi.jpg" alt="" id="imgShakemap"></img>
+                </td>
+            </tr>
+            <tr>
+                <td>Tanggal</td><td class="tblGempa" name="Tanggal">x</td>
+            </tr>
+            <tr>
+                <td>Wilayah</td><td class="tblGempa" name="Wilayah">x</td>
+            </tr>
+            <tr>
+                <td>Koneksi</td><td class="tblGempa" name="Koneksi">-</td>
+            </tr>
+        </table>
+        <pre id="txtLog">Memuat data...</pre>
+    </div>
+    <script type="text/javascript">
+    var xmlhttp = new XMLHttpRequest();
+    var sumberData = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json";
+    var dataGempa;
+    var cekData = "";
+    var txtDetail = document.getElementById("informasi");
+    var tblDetail = document.getElementsByClassName("tblGempa");
+    var imgDetail = document.getElementById("imgShakemap")
+    var txtLog = document.getElementById("txtLog");
+    var audWarn = document.getElementById("Warning")
+    var audAlert = document.getElementById("Alert")
+    var timeRefresh; // Variabel yg akan ditempati timer
+    var interval = 10000; // Jeda waktu dalam milisekon sebelum refresh
+    var firstState = true;
+
+    function statusUpdate (text) {
+        txtLog.textContent = text;
+    }
+
+    function displayUpdate (inputDataGempa) {
+        let out = "Gempa bermagnitudo " + inputDataGempa.Magnitude + " terjadi pada pukul " + inputDataGempa.Jam + " (" + inputDataGempa.Tanggal + "). " + inputDataGempa.Wilayah + ". " + inputDataGempa.Potensi;
+        txtDetail.textContent = out;
+
+        tblDetail.Bujur.textContent = inputDataGempa.Bujur;
+        tblDetail.Coordinates.textContent = inputDataGempa.Coordinates;
+        tblDetail.DateTime.textContent = inputDataGempa.DateTime;
+        tblDetail.Dirasakan.textContent = inputDataGempa.Dirasakan;
+        tblDetail.Jam.textContent = inputDataGempa.Jam;
+        tblDetail.Kedalaman.textContent = inputDataGempa.Kedalaman;
+        tblDetail.Lintang.textContent = inputDataGempa.Lintang;
+        tblDetail.Magnitude.textContent = inputDataGempa.Magnitude;
+        tblDetail.Potensi.textContent = inputDataGempa.Potensi;
+        imgDetail.src = "https://data.bmkg.go.id/DataMKG/TEWS/" + inputDataGempa.Shakemap
+        tblDetail.Tanggal.textContent = inputDataGempa.Tanggal;
+        tblDetail.Wilayah.textContent = inputDataGempa.Wilayah;
+
+    }
+
+    function autoUpdater() {
+        statusUpdate("Mengecek pembaruan...");
+        fetchUpdate();
+
+        timeRefresh = setTimeout(autoUpdater, interval);
+    }
+
+    function fetchUpdate() {
+        xmlhttp.open("GET", sumberData, true);
+        xmlhttp.send();
+    }
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let stringData = JSON.stringify(this.responseText)
+            if(cekData != stringData){
+                cekData = stringData;
+                dataGempa = JSON.parse(this.responseText);
+                let mag = parseFloat(dataGempa.Infogempa.gempa.Magnitude);
+                displayUpdate(dataGempa.Infogempa.gempa);
+                if (firstState) {
+                    // Digunakan supaya suara peringatan tidak berbunyi
+                    statusUpdate("Berhasil memuat data")
+                    firstState = false
+                } else {
+                    // Suara akan berbunyi jika parameter baru terdeteksi
+                    if (mag >= 6) { audAlert.play() } else { audWarn.play() }
+                    statusUpdate("Ada update");
+                }
+            } else {
+                statusUpdate("Selesai");
+            };
+
+        } else if (this.status == 404) {
+            statusUpdate("Tidak bisa mengakses file: 404")
+        } else {
+            statusUpdate("Sedang mengupdate... " + this.readyState + "/" + this.status)
+        }
+    }
+
+    xmlhttp.onerror = function() {
+        statusUpdate("Kesalahan jaringan?")
+    }
+
+    // Mentrigger pengambilan data setelah halaman dimuat
+    fetchUpdate()
+    autoUpdater()
+    </script>
+
+</body>
+</html>
