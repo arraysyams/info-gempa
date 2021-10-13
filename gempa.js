@@ -1,10 +1,10 @@
-// Rencana untuk timer
 // Cek update setiap 5s /done
 // Konten teks hanya akan direfresh jika ada yang berubah / ada masalah
 // Akan ada variabel baru sebagai pembanding /done
 // Jika data gagal diakses, tampilkan teks berisi pesan offline
 // Bagaimana cara minta izin autoplay dari browser?
 // Tombol untuk refresh data manual (keperluan debug)
+// Placeholder gambar
 // Link json untuk testing perubahan: https://raw.githubusercontent.com/arraysyams/testingrepo/main/autogempa.json
 // Link json dari bmkg: https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json
 // Lokasi shakemap: https://data.bmkg.go.id/DataMKG/TEWS/$Shakemap
@@ -39,7 +39,6 @@ function displayUpdate (inputDataGempa) {
     tblDetail.Lintang.textContent = inputDataGempa.Lintang;
     tblDetail.Magnitude.textContent = inputDataGempa.Magnitude;
     tblDetail.Potensi.textContent = inputDataGempa.Potensi;
-    // tblDetail.Shakemap.textContent = inputDataGempa.Shakemap;
     imgDetail.src = "https://data.bmkg.go.id/DataMKG/TEWS/" + inputDataGempa.Shakemap
     tblDetail.Tanggal.textContent = inputDataGempa.Tanggal;
     tblDetail.Wilayah.textContent = inputDataGempa.Wilayah;
