@@ -19,7 +19,7 @@ var txtLog = document.getElementById("txtLog");
 var audWarn = document.getElementById("Warning")
 var audAlert = document.getElementById("Alert")
 var timeRefresh; // Variabel yg akan ditempati timer
-var interval = 10000; // Jeda waktu dalam milisekon sebelum refresh
+var interval = 5000; // Jeda waktu dalam milisekon sebelum refresh
 var firstState = true;
 
 function statusUpdate (text) {
