@@ -19,7 +19,7 @@ var txtLog = document.getElementById("txtLog");
 var audWarn = document.getElementById("Warning")
 var audAlert = document.getElementById("Alert")
 var timeRefresh; // Variabel yg akan ditempati timer
-var interval = 5000; // Jeda waktu dalam milisekon sebelum refresh
+var interval = 2500; // Jeda waktu dalam milisekon sebelum refresh
 var firstState = true;
 
 function statusUpdate (text) {
@@ -43,7 +43,7 @@ function displayUpdate (inputDataGempa) {
     tblDetail.Tanggal.textContent = inputDataGempa.Tanggal;
     tblDetail.Wilayah.textContent = inputDataGempa.Wilayah;
     
-    locGambar = inputDataGempa.Shakemap
+    let locGambar = inputDataGempa.Shakemap
     if (locGambar == undefined) {
         locGambar = "img/placeholder.mmi.jpg"
     } else {
