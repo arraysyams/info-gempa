@@ -28,6 +28,7 @@ function statusUpdate (text) {
 
 function displayUpdate (inputDataGempa) {
     let out = "Gempa bermagnitudo " + inputDataGempa.Magnitude + " terjadi pada pukul " + inputDataGempa.Jam + " (" + inputDataGempa.Tanggal + "). " + inputDataGempa.Wilayah + ". " + inputDataGempa.Potensi;
+    
     txtDetail.textContent = out;
 
     tblDetail.Bujur.textContent = inputDataGempa.Bujur;
@@ -39,10 +40,17 @@ function displayUpdate (inputDataGempa) {
     tblDetail.Lintang.textContent = inputDataGempa.Lintang;
     tblDetail.Magnitude.textContent = inputDataGempa.Magnitude;
     tblDetail.Potensi.textContent = inputDataGempa.Potensi;
-    imgDetail.src = "https://data.bmkg.go.id/DataMKG/TEWS/" + inputDataGempa.Shakemap
     tblDetail.Tanggal.textContent = inputDataGempa.Tanggal;
     tblDetail.Wilayah.textContent = inputDataGempa.Wilayah;
+    
+    locGambar = inputDataGempa.Shakemap
+    if (locGambar == undefined) {
+        locGambar = "img/placeholder.mmi.jpg"
+    } else {
+        locGambar = "https://data.bmkg.go.id/DataMKG/TEWS/" + locGambar
+    }
 
+    imgDetail.src = locGambar
 }
 
 function autoUpdater() {
