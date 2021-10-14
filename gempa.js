@@ -29,8 +29,6 @@ function statusUpdate (text) {
 function displayUpdate (inputDataGempa) {
     let out = "Gempa bermagnitudo " + inputDataGempa.Magnitude + " terjadi pada pukul " + inputDataGempa.Jam + " (" + inputDataGempa.Tanggal + "). " + inputDataGempa.Wilayah + ". " + inputDataGempa.Potensi;
     
-
-
     txtDetail.textContent = out;
 
     tblDetail.Bujur.textContent = inputDataGempa.Bujur;
