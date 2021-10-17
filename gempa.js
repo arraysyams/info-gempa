@@ -9,7 +9,7 @@
 // Link json dari bmkg: https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json
 // Lokasi shakemap: https://data.bmkg.go.id/DataMKG/TEWS/$Shakemap
 var xmlhttp = new XMLHttpRequest();
-var sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/autogempa.json";
+var sumberData = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json";
 var dataGempa;
 var cekData = "";
 var txtDetail = document.getElementById("informasi");
@@ -21,6 +21,21 @@ var audAlert = document.getElementById("Alert")
 var timeRefresh; // Variabel yg akan ditempati timer
 var interval = 2500; // Jeda waktu dalam milisekon sebelum refresh
 var firstState = true;
+
+// Function untuk menguji coba perubahan data (keperluan debug)
+function ubahData (data) {
+    switch (data) {
+        case 1:
+        default:
+        sumberData = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json"
+        break;
+        
+        case 2:
+        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/autogempa.json"
+        break;
+    }
+}
+
 
 function statusUpdate (text) {
     txtLog.textContent = text;
