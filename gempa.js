@@ -9,7 +9,7 @@
 // Link json dari bmkg: https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json
 // Lokasi shakemap: https://data.bmkg.go.id/DataMKG/TEWS/$Shakemap
 var xmlhttp = new XMLHttpRequest();
-var sumberData = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json";
+var sumberData = "https://bmkg-content-inatews.storage.googleapis.com/datagempa.json";
 var dataGempa;
 var cekData = "";
 var txtDetail = document.getElementById("informasi");
@@ -27,7 +27,7 @@ function ubahData (data) {
     switch (data) {
         case 1:
         default:
-        sumberData = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json"
+        sumberData = "https://bmkg-content-inatews.storage.googleapis.com/datagempa.json"
         break;
         
         case 2:
@@ -42,7 +42,7 @@ function statusUpdate (text) {
 }
 
 function displayUpdate (inputDataGempa) {
-    let out = "Gempa bermagnitudo " + inputDataGempa.Magnitude + " terjadi pada pukul " + inputDataGempa.Jam + " (" + inputDataGempa.Tanggal + "). " + inputDataGempa.Wilayah + ". " + inputDataGempa.Potensi;
+    let out = "Gempa bermagnitudo " + inputDataGempa.magnitude + " terjadi pada pukul " + inputDataGempa.time + " (" + inputDataGempa.date + "). " + inputDataGempa.area + ". " + inputDataGempa.instruction;
     
     txtDetail.textContent = out;
 
