@@ -9,7 +9,7 @@
 // Link json dari bmkg: https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json
 // Lokasi shakemap: https://data.bmkg.go.id/DataMKG/TEWS/$Shakemap
 var xmlhttp = new XMLHttpRequest();
-var sumberData = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json";
+var sumberData = "https://bmkg-content-inatews.storage.googleapis.com/datagempa.json";
 var dataGempa;
 var cekData = "";
 var txtDetail = document.getElementById("informasi");
@@ -27,7 +27,7 @@ function ubahData (data) {
     switch (data) {
         case 1:
         default:
-        sumberData = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json"
+        sumberData = "https://bmkg-content-inatews.storage.googleapis.com/datagempa.json"
         break;
         
         case 2:
@@ -42,23 +42,23 @@ function statusUpdate (text) {
 }
 
 function displayUpdate (inputDataGempa) {
-    let out = "Gempa bermagnitudo " + inputDataGempa.Magnitude + " terjadi pada pukul " + inputDataGempa.Jam + " (" + inputDataGempa.Tanggal + "). " + inputDataGempa.Wilayah + ". " + inputDataGempa.Potensi;
+    let out = "Gempa bermagnitudo " + inputDataGempa.magnitude + " terjadi pada pukul " + inputDataGempa.time + " (" + inputDataGempa.date + "). " + inputDataGempa.area + ". " + inputDataGempa.instruction;
     
     txtDetail.textContent = out;
 
-    tblDetail.Bujur.textContent = inputDataGempa.Bujur;
-    tblDetail.Coordinates.textContent = inputDataGempa.Coordinates;
-    tblDetail.DateTime.textContent = inputDataGempa.DateTime;
-    tblDetail.Dirasakan.textContent = inputDataGempa.Dirasakan;
-    tblDetail.Jam.textContent = inputDataGempa.Jam;
-    tblDetail.Kedalaman.textContent = inputDataGempa.Kedalaman;
-    tblDetail.Lintang.textContent = inputDataGempa.Lintang;
-    tblDetail.Magnitude.textContent = inputDataGempa.Magnitude;
-    tblDetail.Potensi.textContent = inputDataGempa.Potensi;
-    tblDetail.Tanggal.textContent = inputDataGempa.Tanggal;
-    tblDetail.Wilayah.textContent = inputDataGempa.Wilayah;
+    tblDetail.Bujur.textContent = inputDataGempa.longitude;
+    tblDetail.Coordinates.textContent = inputDataGempa.point.coordinates;
+    tblDetail.DateTime.textContent = inputDataGempa.timesent;
+    tblDetail.Dirasakan.textContent = inputDataGempa.felt;
+    tblDetail.Jam.textContent = inputDataGempa.time;
+    tblDetail.Kedalaman.textContent = inputDataGempa.depth;
+    tblDetail.Lintang.textContent = inputDataGempa.latitude;
+    tblDetail.Magnitude.textContent = inputDataGempa.magnitude;
+    tblDetail.Potensi.textContent = inputDataGempa.instruction;
+    tblDetail.Tanggal.textContent = inputDataGempa.date;
+    tblDetail.Wilayah.textContent = inputDataGempa.area;
     
-    let locGambar = inputDataGempa.Shakemap
+    let locGambar = inputDataGempa.shakemap
     if (locGambar == undefined) {
         locGambar = "img/placeholder.mmi.jpg"
     } else {
@@ -86,8 +86,8 @@ xmlhttp.onreadystatechange = function() {
         if(cekData != stringData){
             cekData = stringData;
             dataGempa = JSON.parse(this.responseText);
-            let mag = parseFloat(dataGempa.Infogempa.gempa.Magnitude);
-            displayUpdate(dataGempa.Infogempa.gempa);
+            let mag = parseFloat(dataGempa.info.magnitude);
+            displayUpdate(dataGempa.info);
             if (firstState) {
                 statusUpdate("Berhasil memuat data")
                 firstState = false
