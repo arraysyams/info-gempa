@@ -58,7 +58,7 @@ function displayUpdate (inputDataGempa) {
     tblDetail.Tanggal.textContent = inputDataGempa.date;
     tblDetail.Wilayah.textContent = inputDataGempa.area;
     
-    let locGambar = inputDataGempa.Shakemap
+    let locGambar = inputDataGempa.shakemap
     if (locGambar == undefined) {
         locGambar = "img/placeholder.mmi.jpg"
     } else {
