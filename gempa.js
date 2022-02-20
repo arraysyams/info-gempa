@@ -46,17 +46,17 @@ function displayUpdate (inputDataGempa) {
     
     txtDetail.textContent = out;
 
-    tblDetail.Bujur.textContent = inputDataGempa.Bujur;
-    tblDetail.Coordinates.textContent = inputDataGempa.Coordinates;
-    tblDetail.DateTime.textContent = inputDataGempa.DateTime;
-    tblDetail.Dirasakan.textContent = inputDataGempa.Dirasakan;
-    tblDetail.Jam.textContent = inputDataGempa.Jam;
-    tblDetail.Kedalaman.textContent = inputDataGempa.Kedalaman;
-    tblDetail.Lintang.textContent = inputDataGempa.Lintang;
-    tblDetail.Magnitude.textContent = inputDataGempa.Magnitude;
-    tblDetail.Potensi.textContent = inputDataGempa.Potensi;
-    tblDetail.Tanggal.textContent = inputDataGempa.Tanggal;
-    tblDetail.Wilayah.textContent = inputDataGempa.Wilayah;
+    tblDetail.Bujur.textContent = inputDataGempa.longitude;
+    tblDetail.Coordinates.textContent = inputDataGempa.point.coordinates;
+    tblDetail.DateTime.textContent = inputDataGempa.timesent;
+    tblDetail.Dirasakan.textContent = inputDataGempa.felt;
+    tblDetail.Jam.textContent = inputDataGempa.time;
+    tblDetail.Kedalaman.textContent = inputDataGempa.depth;
+    tblDetail.Lintang.textContent = inputDataGempa.latitude;
+    tblDetail.Magnitude.textContent = inputDataGempa.magnitude;
+    tblDetail.Potensi.textContent = inputDataGempa.instruction;
+    tblDetail.Tanggal.textContent = inputDataGempa.date;
+    tblDetail.Wilayah.textContent = inputDataGempa.area;
     
     let locGambar = inputDataGempa.Shakemap
     if (locGambar == undefined) {
@@ -86,8 +86,8 @@ xmlhttp.onreadystatechange = function() {
         if(cekData != stringData){
             cekData = stringData;
             dataGempa = JSON.parse(this.responseText);
-            let mag = parseFloat(dataGempa.Infogempa.gempa.Magnitude);
-            displayUpdate(dataGempa.Infogempa.gempa);
+            let mag = parseFloat(dataGempa.info.magnitude);
+            displayUpdate(dataGempa.info);
             if (firstState) {
                 statusUpdate("Berhasil memuat data")
                 firstState = false
