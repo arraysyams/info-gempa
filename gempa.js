@@ -31,7 +31,7 @@ function ubahData (data) {
         break;
         
         case 2:
-        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/autogempa.json"
+        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa%20-%20inatews%20gempa%20normal.json"
         break;
     }
 }
