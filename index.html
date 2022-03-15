@@ -15,13 +15,15 @@
 </head>
 <body>
     <!-- <h1>Informasi gempa dari BMKG akan tampil di bawah ini:</h1> -->
-    <p style="color: red;">Perhatian: Website ini sedang diperbaiki</p>
+    <!-- <p style="color: red;">Perhatian: Website ini sedang diperbaiki</p> -->
     <audio src="aud/warn.mp3" hidden id="Warning"></audio>
     <audio src="aud/alert.mp3" hidden id="Alert"></audio>
     <div>
-        <p id="informasi">
-            Sedang mengakses info gempa...
-        </p>
+        <div class="container-md">
+            <p id="informasi">
+                Sedang mengakses info gempa...
+            </p>
+        
         <!-- Sembunyikan info yg kurang penting seperti bujur, lintang, koordinat, kedalaman, waktu info terkirim (datetime) -->
         <table>
             <tr>
@@ -29,40 +31,30 @@
                 <th>Isi</th>
             </tr>
             <tr>
-                <td>Bujur</td>
-                <td class="tblGempa" name="Bujur">-</td>
-            </tr>
-            <tr>
-                <td>Koordinat</td>
-                <td class="tblGempa" name="Coordinates">-</td>
-            </tr>
-            <tr>
-                <td>Waktu penyampaian</td>
-                <td class="tblGempa" name="DateTime">-</td>
-            </tr>
-            <tr>
-                <td>Dirasakan</td>
-                <td class="tblGempa" name="Dirasakan">-</td>
-            </tr>
-            <tr>
                 <td>Jam</td>
-                <td class="tblGempa" name="Jam">-</td>
+                <td class="tblGempa" name="Jam">21:15:18 WIB</td>
             </tr>
             <tr>
-                <td>Kedalaman</td>
-                <td class="tblGempa" name="Kedalaman">-</td>
-            </tr>
-            <tr>
-                <td>Lintang</td>
-                <td class="tblGempa" name="Lintang">-</td>
+                <td>Tanggal</td><td class="tblGempa" name="Tanggal">14-03-22</td>
             </tr>
             <tr>
                 <td>Magnitudo</td>
-                <td class="tblGempa" name="Magnitude">-</td>
+                <td class="tblGempa" name="Magnitude">3.9</td>
+            </tr>
+            <tr>
+                <td>Kedalaman</td>
+                <td class="tblGempa" name="Kedalaman">27 Km</td>
+            </tr>
+            <tr>
+                <td>Pusat gempa</td><td class="tblGempa" name="Wilayah">Pusat gempa berada di laut 88 km Barat daya Kab.Pangandaran</td>
+            </tr>
+            <tr>
+                <td>Dirasakan</td>
+                <td class="tblGempa" name="Dirasakan">III Pangandaran, III Cijulang, III Bungbulang, III Garut, II Tasikmalaya</td>
             </tr>
             <tr>
                 <td>Imbauan</td>
-                <td class="tblGempa" name="Potensi">-</td>
+                <td class="tblGempa" name="Potensi">Hati-hati terhadap gempabumi susulan yang mungkin terjadi</td>
             </tr>
             <tr>
                 <td>Peta guncangan</td>
@@ -71,16 +63,27 @@
                 </td>
             </tr>
             <tr>
-                <td>Tanggal</td><td class="tblGempa" name="Tanggal">-</td>
+                <td>Waktu penyampaian</td>
+                <td class="tblGempa" name="DateTime">14/03/2022 21:20:18WIB</td>
             </tr>
             <tr>
-                <td>Wilayah</td><td class="tblGempa" name="Wilayah">-</td>
+                <td>Koordinat</td>
+                <td class="tblGempa" name="Coordinates">107.82,-8.12</td>
+            </tr>
+            <tr>
+                <td>Bujur</td>
+                <td class="tblGempa" name="Bujur">107.82 BT</td>
+            </tr>
+            <tr>
+                <td>Lintang</td>
+                <td class="tblGempa" name="Lintang">8.12 LS</td>
             </tr>
         </table>
-        <pre id="txtLog">Memuat data...</pre>
+        </div>
+        <!-- <pre id="txtLog">Memuat data...</pre> -->
         <p><b>Disclaimer:</b> Aplikasi ini tidak disponsori oleh BMKG</p>
     </div>
-    <script type="text/javascript" src="gempa.js"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+    <!-- <script type="text/javascript" src="gempa.js"></script> -->
 </body>
 </html>

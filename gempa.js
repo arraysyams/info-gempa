@@ -12,12 +12,17 @@ var xmlhttp = new XMLHttpRequest();
 var sumberData = "https://bmkg-content-inatews.storage.googleapis.com/datagempa.json";
 var dataGempa;
 var cekData = "";
+// Daftar objek
 var txtDetail = document.getElementById("informasi");
 var tblDetail = document.getElementsByClassName("tblGempa");
 var imgDetail = document.getElementById("imgShakemap")
+
+// Kolom teks untuk debugging
 var txtLog = document.getElementById("txtLog");
+// Audio
 var audWarn = document.getElementById("Warning")
 var audAlert = document.getElementById("Alert")
+// Timer
 var timeRefresh; // Variabel yg akan ditempati timer
 var interval = 2500; // Jeda waktu dalam milisekon sebelum refresh
 var firstState = true;
