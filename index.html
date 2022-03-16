@@ -18,73 +18,73 @@
     <!-- <p style="color: red;">Perhatian: Website ini sedang diperbaiki</p> -->
     <audio src="aud/warn.mp3" hidden id="Warning"></audio>
     <audio src="aud/alert.mp3" hidden id="Alert"></audio>
-    <div>
-        <div class="container-md">
+    <!-- <div> -->
+        <!-- <div class="container-md"> -->
             <p id="informasi">
                 Gempa bermagnitudo 3.9 terjadi pada pukul 21:15:18 WIB (14-03-22). Pusat gempa berada di laut 88 km Barat daya Kab.Pangandaran. Hati-hati terhadap gempabumi susulan yang mungkin terjadi
             </p>
         
         <!-- Sembunyikan info yg kurang penting seperti bujur, lintang, koordinat, kedalaman, waktu info terkirim (datetime) -->
-        <table>
-            <tr>
-                <th>Data</th>
-                <th>Isi</th>
-            </tr>
-            <tr>
-                <td>Jam</td>
-                <td class="tblGempa" name="Jam">21:15:18 WIB</td>
-            </tr>
-            <tr>
-                <td>Tanggal</td><td class="tblGempa" name="Tanggal">14-03-22</td>
-            </tr>
-            <tr>
-                <td>Magnitudo</td>
-                <td class="tblGempa" name="Magnitude">3.9</td>
-            </tr>
-            <tr>
-                <td>Kedalaman</td>
-                <td class="tblGempa" name="Kedalaman">27 Km</td>
-            </tr>
-            <tr>
-                <td>Pusat gempa</td><td class="tblGempa" name="Wilayah">Pusat gempa berada di laut 88 km Barat daya Kab.Pangandaran</td>
-            </tr>
-            <tr>
-                <td>Dirasakan</td>
-                <td class="tblGempa" name="Dirasakan">III Pangandaran, III Cijulang, III Bungbulang, III Garut, II Tasikmalaya</td>
-            </tr>
-            <tr>
-                <td>Imbauan</td>
-                <td class="tblGempa" name="Potensi">Hati-hati terhadap gempabumi susulan yang mungkin terjadi</td>
-            </tr>
-            <tr>
-                <td>Peta guncangan</td>
-                <td class="tblGempa" name="Shakemap">
+        <div class="container">
+            <div class="row">
+                <div class="col-3">Data</div>
+                <div class="col-3">Isi</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Jam</div>
+                <div class="tblGempa col" name="Jam">21:15:18 WIB</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Tanggal</div><div class="tblGempa col" name="Tanggal">14-03-22</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Magnitudo</div>
+                <div class="tblGempa col" name="Magnitude">3.9</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Kedalaman</div>
+                <div class="tblGempa col" name="Kedalaman">27 Km</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Pusat gempa</div><div class="tblGempa col" name="Wilayah">Pusat gempa berada di laut 88 km Barat daya Kab.Pangandaran</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Dirasakan</div>
+                <div class="tblGempa col" name="Dirasakan">III Pangandaran, III Cijulang, III Bungbulang, III Garut, II Tasikmalaya</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Imbauan</div>
+                <div class="tblGempa col" name="Potensi">Hati-hati terhadap gempabumi susulan yang mungkin terjadi</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Peta guncangan</div>
+                <div class="tblGempa col" name="Shakemap">
                     <img src="img/placeholder.mmi.jpg" alt="" id="imgShakemap"></img>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td>Waktu penyampaian</td>
-                <td class="tblGempa" name="DateTime">14/03/2022 21:20:18WIB</td>
-            </tr>
-            <tr>
-                <td>Koordinat</td>
-                <td class="tblGempa" name="Coordinates">107.82,-8.12</td>
-            </tr>
-            <tr>
-                <td>Bujur</td>
-                <td class="tblGempa" name="Bujur">107.82 BT</td>
-            </tr>
-            <tr>
-                <td>Lintang</td>
-                <td class="tblGempa" name="Lintang">8.12 LS</td>
-            </tr>
-        </table>
-        <p><b>Disclaimer:</b> Aplikasi ini tidak disponsori oleh BMKG</p>
+                </div>
+            </div>
         </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-3">Waktu penyampaian</div>
+                <div class="tblGempa col" name="DateTime">14/03/2022 21:20:18WIB</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Koordinat</div>
+                <div class="tblGempa col" name="Coordinates">107.82,-8.12</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Bujur</div>
+                <div class="tblGempa col" name="Bujur">107.82 BT</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Lintang</div>
+                <div class="tblGempa col" name="Lintang">8.12 LS</div>
+            </div>
+        </div>
+        <p><b>Disclaimer:</b> Aplikasi ini tidak disponsori oleh BMKG</p>
+        <!-- </div> -->
         <!-- <pre id="txtLog">Memuat data...</pre> -->
-    </div>
+    <!-- </div> -->
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <!-- <script type="text/javascript" src="gempa.js"></script> -->
 </body>
