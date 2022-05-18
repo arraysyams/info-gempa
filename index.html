@@ -9,7 +9,23 @@
         table {border: 2px solid black; border-collapse: collapse;}
         th {border:1px solid black; padding: 10px; border-collapse: collapse;}
         td {border:1px solid black; padding: 2px; }
-        img {object-fit: contain; height: 400px;}
+        img {
+            object-fit:scale-down; 
+            /* height: 300px; */
+        }
+        .container, .row, .row * {
+            padding-top: 5px; 
+            padding-bottom: 5px; 
+            padding-left: 5px; 
+            padding-right: 5px; 
+            /* border-style: solid; */
+            /* border-color: white; */
+        }
+        /* .row {border-color: white; border-style: solid;} */
+        .divTitle, .divMaps, .divInfoAtas, .divMag, .divInfoBawah {
+            background-color: #b4b4b4;
+        }
+        /* .container .row * {border-color: blue;} */
     </style>
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
@@ -26,40 +42,45 @@
         
         <!-- Sembunyikan info yg kurang penting seperti bujur, lintang, koordinat, kedalaman, waktu info terkirim (datetime) -->
         <div class="container">
-            <div class="row">
-                <div class="col-3">Data</div>
-                <div class="col-3">Isi</div>
+            <div class="row divTitle">
+                <div class="col-3 divTitle">INFO GEMPA</div>
             </div>
             <div class="row">
-                <div class="col-3">Jam</div>
-                <div class="tblGempa col" name="Jam">21:15:18 WIB</div>
-            </div>
-            <div class="row">
-                <div class="col-3">Tanggal</div><div class="tblGempa col" name="Tanggal">14-03-22</div>
-            </div>
-            <div class="row">
-                <div class="col-3">Magnitudo</div>
-                <div class="tblGempa col" name="Magnitude">3.9</div>
-            </div>
-            <div class="row">
-                <div class="col-3">Kedalaman</div>
-                <div class="tblGempa col" name="Kedalaman">27 Km</div>
-            </div>
-            <div class="row">
-                <div class="col-3">Pusat gempa</div><div class="tblGempa col" name="Wilayah">Pusat gempa berada di laut 88 km Barat daya Kab.Pangandaran</div>
-            </div>
-            <div class="row">
-                <div class="col-3">Dirasakan</div>
-                <div class="tblGempa col" name="Dirasakan">III Pangandaran, III Cijulang, III Bungbulang, III Garut, II Tasikmalaya</div>
-            </div>
-            <div class="row">
-                <div class="col-3">Imbauan</div>
-                <div class="tblGempa col" name="Potensi">Hati-hati terhadap gempabumi susulan yang mungkin terjadi</div>
-            </div>
-            <div class="row">
-                <div class="col-3">Peta guncangan</div>
-                <div class="tblGempa col" name="Shakemap">
-                    <img src="img/placeholder.mmi.jpg" alt="" id="imgShakemap"></img>
+                <div class="tblGempa col-3 divMaps" name="Shakemap">
+                    <img class="w-100 p-3" src="img/placeholder.mmi.jpg" alt="" id="imgShakemap"></img>
+                </div>
+                <div class="col divInfo">
+                    <div class="row divInfoAtas">
+                        <div class="col divDetailAtas">
+                            <!-- <div class="col-3">Jam dan tgl</div> -->
+                            <div class="row">
+                                <div class="tblGempa col" name="Jam">21:15:18 WIB</div>
+                                <div class="tblGempa col" name="Tanggal">14-03-22</div>
+                            </div>
+                            <div class="row">
+                                <!-- <div class="col-3">Kedalaman</div> -->
+                                <div class="tblGempa col" name="Kedalaman">Kedalaman: 27 Km</div>
+                            </div>
+                        </div>
+                        <div class="col-2 divMag">
+                            <!-- Magnitudo -->
+                            <div class="tblGempa col" name="Magnitude">3.9</div>
+                        </div>
+                    </div>
+                    <div class="row divInfoBawah">
+                        <div class="row divWilayah">
+                            <!-- <div class="col-3">Pusat gempa</div> -->
+                            <div class="tblGempa col" name="Wilayah">Pusat gempa berada di laut 88 km Barat daya Kab.Pangandaran</div>
+                        </div>
+                        <div class="row divRasa">
+                            <!-- <div class="col-3">Dirasakan</div> -->
+                            <div class="tblGempa col" name="Dirasakan">III Pangandaran, III Cijulang, III Bungbulang, III Garut, II Tasikmalaya</div>
+                        </div>
+                        <div class="row divImbau">
+                            <!-- <div class="col-3">Imbauan</div> -->
+                            <div class="tblGempa col" name="Potensi">Hati-hati terhadap gempabumi susulan yang mungkin terjadi</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
