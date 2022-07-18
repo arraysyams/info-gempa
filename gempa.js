@@ -27,11 +27,11 @@ function ubahData (data) {
     switch (data) {
         case 1:
         default:
-        sumberData = "https://bmkg-content-inatews.storage.googleapis.com/datagempa.json"
+        sumberData = "https://bmkg-content-inatews.storage.googleapis.com/datagempa.json";
         break;
         
         case 2:
-        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa%20-%20inatews%20gempa%20normal.json"
+        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa%20-%20inatews%20gempa%20normal.json";
         break;
     }
 }
@@ -76,7 +76,7 @@ function autoUpdater() {
 }
 
 function fetchUpdate() {
-    xmlhttp.open("GET", sumberData, true);
+    xmlhttp.open("GET", sumberData + "?t=" + Date.now(), true);
     xmlhttp.send();
 }
 
