@@ -41,24 +41,24 @@ function statusUpdate (text) {
     txtLog.textContent = text;
 }
 
-function displayUpdate (inputDataGempa) {
-    let out = "Gempa bermagnitudo " + inputDataGempa.magnitude + " terjadi pada pukul " + inputDataGempa.time + " (" + inputDataGempa.date + "). " + inputDataGempa.area + ". " + inputDataGempa.instruction;
+function displayUpdate (dtGempa) {
+    let out = "Gempa bermagnitudo " + dtGempa.magnitude + " terjadi pada pukul " + dtGempa.time + " (" + dtGempa.date + "). " + dtGempa.area + ". " + dtGempa.instruction;
     
     txtDetail.textContent = out;
 
-    tblDetail.Bujur.textContent = inputDataGempa.longitude;
-    tblDetail.Coordinates.textContent = inputDataGempa.point.coordinates;
-    tblDetail.DateTime.textContent = inputDataGempa.timesent;
-    tblDetail.Dirasakan.textContent = inputDataGempa.felt;
-    tblDetail.Jam.textContent = inputDataGempa.time;
-    tblDetail.Kedalaman.textContent = inputDataGempa.depth;
-    tblDetail.Lintang.textContent = inputDataGempa.latitude;
-    tblDetail.Magnitude.textContent = inputDataGempa.magnitude;
-    tblDetail.Potensi.textContent = inputDataGempa.instruction;
-    tblDetail.Tanggal.textContent = inputDataGempa.date;
-    tblDetail.Wilayah.textContent = inputDataGempa.area;
+    tblDetail.Bujur.textContent = dtGempa.longitude;
+    tblDetail.Coordinates.textContent = dtGempa.point.coordinates;
+    tblDetail.DateTime.textContent = dtGempa.timesent;
+    tblDetail.Dirasakan.textContent = dtGempa.felt;
+    tblDetail.Jam.textContent = dtGempa.time;
+    tblDetail.Kedalaman.textContent = dtGempa.depth;
+    tblDetail.Lintang.textContent = dtGempa.latitude;
+    tblDetail.Magnitude.textContent = dtGempa.magnitude;
+    tblDetail.Potensi.textContent = dtGempa.instruction;
+    tblDetail.Tanggal.textContent = dtGempa.date;
+    tblDetail.Wilayah.textContent = dtGempa.area;
     
-    let locGambar = inputDataGempa.shakemap
+    let locGambar = dtGempa.shakemap
     if (locGambar == undefined) {
         locGambar = "img/placeholder.mmi.jpg"
     } else {
