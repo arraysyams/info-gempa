@@ -42,7 +42,8 @@ function statusUpdate (text) {
 }
 
 function displayUpdate (dtGempa) {
-    let out = "Gempa bermagnitudo " + dtGempa.magnitude + " terjadi pada pukul " + dtGempa.time + " (" + dtGempa.date + "). " + dtGempa.area + ". " + dtGempa.instruction;
+//     let out = "Gempa bermagnitudo " + dtGempa.magnitude + " terjadi pada pukul " + dtGempa.time + " (" + dtGempa.date + "). " + dtGempa.area + ". " + dtGempa.instruction;
+    let out = "Gempa Mag:" + dtGempa.magnitude + ", " + dtGempa.date + " " + dtGempa.time + ", Lok:" + dtGempa.latitude + "," + dtGempa.longitude + " (" + dtGempa.area + "), Kedalaman:" + dtGempa.depth + ", " + dtGempa.instruction;
     
     txtDetail.textContent = out;
 
