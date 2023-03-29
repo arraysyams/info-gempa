@@ -60,7 +60,7 @@ function displayUpdate (inputDataGempa) {
     
     let locGambar = inputDataGempa.shakemap
     if (locGambar == undefined) {
-        locGambar = "img/placeholder.mmi.jpg"
+        locGambar = "img/placeholder.mmi.png"
     } else {
         locGambar = "https://data.bmkg.go.id/DataMKG/TEWS/" + locGambar
     }
@@ -111,5 +111,5 @@ xmlhttp.onerror = function() {
 }
 
 // Mentrigger pengambilan data setelah halaman dimuat
-fetchUpdate()
-autoUpdater()
+// fetchUpdate()
+// autoUpdater()

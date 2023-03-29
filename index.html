@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Info gempa BMKG</title>
     <style>
-        table {border: 2px solid black; border-collapse: collapse;}
+        table {border: 2px solid black; border-collapse: collapse; visibility: collapse;}
         th {border:1px solid black; padding: 10px; border-collapse: collapse;}
         td {border:1px solid black; padding: 2px; }
         img {object-fit: contain; height: 400px;}
@@ -14,71 +14,105 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
-    <!-- <h1>Informasi gempa dari BMKG akan tampil di bawah ini:</h1> -->
-    <p style="color: red;">Perhatian: Website ini sedang diperbaiki</p>
     <audio src="aud/warn.mp3" hidden id="Warning"></audio>
     <audio src="aud/alert.mp3" hidden id="Alert"></audio>
-    <div>
-        <p id="informasi">
-            Sedang mengakses info gempa...
-        </p>
-        <!-- Sembunyikan info yg kurang penting seperti bujur, lintang, koordinat, kedalaman, waktu info terkirim (datetime) -->
-        <table>
-            <tr>
-                <th>Data</th>
-                <th>Isi</th>
-            </tr>
-            <tr>
-                <td>Bujur</td>
-                <td class="tblGempa" name="Bujur">-</td>
-            </tr>
-            <tr>
-                <td>Koordinat</td>
-                <td class="tblGempa" name="Coordinates">-</td>
-            </tr>
-            <tr>
-                <td>Waktu penyampaian</td>
-                <td class="tblGempa" name="DateTime">-</td>
-            </tr>
-            <tr>
-                <td>Dirasakan</td>
-                <td class="tblGempa" name="Dirasakan">-</td>
-            </tr>
-            <tr>
-                <td>Jam</td>
-                <td class="tblGempa" name="Jam">-</td>
-            </tr>
-            <tr>
-                <td>Kedalaman</td>
-                <td class="tblGempa" name="Kedalaman">-</td>
-            </tr>
-            <tr>
-                <td>Lintang</td>
-                <td class="tblGempa" name="Lintang">-</td>
-            </tr>
-            <tr>
-                <td>Magnitudo</td>
-                <td class="tblGempa" name="Magnitude">-</td>
-            </tr>
-            <tr>
-                <td>Imbauan</td>
-                <td class="tblGempa" name="Potensi">-</td>
-            </tr>
-            <tr>
-                <td>Peta guncangan</td>
-                <td class="tblGempa" name="Shakemap">
-                    <img src="img/placeholder.mmi.jpg" alt="" id="imgShakemap"></img>
-                </td>
-            </tr>
-            <tr>
-                <td>Tanggal</td><td class="tblGempa" name="Tanggal">-</td>
-            </tr>
-            <tr>
-                <td>Wilayah</td><td class="tblGempa" name="Wilayah">-</td>
-            </tr>
-        </table>
-        <pre id="txtLog">Memuat data...</pre>
-        <p><b>Disclaimer:</b> Aplikasi ini tidak disponsori oleh BMKG</p>
+    <div class="row alert alert-warning"><span class="text-center">Perhatian: Website ini sedang diperbaiki. Informasi yang disajikan hanya merupakan contoh.</span></div>
+    <div class="container">
+        <div class="row row-sm">
+            <h2 class="text-center">Informasi Gempa Bumi</h2>
+        </div>
+        <div class="row row-sm">
+            <div class="col-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Informasi Ringkas
+                    </div>
+                    <div class="card-body">
+                        <p id="informasi">
+                            Gempa bermagnitudo 4.0 terjadi pada pukul 12:34:44 WIB (29-03-23). Pusat gempa berada di darat 6 km BaratDaya Cianjur. Hati-hati terhadap gempabumi susulan yang mungkin terjadi
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-sm">
+            <div class="col-12">
+                <!-- Sembunyikan info yg kurang penting seperti bujur, lintang, koordinat, kedalaman, waktu info terkirim (datetime) -->
+                <div class="card mb3">
+                    <div class="card-header">
+                        Detail
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <p>Magnitudo: 4.0</p>
+                            <p>Kedalaman: 10 Km</p>
+                            <p>Potensi: Hati-hati terhadap gempabumi susulan yang mungkin terjadi</p>
+                            <p>Dirasakan: III - IV Cianjur, III - IV Sukabumi, III-IV Bogor, III Sukaresmi, III Sabandar, III Cibodas, III Cipanas, III Rancagoong</p>
+                            <p>Pusat gempa berada di darat 6 km BaratDaya Cianjur</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Legacy table info -->
+                <table>
+                    <tr>
+                        <th>Data</th>
+                        <th>Isi</th>
+                    </tr>
+                    <tr>
+                        <td>Bujur</td>
+                        <td class="tblGempa" name="Bujur">-</td>
+                    </tr>
+                    <tr>
+                        <td>Koordinat</td>
+                        <td class="tblGempa" name="Coordinates">-</td>
+                    </tr>
+                    <tr>
+                        <td>Waktu penyampaian</td>
+                        <td class="tblGempa" name="DateTime">-</td>
+                    </tr>
+                    <tr>
+                        <td>Dirasakan</td>
+                        <td class="tblGempa" name="Dirasakan">-</td>
+                    </tr>
+                    <tr>
+                        <td>Jam</td>
+                        <td class="tblGempa" name="Jam">-</td>
+                    </tr>
+                    <tr>
+                        <td>Kedalaman</td>
+                        <td class="tblGempa" name="Kedalaman">-</td>
+                    </tr>
+                    <tr>
+                        <td>Lintang</td>
+                        <td class="tblGempa" name="Lintang">-</td>
+                    </tr>
+                    <tr>
+                        <td>Magnitudo</td>
+                        <td class="tblGempa" name="Magnitude">-</td>
+                    </tr>
+                    <tr>
+                        <td>Imbauan</td>
+                        <td class="tblGempa" name="Potensi">-</td>
+                    </tr>
+                    <tr>
+                        <td>Peta guncangan</td>
+                        <td class="tblGempa" name="Shakemap">
+                            <img src="img/placeholder.mmi.jpg" alt="" id="imgShakemap"></img>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal</td><td class="tblGempa" name="Tanggal">-</td>
+                    </tr>
+                    <tr>
+                        <td>Wilayah</td><td class="tblGempa" name="Wilayah">-</td>
+                    </tr>
+                </table>
+            </div>
+            <pre id="txtLog">Pengambilan data dimatikan.</pre>
+            <p><b>Disclaimer:</b> Aplikasi ini tidak disponsori oleh BMKG</p>
+        </div>
     </div>
     <script type="text/javascript" src="gempa.js"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
