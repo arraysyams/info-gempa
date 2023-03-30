@@ -9,7 +9,12 @@
         table {border: 2px solid black; border-collapse: collapse; visibility: collapse;}
         th {border:1px solid black; padding: 10px; border-collapse: collapse;}
         td {border:1px solid black; padding: 2px; }
-        img {object-fit: contain; height: 400px;}
+        .smallSVG {height: 1em; width: 1em;}
+        .midSVG {height: 1em; width: 1em;}
+        .card {overflow: hidden;}
+        .warnaSiaga {background-color: #ffc107!important}
+        .warnaBahaya {background-color: red!important; filter: invert(100%);}
+        /* img {object-fit: contain; height: 400px;} */
     </style>
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
@@ -18,12 +23,65 @@
     <audio src="aud/alert.mp3" hidden id="Alert"></audio>
     <div class="row alert alert-warning"><span class="text-center">Perhatian: Website ini sedang diperbaiki. Informasi yang disajikan hanya merupakan contoh.</span></div>
     <div class="container">
-        <div class="row row-sm">
+        <div class="row row-sm mb-3">
             <h2 class="text-center">Informasi Gempa Bumi</h2>
         </div>
-        <div class="row row-sm">
+        <div class="row row-sm mb-3">
             <div class="col-12">
-                <div class="card mb-3">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-8 card-header">
+                            <div class="row g-0 fs-5">
+                                <span>
+                                    <img src="img/time.svg" alt="Waktu" class="smallSVG">
+                                    <span>12:34:44 WIB (29-03-23)</span>
+                                </span>
+                            </div>
+                            <div class="row g-0 fs-5">
+                                <span>
+                                    <img src="img/depth.svg" alt="Waktu" class="smallSVG">
+                                    <span>Kedalaman: 10 km</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-4 bg-warning bg-gradient pt-2">
+                            <div class="row g-0">
+                                <span class="text-center">
+                                    Magnitudo
+                                </span>
+                            </div>
+                            <div class="row g-0">
+                                <h1 class="text-center">
+                                    <img src="img/magnitude.svg" alt="Magnitudo" class="midSVG">
+                                    4.0
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-sm mb-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <span>
+                            <img src="img/location.svg" alt="Waktu" class="smallSVG">
+                            Lokasi gempa
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p id="informasi">
+                            Gempa bermagnitudo 4.0 terjadi pada pukul 12:34:44 WIB (29-03-23). Pusat gempa berada di darat 6 km BaratDaya Cianjur. Hati-hati terhadap gempabumi susulan yang mungkin terjadi
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-sm mb-3">
+            <div class="col-12">
+                <div class="card">
                     <div class="card-header">
                         Informasi Ringkas
                     </div>
@@ -55,6 +113,7 @@
                 </div>
                 
                 <!-- Legacy table info -->
+                <!--
                 <table>
                     <tr>
                         <th>Data</th>
@@ -108,10 +167,10 @@
                     <tr>
                         <td>Wilayah</td><td class="tblGempa" name="Wilayah">-</td>
                     </tr>
-                </table>
+                </table>-->
             </div>
-            <pre id="txtLog">Pengambilan data dimatikan.</pre>
-            <p><b>Disclaimer:</b> Aplikasi ini tidak disponsori oleh BMKG</p>
+            <!-- <pre id="txtLog">Pengambilan data dimatikan.</pre>
+            <p><b>Disclaimer:</b> Aplikasi ini tidak disponsori oleh BMKG</p> -->
         </div>
     </div>
     <script type="text/javascript" src="gempa.js"></script>

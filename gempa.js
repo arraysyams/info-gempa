@@ -8,6 +8,7 @@
 // Link json untuk testing perubahan: https://raw.githubusercontent.com/arraysyams/testingrepo/main/autogempa.json
 // Link json dari bmkg: https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json
 // Lokasi shakemap: https://data.bmkg.go.id/DataMKG/TEWS/$Shakemap
+/*
 var xmlhttp = new XMLHttpRequest();
 var sumberData = "https://bmkg-content-inatews.storage.googleapis.com/datagempa.json";
 var dataGempa;
@@ -111,5 +112,6 @@ xmlhttp.onerror = function() {
 }
 
 // Mentrigger pengambilan data setelah halaman dimuat
-// fetchUpdate()
-// autoUpdater()
+ fetchUpdate()
+ autoUpdater()
+*/
