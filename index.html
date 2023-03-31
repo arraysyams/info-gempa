@@ -12,8 +12,11 @@
         .smallSVG {height: 1em; width: 1em;}
         .midSVG {height: 1em; width: 1em;}
         .card {overflow: hidden;}
-        .warnaSiaga {background-color: #ffc107!important}
-        .warnaBahaya {background-color: red!important; filter: invert(100%);}
+        .warnaKecil {background-image: var(--bs-gradient)!important; background-color: #0d6efd!important; color: white;}
+        .warnaKecil > div > h2 > img {filter: invert(100%);}
+        .warnaSedang {background-image: var(--bs-gradient)!important; background-color: #ffc107!important; color: black;}
+        .warnaBesar {background-image: var(--bs-gradient)!important; background-color: #dc3545!important; color: white;}
+        .warnaBesar > div > h2 > img {filter: invert(100%);}
         /* img {object-fit: contain; height: 400px;} */
     </style>
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -31,30 +34,30 @@
                 <div class="card">
                     <div class="row g-0">
                         <div class="col-8 card-header">
-                            <div class="row g-0 fs-5">
+                            <div class="row g-0">
                                 <span>
                                     <img src="img/time.svg" alt="Waktu" class="smallSVG">
                                     <span>12:34:44 WIB (29-03-23)</span>
                                 </span>
                             </div>
-                            <div class="row g-0 fs-5">
+                            <div class="row g-0">
                                 <span>
                                     <img src="img/depth.svg" alt="Waktu" class="smallSVG">
                                     <span>Kedalaman: 10 km</span>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-4 bg-warning bg-gradient pt-2">
+                        <div class="col-4 warnaKecil pt-2">
                             <div class="row g-0">
                                 <span class="text-center">
                                     Magnitudo
                                 </span>
                             </div>
                             <div class="row g-0">
-                                <h1 class="text-center">
+                                <h2 class="text-center">
                                     <img src="img/magnitude.svg" alt="Magnitudo" class="midSVG">
-                                    4.0
-                                </h1>
+                                    1.2
+                                </h2>
                             </div>
                         </div>
                     </div>
@@ -173,6 +176,16 @@
             <p><b>Disclaimer:</b> Aplikasi ini tidak disponsori oleh BMKG</p> -->
         </div>
     </div>
+    <footer class="footer bg-light mt-3 py-3" id="footer">
+        <div class="container">
+            <span class="text-muted">
+                Sumber data: BMKG. <a href="#footer">Disclaimer & Credits</a>
+                <!-- Meskipun data yang diperoleh berasal dari BMKG, website ini tidak memiliki hubungan dengan BMKG. Oleh karena itu, informasi yang tersedia pada website ini tidak bersifat resmi. Informasi resmi bisa dilihat pada Twitter atau Website BMKG.  -->
+
+
+            </span>
+        </div>
+    </footer>
     <script type="text/javascript" src="gempa.js"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 </body>
