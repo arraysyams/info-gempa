@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Info gempa BMKG</title>
+    <title>Informasi Gempa Bumi</title>
     <style>
         table {border: 2px solid black; border-collapse: collapse; visibility: collapse;}
         th {border:1px solid black; padding: 10px; border-collapse: collapse;}
@@ -18,15 +18,15 @@
         .warna-kuning {background-image: var(--bs-gradient)!important; background-color: #ffc107!important; color: black;}
         .warna-merah {background-image: var(--bs-gradient)!important; background-color: #dc3545!important; color: white;}
         .warna-merah > div > h2 > img, .warna-merah > span > img {filter: invert(100%);}
-        /* img {object-fit: contain; height: 400px;} */
     </style>
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
-<body>
-    <audio src="aud/warn.mp3" hidden id="Warning"></audio>
-    <audio src="aud/alert.mp3" hidden id="Alert"></audio>
-    <div class="row alert alert-warning"><span class="text-center">Perhatian: Website ini sedang diperbaiki. Informasi yang disajikan hanya merupakan contoh.</span></div>
-    <div class="container">
+<body class="d-flex flex-column h-100">
+    <!-- <audio src="aud/info.mp3" hidden id="Info"></audio>
+    <audio src="aud/alert.mp3" hidden id="Alert"></audio> -->
+    <main class="flex-shrink-0">
+        <div class="container">
+        <div class="row alert alert-warning"><span class="text-center">Perhatian: Website ini sedang diperbaiki. Informasi yang disajikan hanya merupakan contoh.</span></div>
         <div class="row row-sm mb-3">
             <h2 class="text-center">Informasi Gempa Bumi</h2>
         </div>
@@ -85,7 +85,7 @@
                         <span>
                             <a id="linkMap" href="https://www.google.com/maps?q=-6.84,107.08" target="_blank" rel="noopener noreferrer">
                                 Buka lokasi di Google Maps
-                                <img src="img/link.svg" alt="Redirect" class="link-svg">
+                                <img src="img/redirect.svg" alt="Redirect" class="link-svg">
                             </a>
                         </span>
                     </div>
@@ -126,24 +126,47 @@
                 </div>
             </div>
         </div>
-
-        <div class="row row-sm">
+        <div class="row row-sm mb-3">
             <div class="col-12">
-                <!-- Sembunyikan info yg kurang penting seperti bujur, lintang, koordinat, kedalaman, waktu info terkirim (datetime) -->
-                <div class="card mb3">
-                    <div class="card-header">
-                        Detail
+                <div class="card">
+                    <div class="card-header" id="warnaPotensi">
+                        <span>
+                            <img src="img/link.svg" alt="Link" class="small-svg">
+                            Link ke website lain
+                        </span>
                     </div>
                     <div class="card-body">
-                        <div>
-                            <p>Magnitudo: 4.0</p>
-                            <p>Kedalaman: 10 Km</p>
-                            <p>Potensi: Hati-hati terhadap gempabumi susulan yang mungkin terjadi</p>
-                            <p>Dirasakan: III - IV Cianjur, III - IV Sukabumi, III-IV Bogor, III Sukaresmi, III Sabandar, III Cibodas, III Cipanas, III Rancagoong</p>
-                            <p>Pusat gempa berada di darat 6 km BaratDaya Cianjur</p>
-                        </div>
+                        <span>
+                            <span>
+                                Website untuk informasi resmi : 
+                                <a href="https://www.bmkg.go.id/" target="_blank" rel="noopener noreferrer">
+                                    BMKG
+                                    <img src="img/redirect.svg" alt="Redirect" class="link-svg">
+                                </a>
+                            </span>
+                            <br>
+                            <span>
+                                Daftar gempa dan tsunami : 
+                                <a href="https://inatews.bmkg.go.id/" target="_blank" rel="noopener noreferrer">
+                                    InaTEWS
+                                    <img src="img/redirect.svg" alt="Redirect" class="link-svg">
+                                </a>
+                            </span>
+                            <br>
+                            <span>
+                                Info gempa realtime dengan peta wilayah : 
+                                <a href="https://inatews.bmkg.go.id/wrs/index.html" target="_blank" rel="noopener noreferrer">
+                                    WRS-NTWC Indonesia
+                                    <img src="img/redirect.svg" alt="Redirect" class="link-svg">
+                                </a>
+                            </span>
+                        </span>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        
                 
                 <!-- Legacy table info -->
                 <!--
@@ -206,13 +229,11 @@
             <p><b>Disclaimer:</b> Aplikasi ini tidak disponsori oleh BMKG</p> -->
         </div>
     </div>
-    <footer class="footer bg-light mt-3 py-3" id="footer">
+    </main>
+    <footer class="footer bg-light mt-auto py-3" id="below">
         <div class="container">
             <span class="text-muted">
-                Sumber data: BMKG. <a href="#footer" id="linkDisc">Disclaimer & Credits</a>
-                <!-- Meskipun data yang diperoleh berasal dari BMKG, website ini tidak memiliki hubungan dengan BMKG. Oleh karena itu, informasi yang tersedia pada website ini tidak bersifat resmi. Informasi resmi bisa dilihat pada Twitter atau Website BMKG.  -->
-
-
+                Sumber data: BMKG. <a href="#below" id="linkDisc">Disclaimer & Credits.</a>
             </span>
         </div>
     </footer>
