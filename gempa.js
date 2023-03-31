@@ -35,6 +35,7 @@ var audInfo = document.querySelector("#audInfo");
 var audAlert = document.querySelector("#audAlert");
 
 // Variabel lain
+var banner = document.querySelector("#banner");
 var timeRefresh; // Variabel yg akan ditempati timer
 var interval = 2500; // Jeda waktu dalam milisekon sebelum refresh
 var firstState = true;
@@ -108,6 +109,9 @@ function fetchUpdate() {
 
 xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
+    if (!banner.hidden) {
+        banner.hidden = true;
+    }
         let stringData = JSON.stringify(this.responseText)
         if(cekData != stringData){
             cekData = stringData;
@@ -126,14 +130,16 @@ xmlhttp.onreadystatechange = function() {
         };
 
     } else if (this.status == 404) {
-        statusUpdate("Tidak bisa mengakses file: 404")
+        statusUpdate("Tidak bisa mengakses file: 404");
+        banner.hidden = false;
     } else {
-        statusUpdate("Sedang mengupdate... " + this.readyState + "/" + this.status)
+        statusUpdate("Sedang mengupdate... " + this.readyState + "/" + this.status);
     }
 }
 
 xmlhttp.onerror = function() {
-    statusUpdate("Kesalahan jaringan?")
+    statusUpdate("Kesalahan jaringan?");
+    banner.hidden = false;
 }
 
 // Mentrigger pengambilan data setelah halaman dimuat
