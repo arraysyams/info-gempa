@@ -9,15 +9,15 @@
         table {border: 2px solid black; border-collapse: collapse; visibility: collapse;}
         th {border:1px solid black; padding: 10px; border-collapse: collapse;}
         td {border:1px solid black; padding: 2px; }
-        .smallSVG {height: 1em; width: 1em;}
-        .midSVG {height: 1em; width: 1em;}
-        .linkSVG {height: 1em; width: 1em;}
+        .small-svg {height: 1em; width: 1em;}
+        .mid-svg {height: 1em; width: 1em;}
+        .link-svg {height: 1em; width: 1em;}
         .card {overflow: hidden;}
-        .warnaBiru {background-image: var(--bs-gradient)!important; background-color: #0d6efd!important; color: white;}
-        .warnaBiru > div > h2 > img, .warnaBiru > span > img {filter: invert(100%);}
-        .warnaKuning {background-image: var(--bs-gradient)!important; background-color: #ffc107!important; color: black;}
-        .warnaMerah {background-image: var(--bs-gradient)!important; background-color: #dc3545!important; color: white;}
-        .warnaMerah > div > h2 > img, .warnaMerah > span > img {filter: invert(100%);}
+        .warna-biru {background-image: var(--bs-gradient)!important; background-color: #0d6efd!important; color: white;}
+        .warna-biru > div > h2 > img, .warna-biru > span > img {filter: invert(100%);}
+        .warna-kuning {background-image: var(--bs-gradient)!important; background-color: #ffc107!important; color: black;}
+        .warna-merah {background-image: var(--bs-gradient)!important; background-color: #dc3545!important; color: white;}
+        .warna-merah > div > h2 > img, .warna-merah > span > img {filter: invert(100%);}
         /* img {object-fit: contain; height: 400px;} */
     </style>
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -37,22 +37,22 @@
                         <div class="col-8 card-header">
                             <div class="row g-0">
                                 <span>
-                                    <img src="img/time.svg" alt="Waktu" class="smallSVG">
-                                    <span>12:34:44 WIB</span>
+                                    <img src="img/time.svg" alt="Waktu" class="small-svg">
+                                    <span id="spanWaktu">12:34:44 WIB</span>
                                 </span>
                                 <span>
-                                    <img src="img/calendar.svg" alt="Tanggal" class="smallSVG">
-                                    <span>29-03-23</span>
+                                    <img src="img/calendar.svg" alt="Tanggal" class="small-svg">
+                                    <span id="spanTanggal">29-03-23</span>
                                 </span>
                             </div>
                             <div class="row g-0">
                                 <span>
-                                    <img src="img/depth.svg" alt="Kedalaman" class="smallSVG">
-                                    <span>Kedalaman: 10 km</span>
+                                    <img src="img/depth.svg" alt="Kedalaman" class="small-svg">
+                                    <span id="spanKedalaman">Kedalaman: 10 km</span>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-4 warnaKuning pt-2">
+                        <div class="col-4 warna-kuning pt-2" id="warnaMagnitudo">
                             <div class="row g-0">
                                 <span class="text-center">
                                     Magnitudo
@@ -60,7 +60,7 @@
                             </div>
                             <div class="row g-0">
                                 <h2 class="text-center align-middle">
-                                    <img src="img/magnitude.svg" alt="Magnitudo" class="midSVG">
+                                    <img src="img/magnitude.svg" alt="Magnitudo" class="mid-svg">
                                     4.0
                                 </h2>
                             </div>
@@ -74,18 +74,18 @@
                 <div class="card">
                     <div class="card-header">
                         <span>
-                            <img src="img/location.svg" alt="Lokasi" class="smallSVG">
+                            <img src="img/location.svg" alt="Lokasi" class="small-svg">
                             Lokasi
                         </span>
                     </div>
                     <div class="card-body">
-                        <span id="informasi">
+                        <span id="spanWilayah">
                             Pusat gempa berada di darat 6 km BaratDaya Cianjur. 
                         </span>
                         <span>
                             <a id="linkMap" href="https://www.google.com/maps?q=-6.84,107.08" target="_blank" rel="noopener noreferrer">
                                 Buka lokasi di Google Maps
-                                <img src="img/link.svg" alt="Redirect" class="linkSVG">
+                                <img src="img/link.svg" alt="Redirect" class="link-svg">
                             </a>
                         </span>
                     </div>
@@ -95,14 +95,14 @@
         <div class="row row-sm mb-3">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header warnaKuning">
+                    <div class="card-header warna-kuning" id="warnaDirasakan">
                         <span>
-                            <img src="img/building.svg" alt="Lokasi" class="smallSVG">
+                            <img src="img/building.svg" alt="Lokasi" class="small-svg">
                             Dirasakan
                         </span>
                     </div>
                     <div class="card-body">
-                        <span id="mmi">
+                        <span id="spanDirasakan">
                             III - IV Cianjur, III - IV Sukabumi, III-IV Bogor, III Sukaresmi, III Sabandar, III Cibodas, III Cipanas, III Rancagoong
                         </span>
                     </div>
@@ -112,13 +112,16 @@
         <div class="row row-sm mb-3">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        Informasi Ringkas
+                    <div class="card-header" id="warnaPotensi">
+                        <span>
+                            <img src="img/info.svg" alt="Lokasi" class="small-svg">
+                            Informasi tambahan
+                        </span>
                     </div>
                     <div class="card-body">
-                        <p id="informasi">
-                            Gempa bermagnitudo 4.0 terjadi pada pukul 12:34:44 WIB (29-03-23). Pusat gempa berada di darat 6 km BaratDaya Cianjur. Hati-hati terhadap gempabumi susulan yang mungkin terjadi
-                        </p>
+                        <span id="spanPotensi">
+                            Hati-hati terhadap gempabumi susulan yang mungkin terjadi
+                        </span>
                     </div>
                 </div>
             </div>
