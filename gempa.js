@@ -70,7 +70,7 @@ function displayUpdate (jsonGempa, sound = false) {
     linkMap.href = "https://www.google.com/maps?q=" + reverseLatitude(jsonGempa.point.coordinates);
     spanDirasakan.innerText = jsonGempa.felt;
     spanWaktu.innerText = jsonGempa.time;
-    spanKedalaman.innerText = jsonGempa.depth;
+    spanKedalaman.innerText = "Kedalaman: " + jsonGempa.depth;
     spanMagnitudo.innerText = jsonGempa.magnitude;
     spanPotensi.innerText = jsonGempa.instruction;
     spanTanggal.innerText = jsonGempa.date;
