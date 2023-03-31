@@ -79,6 +79,8 @@ function displayUpdate (jsonGempa, sound = false) {
     let mag = Math.round(parseFloat(jsonGempa.magnitude));
     if (mag >= 4) {magColor = "kuning";}
     if (mag >= 7) {magColor = "merah"; triggerAlert = true;}
+    
+    ubahWarna(warnaMagnitudo, magColor);
 
     if (sound) {
         if (triggerAlert) {
@@ -93,6 +95,13 @@ function displayUpdate (jsonGempa, sound = false) {
 function reverseLatitude(lat) {
     let temp = lat.split(",");
     return temp[1] + "," + temp[0];
+}
+
+function ubahWarna(objek, warna) {
+    objek.classList.remove("warna-biru", "warna-kuning", "warna-merah");
+    if (warna) {
+        objek.classList.add("warna-" + warna);
+    }
 }
 
 function autoUpdater() {
