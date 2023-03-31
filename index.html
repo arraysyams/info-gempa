@@ -11,12 +11,13 @@
         td {border:1px solid black; padding: 2px; }
         .smallSVG {height: 1em; width: 1em;}
         .midSVG {height: 1em; width: 1em;}
+        .linkSVG {height: 1em; width: 1em;}
         .card {overflow: hidden;}
-        .warnaKecil {background-image: var(--bs-gradient)!important; background-color: #0d6efd!important; color: white;}
-        .warnaKecil > div > h2 > img {filter: invert(100%);}
-        .warnaSedang {background-image: var(--bs-gradient)!important; background-color: #ffc107!important; color: black;}
-        .warnaBesar {background-image: var(--bs-gradient)!important; background-color: #dc3545!important; color: white;}
-        .warnaBesar > div > h2 > img {filter: invert(100%);}
+        .warnaBiru {background-image: var(--bs-gradient)!important; background-color: #0d6efd!important; color: white;}
+        .warnaBiru > div > h2 > img, .warnaBiru > span > img {filter: invert(100%);}
+        .warnaKuning {background-image: var(--bs-gradient)!important; background-color: #ffc107!important; color: black;}
+        .warnaMerah {background-image: var(--bs-gradient)!important; background-color: #dc3545!important; color: white;}
+        .warnaMerah > div > h2 > img, .warnaMerah > span > img {filter: invert(100%);}
         /* img {object-fit: contain; height: 400px;} */
     </style>
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -37,26 +38,30 @@
                             <div class="row g-0">
                                 <span>
                                     <img src="img/time.svg" alt="Waktu" class="smallSVG">
-                                    <span>12:34:44 WIB (29-03-23)</span>
+                                    <span>12:34:44 WIB</span>
+                                </span>
+                                <span>
+                                    <img src="img/calendar.svg" alt="Tanggal" class="smallSVG">
+                                    <span>29-03-23</span>
                                 </span>
                             </div>
                             <div class="row g-0">
                                 <span>
-                                    <img src="img/depth.svg" alt="Waktu" class="smallSVG">
+                                    <img src="img/depth.svg" alt="Kedalaman" class="smallSVG">
                                     <span>Kedalaman: 10 km</span>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-4 warnaKecil pt-2">
+                        <div class="col-4 warnaKuning pt-2">
                             <div class="row g-0">
                                 <span class="text-center">
                                     Magnitudo
                                 </span>
                             </div>
                             <div class="row g-0">
-                                <h2 class="text-center">
+                                <h2 class="text-center align-middle">
                                     <img src="img/magnitude.svg" alt="Magnitudo" class="midSVG">
-                                    1.2
+                                    4.0
                                 </h2>
                             </div>
                         </div>
@@ -69,19 +74,41 @@
                 <div class="card">
                     <div class="card-header">
                         <span>
-                            <img src="img/location.svg" alt="Waktu" class="smallSVG">
-                            Lokasi gempa
+                            <img src="img/location.svg" alt="Lokasi" class="smallSVG">
+                            Lokasi
                         </span>
                     </div>
                     <div class="card-body">
-                        <p id="informasi">
-                            Gempa bermagnitudo 4.0 terjadi pada pukul 12:34:44 WIB (29-03-23). Pusat gempa berada di darat 6 km BaratDaya Cianjur. Hati-hati terhadap gempabumi susulan yang mungkin terjadi
-                        </p>
+                        <span id="informasi">
+                            Pusat gempa berada di darat 6 km BaratDaya Cianjur. 
+                        </span>
+                        <span>
+                            <a id="linkMap" href="https://www.google.com/maps?q=-6.84,107.08" target="_blank" rel="noopener noreferrer">
+                                Buka lokasi di Google Maps
+                                <img src="img/link.svg" alt="Redirect" class="linkSVG">
+                            </a>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="row row-sm mb-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header warnaKuning">
+                        <span>
+                            <img src="img/building.svg" alt="Lokasi" class="smallSVG">
+                            Dirasakan
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <span id="mmi">
+                            III - IV Cianjur, III - IV Sukabumi, III-IV Bogor, III Sukaresmi, III Sabandar, III Cibodas, III Cipanas, III Rancagoong
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row row-sm mb-3">
             <div class="col-12">
                 <div class="card">
@@ -179,7 +206,7 @@
     <footer class="footer bg-light mt-3 py-3" id="footer">
         <div class="container">
             <span class="text-muted">
-                Sumber data: BMKG. <a href="#footer">Disclaimer & Credits</a>
+                Sumber data: BMKG. <a href="#footer" id="linkDisc">Disclaimer & Credits</a>
                 <!-- Meskipun data yang diperoleh berasal dari BMKG, website ini tidak memiliki hubungan dengan BMKG. Oleh karena itu, informasi yang tersedia pada website ini tidak bersifat resmi. Informasi resmi bisa dilihat pada Twitter atau Website BMKG.  -->
 
 
@@ -188,5 +215,9 @@
     </footer>
     <script type="text/javascript" src="gempa.js"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        var btDisc = document.getElementById("linkDisc");
+        btDisc.addEventListener("click", () => {alert("== DISCLAIMER ==\nData yang tersedia pada halaman ini bukanlah informasi resmi. Website ini tidak disponsori oleh BMKG dalam bentuk apapun.\n\n== CREDITS ==\nBootstrap (getbootstrap.com), BMKG (www.bmkg.go.id).")})
+    </script>
 </body>
 </html>
