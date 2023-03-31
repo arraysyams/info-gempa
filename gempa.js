@@ -9,19 +9,38 @@
 // Link json dari bmkg: https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json
 // Lokasi shakemap: https://data.bmkg.go.id/DataMKG/TEWS/$Shakemap
 
+// Variabel pengambilan data
 var xmlhttp = new XMLHttpRequest();
 var sumberData = "https://bmkg-content-inatews.storage.googleapis.com/datagempa.json";
 var dataGempa;
 var cekData = "";
-var txtDetail = document.getElementById("informasi");
-var tblDetail = document.getElementsByClassName("tblGempa");
-var imgDetail = document.getElementById("imgShakemap")
-var txtLog = document.getElementById("txtLog");
-var audWarn = document.getElementById("Warning")
-var audAlert = document.getElementById("Alert")
+
+// Variabel elemen teks
+var spanWaktu = document.querySelector("#spanWaktu");
+var spanTanggal = document.querySelector("#spanTanggal");
+var spanKedalaman = document.querySelector("#spanKedalaman");
+var spanMagnitudo = document.querySelector("#spanMagnitudo");
+var spanWilayah = document.querySelector("#spanWilayah");
+var spanDirasakan = document.querySelector("#spanDirasakan");
+var spanPotensi = document.querySelector("#spanPotensi");
+var linkMap = document.querySelector("#linkMap");
+
+// Variabel elemen warna
+var warnaMagnitudo = document.querySelector("#warnaMagnitudo");
+var warnaDirasakan = document.querySelector("#warnaDirasakan");
+var warnaPotensi = document.querySelector("#warnaPotensi");
+
+// Variabel audio
+var audInfo = document.querySelector("#audInfo");
+var audAlert = document.querySelector("#audAlert");
+
+// Variabel lain
 var timeRefresh; // Variabel yg akan ditempati timer
 var interval = 2500; // Jeda waktu dalam milisekon sebelum refresh
 var firstState = true;
+
+// Variabel debug
+var networkDebug = false;
 
 // Function untuk menguji coba perubahan data (keperluan debug)
 function ubahData (data) {
@@ -37,36 +56,42 @@ function ubahData (data) {
     }
 }
 
-
 function statusUpdate (text) {
-    txtLog.textContent = text;
+    if (networkDebug) {
+        console.log(text);
+    }
 }
 
-function displayUpdate (inputDataGempa) {
-    let out = "Gempa bermagnitudo " + inputDataGempa.magnitude + " terjadi pada pukul " + inputDataGempa.time + " (" + inputDataGempa.date + "). " + inputDataGempa.area + ". " + inputDataGempa.instruction;
-    
-    txtDetail.textContent = out;
+function displayUpdate (jsonGempa, sound = false) {
+    let triggerAlert = false;
+    let magColor = "biru"
 
-    tblDetail.Bujur.textContent = inputDataGempa.longitude;
-    tblDetail.Coordinates.textContent = inputDataGempa.point.coordinates;
-    tblDetail.DateTime.textContent = inputDataGempa.timesent;
-    tblDetail.Dirasakan.textContent = inputDataGempa.felt;
-    tblDetail.Jam.textContent = inputDataGempa.time;
-    tblDetail.Kedalaman.textContent = inputDataGempa.depth;
-    tblDetail.Lintang.textContent = inputDataGempa.latitude;
-    tblDetail.Magnitude.textContent = inputDataGempa.magnitude;
-    tblDetail.Potensi.textContent = inputDataGempa.instruction;
-    tblDetail.Tanggal.textContent = inputDataGempa.date;
-    tblDetail.Wilayah.textContent = inputDataGempa.area;
-    
-    let locGambar = inputDataGempa.shakemap
-    if (locGambar == undefined) {
-        locGambar = "img/placeholder.mmi.png"
-    } else {
-        locGambar = "https://data.bmkg.go.id/DataMKG/TEWS/" + locGambar
+    linkMap.href = "https://www.google.com/maps?q=" + reverseLatitude(jsonGempa.point.coordinates);
+    spanDirasakan.innerText = jsonGempa.felt;
+    spanWaktu.innerText = jsonGempa.time;
+    spanKedalaman.innerText = jsonGempa.depth;
+    spanMagnitudo.innerText = jsonGempa.magnitude;
+    spanPotensi.innerText = jsonGempa.instruction;
+    spanTanggal.innerText = jsonGempa.date;
+    spanWilayah.innerText = jsonGempa.area;
+
+    let mag = Math.round(parseFloat(jsonGempa.magnitude));
+    if (mag >= 4) {magColor = "kuning";}
+    if (mag >= 7) {magColor = "merah"; triggerAlert = true;}
+
+    if (sound) {
+        if (triggerAlert) {
+            audAlert.play();
+        } else {
+            audInfo.play();
+        }
+
     }
+}
 
-    imgDetail.src = locGambar
+function reverseLatitude(lat) {
+    let temp = lat.split(",");
+    return temp[1] + "," + temp[0];
 }
 
 function autoUpdater() {
@@ -87,13 +112,13 @@ xmlhttp.onreadystatechange = function() {
         if(cekData != stringData){
             cekData = stringData;
             dataGempa = JSON.parse(this.responseText);
-            let mag = parseFloat(dataGempa.info.magnitude);
-            displayUpdate(dataGempa.info);
+            
             if (firstState) {
-                statusUpdate("Berhasil memuat data")
-                firstState = false
+                displayUpdate(dataGempa.info, false);
+                statusUpdate("Berhasil memuat data");
+                firstState = false;
             } else {
-                if (mag >= 6) { audAlert.play() } else { audWarn.play() }
+                displayUpdate(dataGempa.info, true);
                 statusUpdate("Ada update");
             }
         } else {

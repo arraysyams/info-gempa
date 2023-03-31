@@ -22,8 +22,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body class="d-flex flex-column h-100">
-    <!-- <audio src="aud/info.mp3" hidden id="Info"></audio>
-    <audio src="aud/alert.mp3" hidden id="Alert"></audio> -->
+    <audio src="aud/info.mp3" hidden id="audInfo"></audio>
+    <audio src="aud/alert.mp3" hidden id="audAlert"></audio>
     <main class="flex-shrink-0">
         <div class="container">
         <div class="row alert alert-warning"><span class="text-center">Perhatian: Website ini sedang diperbaiki. Informasi yang disajikan hanya merupakan contoh.</span></div>
@@ -61,7 +61,7 @@
                             <div class="row g-0">
                                 <h2 class="text-center align-middle">
                                     <img src="img/magnitude.svg" alt="Magnitudo" class="mid-svg">
-                                    4.0
+                                    <span id="spanMagnitudo"></span>
                                 </h2>
                             </div>
                         </div>
@@ -82,6 +82,7 @@
                         <span id="spanWilayah">
                             Pusat gempa berada di darat 6 km BaratDaya Cianjur. 
                         </span>
+                        <br>
                         <span>
                             <a id="linkMap" href="https://www.google.com/maps?q=-6.84,107.08" target="_blank" rel="noopener noreferrer">
                                 Buka lokasi di Google Maps
