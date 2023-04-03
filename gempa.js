@@ -52,7 +52,11 @@ function ubahData (data) {
         break;
         
         case 2:
-        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa%20-%20inatews%20gempa%20normal.json"
+        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa-inatews-gempanormal.json"
+        break;
+        
+        case 3:
+        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa-inatews-gempabesar.json"
         break;
     }
 }
