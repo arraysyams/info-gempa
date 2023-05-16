@@ -56,6 +56,10 @@ function ubahData (data) {
         break;
         
         case 3:
+        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa-inatews-tsunamiadvisory.json"
+        break;
+            
+        case 4:
         sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa-inatews-gempabesar.json"
         break;
     }
