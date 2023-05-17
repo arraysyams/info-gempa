@@ -4,80 +4,199 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Info gempa BMKG</title>
+    <title>Informasi Gempa Bumi</title>
     <style>
-        table {border: 2px solid black; border-collapse: collapse;}
+        table {border: 2px solid black; border-collapse: collapse; visibility: collapse;}
         th {border:1px solid black; padding: 10px; border-collapse: collapse;}
         td {border:1px solid black; padding: 2px; }
-        img {object-fit: contain; height: 400px;}
+        .small-svg {height: 1em; width: 1em;}
+        .mid-svg {height: 1em; width: 1em;}
+        .link-svg {height: 1em; width: 1em;}
+        .card {overflow: hidden;}
+        .warna-biru {background-image: var(--bs-gradient)!important; background-color: #0d6efd!important; color: white;}
+        .warna-biru > div > h2 > img, .warna-biru > span > img {filter: invert(100%);}
+        .warna-kuning {background-image: var(--bs-gradient)!important; background-color: #ffc107!important; color: black;}
+        .warna-merah {background-image: var(--bs-gradient)!important; background-color: #dc3545!important; color: white;}
+        .warna-merah > div > h2 > img, .warna-merah > span > img {filter: invert(100%);}
     </style>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
-<body>
-    <!-- <h1>Informasi gempa dari BMKG akan tampil di bawah ini:</h1> -->
-    <p style="color: red;">Perhatian: Website ini sedang diperbaiki</p>
-    <audio src="aud/warn.mp3" hidden id="Warning"></audio>
-    <audio src="aud/alert.mp3" hidden id="Alert"></audio>
-    <div>
-        <p id="informasi">
-            Sedang mengakses info gempa...
-        </p>
-        <table>
-            <tr>
-                <th>Data</th>
-                <th>Isi</th>
-            </tr>
-            <tr>
-                <td>Bujur</td>
-                <td class="tblGempa" name="Bujur">-</td>
-            </tr>
-            <tr>
-                <td>Coordinates</td>
-                <td class="tblGempa" name="Coordinates">-</td>
-            </tr>
-            <tr>
-                <td>DateTime</td>
-                <td class="tblGempa" name="DateTime">-</td>
-            </tr>
-            <tr>
-                <td>Dirasakan</td>
-                <td class="tblGempa" name="Dirasakan">-</td>
-            </tr>
-            <tr>
-                <td>Jam</td>
-                <td class="tblGempa" name="Jam">-</td>
-            </tr>
-            <tr>
-                <td>Kedalaman</td>
-                <td class="tblGempa" name="Kedalaman">-</td>
-            </tr>
-            <tr>
-                <td>Lintang</td>
-                <td class="tblGempa" name="Lintang">-</td>
-            </tr>
-            <tr>
-                <td>Magnitude</td>
-                <td class="tblGempa" name="Magnitude">-</td>
-            </tr>
-            <tr>
-                <td>Potensi</td>
-                <td class="tblGempa" name="Potensi">-</td>
-            </tr>
-            <tr>
-                <td>Shakemap</td>
-                <td class="tblGempa" name="Shakemap">
-                    <img src="img/placeholder.mmi.jpg" alt="" id="imgShakemap"></img>
-                </td>
-            </tr>
-            <tr>
-                <td>Tanggal</td><td class="tblGempa" name="Tanggal">-</td>
-            </tr>
-            <tr>
-                <td>Wilayah</td><td class="tblGempa" name="Wilayah">-</td>
-            </tr>
-        </table>
-        <pre id="txtLog">Memuat data...</pre>
-        <p><b>Disclaimer:</b> Aplikasi ini tidak disponsori oleh BMKG</p>
-    </div>
+<body class="d-flex flex-column h-100">
+    <audio src="aud/info.mp3" hidden id="audInfo"></audio>
+    <audio src="aud/alert.mp3" hidden id="audAlert"></audio>
+    <main class="flex-shrink-0">
+        <div class="container">
+            <div class="row alert alert-danger" id="banner" hidden><span class="text-center">Kesalahan jaringan.</span></div>
+            <div class="row row-sm mb-3">
+                <h2 class="text-center mt-3">Informasi Gempa Bumi</h2>
+            </div>
+            <div class="row row-sm mb-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="row g-0">
+                            <div class="col-8 card-header">
+                                <div class="row g-0">
+                                    <span>
+                                        <img src="img/time.svg" alt="Waktu" class="small-svg">
+                                        <span id="spanWaktu">HH:MM:SS WIB</span>
+                                    </span>
+                                    <span>
+                                        <img src="img/calendar.svg" alt="Tanggal" class="small-svg">
+                                        <span id="spanTanggal">DD-MM-YY</span>
+                                    </span>
+                                </div>
+                                <div class="row g-0">
+                                    <span>
+                                        <img src="img/depth.svg" alt="Kedalaman" class="small-svg">
+                                        <span id="spanKedalaman">Kedalaman: - km</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-4 pt-2" id="warnaMagnitudo">
+                                <div class="row g-0">
+                                    <span class="text-center">
+                                        Magnitudo
+                                    </span>
+                                </div>
+                                <div class="row g-0">
+                                    <h2 class="text-center align-middle">
+                                        <img src="img/magnitude.svg" alt="Magnitudo" class="mid-svg">
+                                        <span id="spanMagnitudo">-</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-sm mb-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <span>
+                                <img src="img/location.svg" alt="Lokasi" class="small-svg">
+                                Lokasi
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <span id="spanWilayah">
+                                -
+                            </span>
+                            <br>
+                            <span>
+                                <a id="linkMap" href="https://www.google.com/maps?q=-0.00,0.00" target="_blank" rel="noopener noreferrer">
+                                    Buka lokasi di Google Maps
+                                    <img src="img/redirect.svg" alt="Redirect" class="link-svg">
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-sm mb-3" id="cardDirasakan">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header" id="warnaDirasakan">
+                            <span>
+                                <img src="img/building.svg" alt="Dirasakan" class="small-svg">
+                                Dirasakan
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <span id="spanDirasakan">
+                                -
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-sm mb-3" id="cardTsunami">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header" id="warnaTsunami">
+                            <span>
+                                <img src="img/tsunami.svg" alt="Tsunami" class="small-svg">
+                                Potensi Tsunami
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <span id="spanTsunami">
+                                -
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-sm mb-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header" id="warnaPotensi">
+                            <span>
+                                <img src="img/info.svg" alt="Tambahan" class="small-svg">
+                                Informasi tambahan
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <span id="spanPotensi">
+                                -
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-sm mb-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header" id="warnaPotensi">
+                            <span>
+                                <img src="img/link.svg" alt="Link" class="small-svg">
+                                Link ke website lain
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <span>
+                                <span>
+                                    Website untuk informasi resmi: 
+                                    <a href="https://www.bmkg.go.id/" target="_blank" rel="noopener noreferrer">
+                                        BMKG
+                                        <img src="img/redirect.svg" alt="Redirect" class="link-svg">
+                                    </a>
+                                </span>
+                                <br>
+                                <span>
+                                    Daftar gempa dan tsunami: 
+                                    <a href="https://inatews.bmkg.go.id/" target="_blank" rel="noopener noreferrer">
+                                        InaTEWS
+                                        <img src="img/redirect.svg" alt="Redirect" class="link-svg">
+                                    </a>
+                                </span>
+                                <br>
+                                <span>
+                                    Info gempa realtime dengan peta wilayah: 
+                                    <a href="https://inatews.bmkg.go.id/wrs/index.html" target="_blank" rel="noopener noreferrer">
+                                        WRS-NTWC Indonesia
+                                        <img src="img/redirect.svg" alt="Redirect" class="link-svg">
+                                    </a>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer bg-light mt-auto py-3" id="below">
+        <div class="container">
+            <span class="text-muted">
+                Sumber data: BMKG. <a href="#below" id="linkDisc">Disclaimer & Credits.</a>
+            </span>
+        </div>
+    </footer>
     <script type="text/javascript" src="gempa.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        var btDisc = document.getElementById("linkDisc");
+        btDisc.addEventListener("click", () => {alert("== DISCLAIMER ==\nData yang tersedia pada halaman ini bukanlah informasi resmi. Website ini tidak disponsori oleh BMKG dalam bentuk apapun.\n\n== CREDITS ==\nBootstrap (getbootstrap.com)\nBMKG (www.bmkg.go.id)\n\n== SOUNDS (Freesound.org) ==\n\'Weird Buttons App Game UI\' - Eponn (bit.ly/patreon22)\n\'UI Confirmation Alert\' - InspectorJ (www.jshaw.co.uk)\n\'UIAlert_Interface.Alarm.Warning signal 6_EM\' - newlocknew")})
+    </script>
 </body>
 </html>
