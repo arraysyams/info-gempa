@@ -17,12 +17,17 @@ var spanMagnitudo = document.querySelector("#spanMagnitudo");
 var spanWilayah = document.querySelector("#spanWilayah");
 var spanDirasakan = document.querySelector("#spanDirasakan");
 var spanPotensi = document.querySelector("#spanPotensi");
+var spanTsunami = document.querySelector("#spanTsunami");
 var linkMap = document.querySelector("#linkMap");
 
 // Variabel elemen warna
 var warnaMagnitudo = document.querySelector("#warnaMagnitudo");
 var warnaDirasakan = document.querySelector("#warnaDirasakan");
 var warnaPotensi = document.querySelector("#warnaPotensi");
+var warnaTsunami = document.querySelector("#warnaTsunami");
+
+// Variabel elemen card
+var cardDirasakan = document.querySelector("#cardDirasakan");
 
 // Variabel audio
 var audInfo = document.querySelector("#audInfo");
@@ -70,7 +75,15 @@ function displayUpdate (jsonGempa, sound = false) {
     let magColor = "biru"
 
     linkMap.href = "https://www.google.com/maps?q=" + reverseLatitude(jsonGempa.point.coordinates);
-    spanDirasakan.innerText = jsonGempa.felt;
+
+    let mmi = jsonGempa.felt;
+    spanDirasakan.innerText = mmi;
+    if (!mmi || mmi == "") {
+        cardDirasakan.hidden = true;
+    } else {
+        cardDirasakan.hidden = false;
+    }
+
     spanWaktu.innerText = jsonGempa.time;
     spanKedalaman.innerText = "Kedalaman: " + jsonGempa.depth;
     spanMagnitudo.innerText = jsonGempa.magnitude;
