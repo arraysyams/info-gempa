@@ -1,12 +1,6 @@
-// Cek update setiap 5s /done
-// Konten teks hanya akan direfresh jika ada yang berubah / ada masalah
-// Akan ada variabel baru sebagai pembanding /done
-// Jika data gagal diakses, tampilkan teks berisi pesan offline
 // Bagaimana cara minta izin autoplay dari browser?
 // Tombol untuk refresh data manual (keperluan debug)
-// Placeholder gambar
-// Link json untuk testing perubahan: https://raw.githubusercontent.com/arraysyams/testingrepo/main/autogempa.json
-// Link json dari bmkg: https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json
+// Link json untuk testing perubahan: sudah ada di ubahData()
 // Lokasi shakemap: https://data.bmkg.go.id/DataMKG/TEWS/$Shakemap
 
 // Variabel pengambilan data
