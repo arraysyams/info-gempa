@@ -28,6 +28,7 @@ var warnaTsunami = document.querySelector("#warnaTsunami");
 
 // Variabel elemen card
 var cardDirasakan = document.querySelector("#cardDirasakan");
+var cardTsunami = document.querySelector("#cardTsunami");
 
 // Variabel audio
 var audInfo = document.querySelector("#audInfo");
@@ -47,19 +48,19 @@ function ubahData (data) {
     switch (data) {
         case 1:
         default:
-        sumberData = "https://bmkg-content-inatews.storage.googleapis.com/datagempa.json"
+        sumberData = "https://bmkg-content-inatews.storage.googleapis.com/datagempa.json";
         break;
         
         case 2:
-        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa-inatews-gempanormal.json"
+        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa-inatews-gempanormal.json";
         break;
         
         case 3:
-        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa-inatews-tsunamiadvisory.json"
+        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa-inatews-tsunamiadvisory.json";
         break;
             
         case 4:
-        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa-inatews-gempabesar.json"
+        sumberData = "https://raw.githubusercontent.com/arraysyams/testingrepo/main/datagempa-inatews-gempabesar.json";
         break;
     }
 }
@@ -70,18 +71,66 @@ function statusUpdate (text) {
     }
 }
 
+function matchMultiple(text, arraymatches) {
+    let found = false;
+    for (let i = 0; i < arraymatches.length; i++) {
+        let regex = new RegExp("\\b" + arraymatches[i] + "\\b", "gmi");
+        if(text.match(regex)) {
+            found = true;
+        }
+    }
+    return found;
+}
+
 function displayUpdate (jsonGempa, sound = false) {
     let triggerAlert = false;
-    let magColor = "biru"
+    let magColor = "biru";
 
     linkMap.href = "https://www.google.com/maps?q=" + reverseLatitude(jsonGempa.point.coordinates);
 
     let mmi = jsonGempa.felt;
-    spanDirasakan.innerText = mmi;
     if (!mmi || mmi == "") {
         cardDirasakan.hidden = true;
+        spanDirasakan.innerText = "-";
     } else {
+        spanDirasakan.innerText = mmi;
+        ubahWarna(warnaDirasakan);
+        if (matchMultiple(mmi, ["V", "VI", "VII"])) {
+            ubahWarna(warnaDirasakan, "kuning");
+        }
+        if (matchMultiple(mmi, ["VIII", "IX", "X", "XI", "XII"])) {
+            ubahWarna(warnaDirasakan, "merah");
+            triggerAlert = true;
+        }
         cardDirasakan.hidden = false;
+    }
+
+    let wzarea = jsonGempa.wzarea;
+    if (!wzarea || wzarea == "") {
+        cardTsunami.hidden = true;
+        spanTsunami.innerText = "-";
+    } else {
+        let areaTsunami = "";
+        // ubahWarna(warnaTsunami, "kuning");
+        for (let i = 0; i < wzarea.length; i++) {
+            areaTsunami += (i + 1);
+            areaTsunami += ". ";
+            areaTsunami += wzarea[i]["district"];
+            areaTsunami += " : ";
+            areaTsunami += wzarea[i]["level"];
+            areaTsunami += "\n";
+        }
+        spanTsunami.innerText = areaTsunami;
+        if (areaTsunami.match(/\bWASPADA\b/gmi)) {
+            ubahWarna(warnaTsunami, "kuning");
+            triggerAlert = true;
+        } 
+        if (matchMultiple(areaTsunami, ["SIAGA", "AWAS"])) {
+            ubahWarna(warnaTsunami, "merah");
+            triggerAlert = true;
+        }
+
+        cardTsunami.hidden = false;
     }
 
     spanWaktu.innerText = jsonGempa.time;
@@ -90,6 +139,7 @@ function displayUpdate (jsonGempa, sound = false) {
     spanPotensi.innerText = jsonGempa.instruction;
     spanTanggal.innerText = jsonGempa.date;
     spanWilayah.innerText = jsonGempa.area;
+
 
     let mag = Math.round(parseFloat(jsonGempa.magnitude));
     if (mag >= 4) {magColor = "kuning";}
@@ -167,5 +217,5 @@ xmlhttp.onerror = function() {
 }
 
 // Mentrigger pengambilan data setelah halaman dimuat
- fetchUpdate()
- autoUpdater()
+ fetchUpdate();
+ autoUpdater();
