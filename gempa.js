@@ -49,8 +49,8 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var marker;
 var xmark = L.icon({
     iconUrl: 'img/point_x_wide.png',
-    iconSize: [20, 20],
-    iconAnchor: [10, 10],
+    iconSize: [22, 22],
+    iconAnchor: [11, 12],
     popupAnchor: [0, 0],
     shadowUrl: '',
     shadowSize: [0, 0],
