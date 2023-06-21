@@ -40,6 +40,23 @@ var timeRefresh; // Variabel yg akan ditempati timer
 var interval = 2500; // Jeda waktu dalam milisekon sebelum refresh
 var firstState = true;
 
+// Variable peta
+var map = L.map('map').setView([-3,118], 3);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 10,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+var marker;
+var xmark = L.icon({
+    iconUrl: 'img/point_x_wide.png',
+    iconSize: [22, 22],
+    iconAnchor: [11, 12],
+    popupAnchor: [0, 0],
+    shadowUrl: '',
+    shadowSize: [0, 0],
+    shadowAnchor: [0, 0]
+});
+
 // Variabel debug
 var networkDebug = false;
 
@@ -85,8 +102,17 @@ function matchMultiple(text, arraymatches) {
 function displayUpdate (jsonGempa, sound = false) {
     let triggerAlert = false;
     let magColor = "biru";
+    let coordinates = reverseCoordinates(jsonGempa.point.coordinates);
+    let lat = parseFloat(coordinates.split(",")[0]);
+    let lon = parseFloat(coordinates.split(",")[1]);
 
-    linkMap.href = "https://www.google.com/maps?q=" + reverseLatitude(jsonGempa.point.coordinates);
+    map.setView([lat,lon],5)
+    linkMap.href = "https://www.google.com/maps?q=" + coordinates;
+    if (typeof marker !== 'undefined') {
+        marker.setLatLng([lat,lon])
+    } else {
+        marker = L.marker([lat,lon], {icon: xmark}).addTo(map);
+    }
 
     let mmi = jsonGempa.felt;
     if (!mmi || mmi == "") {
@@ -157,8 +183,8 @@ function displayUpdate (jsonGempa, sound = false) {
     }
 }
 
-function reverseLatitude(lat) {
-    let temp = lat.split(",");
+function reverseCoordinates(coordinates) {
+    let temp = coordinates.split(",");
     return temp[1] + "," + temp[0];
 }
 
