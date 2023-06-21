@@ -47,6 +47,15 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 var marker;
+var xmark = L.icon({
+    iconUrl: 'img/point_x_wide.png',
+    iconSize: [20, 20],
+    iconAnchor: [10, 10],
+    popupAnchor: [0, 0],
+    shadowUrl: '',
+    shadowSize: [0, 0],
+    shadowAnchor: [0, 0]
+});
 
 // Variabel debug
 var networkDebug = false;
@@ -102,7 +111,7 @@ function displayUpdate (jsonGempa, sound = false) {
     if (typeof marker !== 'undefined') {
         marker.setLatLng([lat,lon])
     } else {
-        marker = L.marker([lat,lon]).addTo(map);
+        marker = L.marker([lat,lon], {icon: xmark}).addTo(map);
     }
 
     let mmi = jsonGempa.felt;
