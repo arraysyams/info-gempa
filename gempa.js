@@ -142,7 +142,9 @@ function displayUpdate (jsonGempa, sound = false) {
             areaTsunami += (i + 1);
             areaTsunami += ". ";
             areaTsunami += wzarea[i]["district"];
-            areaTsunami += " : ";
+            areaTsunami += " (";
+            areaTsunami += wzarea[i]["province"];
+            areaTsunami += ") : ";
             areaTsunami += wzarea[i]["level"];
             areaTsunami += "\n";
         }
