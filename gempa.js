@@ -131,11 +131,9 @@ function displayUpdate (jsonGempa, sound = false) {
         cardDirasakan.hidden = false;
     }
 
-    let wzarea = jsonGempa.wzarea;
-    if (!wzarea || wzarea == "") {
-        cardTsunami.hidden = true;
-        spanTsunami.innerText = "-";
-    } else {
+    let tsunamiStatus = jsonGempa.subject.split(".")[0]
+    if (matchMultiple(tsunamiStatus, ["PD-1", "PD-2", "PD-3"])) {
+        let wzarea = jsonGempa.wzarea;
         let areaTsunami = "";
         let daerahAwas = [];
         let daerahSiaga = [];
@@ -185,6 +183,14 @@ function displayUpdate (jsonGempa, sound = false) {
         }
 
         cardTsunami.hidden = false;
+    } else if(tsunamiStatus.match(/\bPD-4\b/gmi)) {
+        ubahWarna(warnaTsunami, "biru");
+        spanTsunami.innerHTML = "Peringatan dini tsunami telah dinyatakan <span style=\"font-weight:bold\">BERAKHIR</span> untuk seluruh wilayah Indonesia";
+        cardTsunami.hidden = false;
+    } else {
+        ubahWarna(warnaTsunami);
+        cardTsunami.hidden = true;
+        spanTsunami.innerText = "-";
     }
 
     spanWaktu.innerText = jsonGempa.time;
