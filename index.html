@@ -7,17 +7,17 @@
     <title>Informasi Gempa Bumi</title>
     <style>
         #map { height: 180px; }
-        table {border: 2px solid black; border-collapse: collapse; visibility: collapse;}
-        th {border:1px solid black; padding: 10px; border-collapse: collapse;}
-        td {border:1px solid black; padding: 2px; }
         .small-svg {height: 1em; width: 1em;}
         .mid-svg {height: 1em; width: 1em;}
         .link-svg {height: 1em; width: 1em;}
         .card {overflow: hidden;}
-        .warna-biru {background-image: var(--bs-gradient)!important; background-color: #0d6efd!important; color: white;}
+        .warna-biru {background-image: var(--bs-gradient)!important; background-color: #0d6efd!important;}
         .warna-biru > div > h2 > img, .warna-biru > span > img {filter: invert(100%);}
-        .warna-kuning {background-image: var(--bs-gradient)!important; background-color: #ffc107!important; color: black;}
-        .warna-merah {background-image: var(--bs-gradient)!important; background-color: #dc3545!important; color: white;}
+        .warna-biru > span {color: white;}
+        .warna-kuning {background-image: var(--bs-gradient)!important; background-color: #ffc107!important;}
+        .warna-kuning > span {color: black;}
+        .warna-merah {background-image: var(--bs-gradient)!important; background-color: #dc3545!important;}
+        .warna-merah > span {color: white;}
         .warna-merah > div > h2 > img, .warna-merah > span > img {filter: invert(100%);}
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
