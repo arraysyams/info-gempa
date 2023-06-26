@@ -41,7 +41,7 @@ var timeRefresh; // Variabel yg akan ditempati timer
 var interval = 2500; // Jeda waktu dalam milisekon sebelum refresh
 var firstState = true;
 
-// Variable peta
+// Variabel peta
 var map = L.map('map').setView([-3,118], 3);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 11,
@@ -57,6 +57,23 @@ var xmark = L.icon({
     shadowSize: [0, 0],
     shadowAnchor: [0, 0]
 });
+var faultStyle = {
+    "color": "#F86F03",
+    "weight": 1,
+    "opacity": 1
+};
+var faultRequest = new XMLHttpRequest();
+faultRequest.open("GET", "https://bmkg-content-inatews.storage.googleapis.com/indo_faults_lines.geojson", true);
+faultRequest.send();
+faultRequest.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        let faults = JSON.parse(this.responseText)
+        L.geoJSON(faults, {
+            style: faultStyle
+        }).addTo(map);
+    }
+}
+
 
 // Variabel debug
 var networkDebug = false;
