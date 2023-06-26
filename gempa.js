@@ -43,7 +43,7 @@ var firstState = true;
 // Variable peta
 var map = L.map('map').setView([-3,118], 3);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 10,
+    maxZoom: 11,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 var marker;
