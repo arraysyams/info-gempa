@@ -18,7 +18,8 @@ var spanWilayah = document.querySelector("#spanWilayah");
 var spanDirasakan = document.querySelector("#spanDirasakan");
 var spanPotensi = document.querySelector("#spanPotensi");
 var spanTsunami = document.querySelector("#spanTsunami");
-var linkMap = document.querySelector("#linkMap");
+var linkOSM = document.querySelector("#linkOSM");
+var linkGMap = document.querySelector("#linkGMap");
 
 // Variabel elemen warna
 var warnaMagnitudo = document.querySelector("#warnaMagnitudo");
@@ -107,9 +108,10 @@ function displayUpdate (jsonGempa, sound = false) {
     let lon = parseFloat(coordinates.split(",")[1]);
 
     map.setView([lat,lon],5)
-    linkMap.href = "https://www.google.com/maps?q=" + coordinates;
+    linkGMap.href = "https://www.google.com/maps?q=" + coordinates;
+    linkOSM.href = "https://www.openstreetmap.org/?mlat=" + lat + "&mlon=" + lon + "#map=12/" + lat + "/" + lon;
     if (typeof marker !== 'undefined') {
-        marker.setLatLng([lat,lon])
+        marker.setLatLng([lat,lon]);
     } else {
         marker = L.marker([lat,lon], {icon: xmark}).addTo(map);
     }
