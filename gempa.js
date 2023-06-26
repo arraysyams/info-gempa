@@ -51,7 +51,7 @@ var marker;
 var xmark = L.icon({
     iconUrl: 'img/point_x_wide.png',
     iconSize: [22, 22],
-    iconAnchor: [11, 12],
+    iconAnchor: [11, 11],
     popupAnchor: [0, 0],
     shadowUrl: '',
     shadowSize: [0, 0],
