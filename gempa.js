@@ -41,11 +41,15 @@ var timeRefresh; // Variabel yg akan ditempati timer
 var interval = 2500; // Jeda waktu dalam milisekon sebelum refresh
 var firstState = true;
 
-// Variable peta
+// Variabel peta
 var map = L.map('map').setView([-3,118], 3);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 11,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+L.tileLayer('https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=6uSx9gi4Qs2duIW6j3eT', {
+    tileSize: 512,
+    minZoom: 3,
+    zoomOffset: -1,
+    maxZoom: 8,
+    attribution: '\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e',
+    crossOrigin: true
 }).addTo(map);
 var marker;
 var xmark = L.icon({
@@ -57,6 +61,23 @@ var xmark = L.icon({
     shadowSize: [0, 0],
     shadowAnchor: [0, 0]
 });
+var faultStyle = {
+    "color": "#F86F03",
+    "weight": 1,
+    "opacity": 1
+};
+var faultRequest = new XMLHttpRequest();
+faultRequest.open("GET", "https://bmkg-content-inatews.storage.googleapis.com/indo_faults_lines.geojson", true);
+faultRequest.send();
+faultRequest.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        let faults = JSON.parse(this.responseText)
+        L.geoJSON(faults, {
+            style: faultStyle
+        }).addTo(map);
+    }
+}
+
 
 // Variabel debug
 var networkDebug = false;
