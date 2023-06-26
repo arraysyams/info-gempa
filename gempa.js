@@ -202,9 +202,8 @@ function displayUpdate (jsonGempa, sound = false) {
     spanTanggal.innerText = jsonGempa.date;
     spanWilayah.innerText = jsonGempa.area;
 
-
-    let mag = Math.round(parseFloat(jsonGempa.magnitude));
-    if (mag >= 4) {magColor = "kuning";}
+    let mag = parseFloat(jsonGempa.magnitude);
+    if (mag >= 5) {magColor = "kuning";}
     if (mag >= 7) {magColor = "merah"; triggerAlert = true;}
     
     ubahWarna(warnaMagnitudo, magColor);
