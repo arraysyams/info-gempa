@@ -95,7 +95,7 @@ function displayUpdate (jsonGempa, sound = false) {
         marker = L.marker([lat,lon], {icon: xmark}).addTo(map);
     }
 
-    spanWaktu.innerText = jsonGempa.properties.time.split(" ")[1].split(".")[0];
+    spanWaktu.innerText = jsonGempa.properties.time.split(" ")[1].split(".")[0] + " UTC";
     spanKedalaman.innerText = "Kedalaman: " + Math.round(parseFloat(jsonGempa.properties.depth)) + " km";
     spanMagnitudo.innerText = mag;
     spanTanggal.innerText = jsonGempa.properties.time.split(" ")[0];
