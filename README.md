@@ -7,6 +7,7 @@ Data yang ditampilkan pada laman web bukanlah informasi resmi. Proyek ini tidak 
 # Credits
 - [Bootstrap](https://getbootstrap.com/)
 - [BMKG](https://www.bmkg.go.id)
+- [Leaflet](https://leafletjs.com/)
 
 # Sounds ([Freesound](https://freesound.org))
 - Weird Buttons App Game UI - [Eponn](https://bit.ly/patreon22)
