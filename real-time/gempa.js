@@ -20,13 +20,6 @@ var linkGMap = document.querySelector("#linkGMap");
 
 // Variabel elemen warna
 var warnaMagnitudo = document.querySelector("#warnaMagnitudo");
-var warnaDirasakan = document.querySelector("#warnaDirasakan");
-var warnaPotensi = document.querySelector("#warnaPotensi");
-var warnaTsunami = document.querySelector("#warnaTsunami");
-
-// Variabel elemen card
-var cardDirasakan = document.querySelector("#cardDirasakan");
-var cardTsunami = document.querySelector("#cardTsunami");
 
 // Variabel audio
 var audInfo = document.querySelector("#audInfo");
@@ -85,23 +78,13 @@ function statusUpdate (text) {
     }
 }
 
-function matchMultiple(text, arraymatches) {
-    let found = false;
-    for (let i = 0; i < arraymatches.length; i++) {
-        let regex = new RegExp("\\b" + arraymatches[i] + "\\b", "gmi");
-        if(text.match(regex)) {
-            found = true;
-        }
-    }
-    return found;
-}
-
 function displayUpdate (jsonGempa, sound = false) {
     let triggerAlert = false;
     let magColor = "biru";
     let coordinates = jsonGempa.geometry.coordinates;
     let lat = parseFloat(coordinates[1]);
     let lon = parseFloat(coordinates[0]);
+    let mag = Math.round(parseFloat(jsonGempa.properties.mag) * 10) / 10;
 
     map.setView([lat,lon],5)
     linkGMap.href = "https://www.google.com/maps?q=" + lat + ", " + lon;
@@ -113,12 +96,11 @@ function displayUpdate (jsonGempa, sound = false) {
     }
 
     spanWaktu.innerText = jsonGempa.properties.time.split(" ")[1].split(".")[0];
-    spanKedalaman.innerText = "Kedalaman: " + jsonGempa.properties.depth;
-    spanMagnitudo.innerText = jsonGempa.properties.mag;
+    spanKedalaman.innerText = "Kedalaman: " + Math.round(parseFloat(jsonGempa.properties.depth)) + " km";
+    spanMagnitudo.innerText = mag;
     spanTanggal.innerText = jsonGempa.properties.time.split(" ")[0];
     spanWilayah.innerText = jsonGempa.properties.place;
 
-    let mag = parseFloat(jsonGempa.properties.mag);
     if (mag >= 5) {magColor = "kuning";}
     if (mag >= 7) {magColor = "merah"; triggerAlert = true;}
     

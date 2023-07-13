@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informasi Gempa Bumi</title>
+    <title>Informasi Gempa Bumi Realtime</title>
     <style>
         #map { height: 180px; }
         .small-svg {height: 1em; width: 1em;}
@@ -33,7 +33,7 @@
         <div class="container">
             <div class="row alert alert-danger" id="banner" hidden><span class="text-center">Kesalahan jaringan.</span></div>
             <div class="row row-sm mb-3">
-                <h2 class="text-center mt-3">Informasi Gempa Bumi</h2>
+                <h2 class="text-center mt-3">Informasi Gempa Bumi Realtime</h2>
             </div>
             <div class="row row-sm mb-3">
                 <div class="col-12">
@@ -159,7 +159,7 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
     <script type="text/javascript" src="gempa.js"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
         var btDisc = document.getElementById("linkDisc");
         btDisc.addEventListener("click", () => {alert("== DISCLAIMER ==\nData yang tersedia pada halaman ini bukanlah informasi resmi. Website ini tidak disponsori oleh BMKG dalam bentuk apapun.\n\n== CREDITS ==\nBootstrap (getbootstrap.com)\nBMKG (www.bmkg.go.id)\nLeaflet (leafletjs.com)\nOpenStreetMap (www.openstreetmap.org)\nMapTiler (www.maptiler.com)\n\n== SOUNDS (Freesound.org) ==\n\'Weird Buttons App Game UI\' - Eponn (bit.ly/patreon22)\n\'UI Confirmation Alert\' - InspectorJ (www.jshaw.co.uk)\n\'UIAlert_Interface.Alarm.Warning signal 6_EM\' - newlocknew")})
