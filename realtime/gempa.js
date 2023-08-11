@@ -90,7 +90,7 @@ function displayUpdate (jsonGempa, sound = false) {
     let quakeTime = new Date(dateUTC + "T" + timeUTC + "+00:00");
     let offset = quakeTime.getTimezoneOffset() / -60;
     let localTime = quakeTime.getHours() + ":" + quakeTime.getMinutes() + ":" + quakeTime.getSeconds();
-    let localDate = quakeTime.getDate() + "-" + quakeTime.getMonth() + "-" + quakeTime.getFullYear()
+    let localDate = quakeTime.getDate() + " " + getBulan(quakeTime.getMonth()) + " " + quakeTime.getFullYear()
 
     map.setView([lat,lon],5)
     linkGMap.href = "https://www.google.com/maps?q=" + lat + ", " + lon;
@@ -134,6 +134,24 @@ function displayUpdate (jsonGempa, sound = false) {
             audInfo.play();
         }
 
+    }
+}
+
+function getBulan(month) {
+    switch (month) {
+        case 0: return "Januari";
+        case 1: return "Februari";
+        case 2: return "Maret";
+        case 3: return "April";
+        case 4: return "Mei";
+        case 5: return "Juni";
+        case 6: return "Juli";
+        case 7: return "Agustus";
+        case 8: return "September";
+        case 9: return "Oktober";
+        case 10: return "November";
+        case 11: return "Desember";
+        default: return "";
     }
 }
 
