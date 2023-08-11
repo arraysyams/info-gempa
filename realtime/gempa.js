@@ -85,6 +85,12 @@ function displayUpdate (jsonGempa, sound = false) {
     let lat = parseFloat(coordinates[1]);
     let lon = parseFloat(coordinates[0]);
     let mag = Math.round(parseFloat(jsonGempa.properties.mag) * 10) / 10;
+    let timeUTC = jsonGempa.properties.time.split(" ")[1].split(".")[0];
+    let dateUTC = jsonGempa.properties.time.split(" ")[0];
+    let quakeTime = new Date(dateUTC + "T" + timeUTC + "+00:00");
+    let offset = quakeTime.getTimezoneOffset() / -60;
+    let localTime = quakeTime.getHours() + ":" + quakeTime.getMinutes() + ":" + quakeTime.getSeconds();
+    let localDate = quakeTime.getDate() + "-" + quakeTime.getMonth() + "-" + quakeTime.getFullYear()
 
     map.setView([lat,lon],5)
     linkGMap.href = "https://www.google.com/maps?q=" + lat + ", " + lon;
@@ -95,10 +101,25 @@ function displayUpdate (jsonGempa, sound = false) {
         marker = L.marker([lat,lon], {icon: xmark}).addTo(map);
     }
 
-    spanWaktu.innerText = jsonGempa.properties.time.split(" ")[1].split(".")[0] + " UTC";
+    switch (offset) {
+        case 7:
+            localTime += " WIB"; break;
+        case 8:
+            localTime += " WITA"; break;
+        case 9:
+            localTime += " WIT"; break;
+        default:
+            if (offset >= 0) {
+                localTime += " (UTC +" + offset + ")"
+            } else {
+                localTime += " (UTC " + offset + ")"
+            }
+            break;
+    }
+    spanWaktu.innerText = localTime;
     spanKedalaman.innerText = "Kedalaman: " + Math.round(parseFloat(jsonGempa.properties.depth)) + " km";
     spanMagnitudo.innerText = mag;
-    spanTanggal.innerText = jsonGempa.properties.time.split(" ")[0];
+    spanTanggal.innerText = localDate;
     spanWilayah.innerText = jsonGempa.properties.place;
 
     if (mag >= 5) {magColor = "kuning";}
