@@ -133,7 +133,7 @@ function displayUpdate (jsonGempa, sound = false) {
     let tahunWIB = jsonGempa.eventid.toString().slice(0, 2) + jsonGempa.date.split("-")[2];
     let quakeTime = new Date(tahunWIB + "-" + bulanWIB + "-" + tanggalWIB + "T" + waktuWIB + "+07:00");
     let offset = quakeTime.getTimezoneOffset() / -60;
-    let localTime = quakeTime.getHours() + ":" + quakeTime.getMinutes() + ":" + quakeTime.getSeconds();
+    let localTime = getTwoDigit(quakeTime.getHours()) + ":" + getTwoDigit(quakeTime.getMinutes()) + ":" + getTwoDigit(quakeTime.getSeconds());
     let localDate = quakeTime.getDate() + " " + getBulan(quakeTime.getMonth()) + " " + quakeTime.getFullYear()
 
     map.setView([lat,lon],5)
@@ -261,6 +261,14 @@ function displayUpdate (jsonGempa, sound = false) {
         }
 
     }
+}
+
+function getTwoDigit(number) {
+    numstr = number.toString()
+    if (numstr.length < 2) {
+        numstr = "0" + numstr;
+    }
+    return numstr;
 }
 
 function getBulan(month) {
