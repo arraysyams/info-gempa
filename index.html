@@ -31,31 +31,37 @@
     <audio src="aud/info.mp3" hidden id="audInfo"></audio>
     <audio src="aud/alert.mp3" hidden id="audAlert"></audio>
     <main class="flex-shrink-0">
-        <nav class="navbar navbar-light bg-light">
-            <div class="container-fluid">
-                <span class="navbar-toggler" style="border-color: rgba(0, 0, 0, 0);">
-                    <span class="logo-header"></span>
-                </span>
-                <h2 class="text-center navbar-text">Informasi Gempa Bumi</h2>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active" aria-current="page">Gempa Bumi Signifikan (M>5 atau dirasakan)</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="./realtime" class="nav-link">Gempa Bumi Realtime</a>
-                        </li>
-                    </ul>
+        <nav class="navbar navbar-light">
+            <div class="container">
+                <div class="container-fluid">
+                    <div class="row">
+                        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border-style: none;">
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-text" style="font-weight: 500;">Informasi Gempa Bumi</span>
+                        </button>
+                        <!-- <h2 class="text-center">Informasi Gempa Bumi Realtime</h2> -->
+                        <div class="collapse navbar-collapse bg-light" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link active" aria-current="page">Gempa Bumi Signifikan (M>5 atau dirasakan)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="./realtime" class="nav-link">Gempa Bumi Realtime</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- <span class="navbar-toggler" style="border-color: rgba(0, 0, 0, 0);">
+                        <span class="logo-header"></span>
+                    </span> -->
                 </div>
             </div>
         </nav>
         <div class="container">
-            <div class="row row-sm mb-3">
+        <div class="row row-sm mb-3">
+            <div class="row alert alert-danger" id="banner" hidden><span class="text-center">Kesalahan jaringan.</span></div>
                 <div class="col-12">
-                    <div class="row alert alert-danger" id="banner" hidden><span class="text-center">Kesalahan jaringan.</span></div>
+                    <!-- <h2 class="text-center">Informasi Gempa Bumi Realtime</h2> -->
                 </div>
             </div>
             <div class="row row-sm mb-3">
