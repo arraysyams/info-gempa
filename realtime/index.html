@@ -11,6 +11,7 @@
         .mid-svg {height: 1em; width: 1em;}
         .link-svg {height: 1em; width: 1em;}
         .card {overflow: hidden;}
+        ul > li > a.active > span {padding-bottom: 1px; border-bottom: 3px solid black; font-weight: 600;}
         .warna-biru {background-image: var(--bs-gradient)!important; background-color: #0d6efd!important;}
         .warna-biru > div > h2 > img, .warna-biru > span > img {filter: invert(100%);}
         .warna-biru > span, .warna-biru > div > span, .warna-biru > div > h2 {color: white;}
@@ -30,10 +31,40 @@
     <audio src="../aud/info.mp3" hidden id="audInfo"></audio>
     <audio src="../aud/alert.mp3" hidden id="audAlert"></audio>
     <main class="flex-shrink-0">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container text-center">
+                <div class="container-fluid">
+                    <div class="row">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border-style: none;">
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-text" style="font-weight: 500;">Informasi Gempa Bumi Realtime</span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a href=".." class="nav-link">
+                                        <span>Gempa Bumi Signifikan</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link active" aria-current="page">
+                                        <span>Gempa Bumi Realtime</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </nav>
         <div class="container">
-            <div class="row alert alert-danger" id="banner" hidden><span class="text-center">Kesalahan jaringan.</span></div>
             <div class="row row-sm mb-3">
-                <h2 class="text-center mt-3">Informasi Gempa Bumi Realtime</h2>
+                <div class="col-12">
+                    <div class="card alert alert-danger" style="border: none;" id="banner" hidden>
+                        <div class="row"><span class="text-center">Kesalahan jaringan.</span></div>
+                    </div>
+                </div>
             </div>
             <div class="row row-sm mb-3">
                 <div class="col-12">
