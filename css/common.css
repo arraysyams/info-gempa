@@ -1,40 +1,14 @@
-[data-bs-theme=dark] {
-    color-scheme: dark;
-    --under-nav-color: white;
-    --my-text-color: white;
-    --my-card-cap-bg: rgba(173,181,189, 0.2);
-    --my-muted-color: rgba(226, 226, 226, 0.75);
-    --my-footer-bg-color: #212529;
-    --my-zoom-color: black;
-    --inverted: 1;
-}
-[data-bs-theme=light] {
-    --under-nav-color: black;
-    --my-text-color: black;
-    --my-card-cap-bg: rgba(33, 37, 41, 0.03);
-    --my-footer-bg-color: rgb(248,249,250);
-    --my-muted-color: rgba(33, 37, 41, 0.75);
-    --inverted: 0;
-}
-h2.header, span.header {color: var(--my-text-color);}
-div.card-header {background-color: var(--my-card-cap-bg);}
-footer.footer {background-color: var(--my-footer-bg-color)}
-span.text-footer {color: var(--my-text-color);}
-a.leaflet-control-zoom-out > span, a.leaflet-control-zoom-in > span, div.leaflet-control-attribution > span {color: var(--my-zoom-color);}
-#map { height: 180px; color: black;}
-.small-svg {height: 1em; width: 1em; filter: invert(var(--inverted));}
+#map { height: 180px; }
+.small-svg {height: 1em; width: 1em;}
 .mid-svg {height: 1em; width: 1em;}
-.link-svg {height: 1em; width: 1em; filter: invert(var(--inverted));}
+.link-svg {height: 1em; width: 1em;}
 .card {overflow: hidden;}
-.card-body span {color: var(--my-text-color);}
-.card-header span {color: var(--my-text-color);}
-ul > li > a.active > span {padding-bottom: 1px; border-bottom: 3px solid var(--under-nav-color); font-weight: 600;}
+ul > li > a.active > span {padding-bottom: 1px; border-bottom: 3px solid black; font-weight: 600;}
 .warna-biru {background-image: var(--bs-gradient)!important; background-color: #0d6efd!important;}
 .warna-biru > div > h2 > img, .warna-biru > span > img {filter: invert(100%);}
 .warna-biru > span, .warna-biru > div > span, .warna-biru > div > h2 {color: white;}
 .warna-kuning {background-image: var(--bs-gradient)!important; background-color: #ffc107!important;}
 .warna-kuning > span, .warna-kuning > div > span, .warna-kuning > div > h2 {color: black;}
-.warna-kuning > div > h2 > img, .warna-kuning > span > img {filter: invert(0);}
 .warna-merah {background-image: var(--bs-gradient)!important; background-color: #dc3545!important;}
 .warna-merah > span, .warna-merah > div > span, .warna-merah > div > h2 {color: white;}
 .warna-merah > div > h2 > img, .warna-merah > span > img {filter: invert(100%);}
