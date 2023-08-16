@@ -21,6 +21,7 @@ div.card-header {background-color: var(--my-card-cap-bg);}
 footer.footer {background-color: var(--my-footer-bg-color)}
 span.text-footer {color: var(--my-text-color);}
 a.leaflet-control-zoom-out > span, a.leaflet-control-zoom-in > span, div.leaflet-control-attribution > span {color: var(--my-zoom-color);}
+div.leaflet-bar > a.leaflet-disabled > span  {color: rgb(180, 180, 180)!important}
 #map { height: 180px; color: black;}
 .small-svg {height: 1em; width: 1em; filter: invert(var(--inverted));}
 .mid-svg {height: 1em; width: 1em;}
