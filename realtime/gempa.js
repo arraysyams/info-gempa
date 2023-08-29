@@ -1,8 +1,3 @@
-// Bagaimana cara minta izin autoplay dari browser?
-// Tombol untuk refresh data manual (keperluan debug)
-// Link json untuk testing perubahan: sudah ada di ubahData()
-// Lokasi shakemap: https://data.bmkg.go.id/DataMKG/TEWS/$Shakemap
-
 // Variabel pengambilan data
 var xmlhttp = new XMLHttpRequest();
 var sumberData = "https://bmkg-content-inatews.storage.googleapis.com/lastQL.json";

@@ -22,10 +22,10 @@
             <div class="container text-center">
                 <div class="container-fluid">
                     <div class="row">
-                        <h2 class="text-center d-none d-lg-block header">Informasi Gempa Bumi</h2>
+                        <h2 class="text-center d-none d-lg-block">Informasi Gempa Bumi</h2>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border-style: none;">
                             <span class="navbar-toggler-icon"></span>
-                            <span class="navbar-text header" style="font-weight: 500;">Informasi Gempa Bumi</span>
+                            <span class="navbar-text" style="font-weight: 500;">Informasi Gempa Bumi</span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -47,180 +47,187 @@
             </div>
         </nav>
         <div class="container">
-            <div class="row row-sm mb-3">
-                <div class="col-12">
-                    <div class="card alert alert-danger" style="border: none;" id="banner" hidden>
-                        <div class="row"><span class="text-center">Kesalahan jaringan.</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row row-sm mb-3">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="row g-0">
-                            <div class="col-8 card-header">
-                                <div class="row g-0">
-                                    <span>
-                                        <img src="img/time.svg" alt="Waktu" class="small-svg">
-                                        <span id="spanWaktu">HH:MM:SS</span>
-                                    </span>
-                                    <span>
-                                        <img src="img/calendar.svg" alt="Tanggal" class="small-svg">
-                                        <span id="spanTanggal">DD MM YYYY</span>
-                                    </span>
-                                </div>
-                                <div class="row g-0">
-                                    <span>
-                                        <img src="img/depth.svg" alt="Kedalaman" class="small-svg">
-                                        <span id="spanKedalaman">Kedalaman: - km</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-4 pt-2" id="warnaMagnitudo">
-                                <div class="row g-0">
-                                    <span class="text-center">
-                                        Magnitudo
-                                    </span>
-                                </div>
-                                <div class="row g-0">
-                                    <h2 class="text-center align-middle">
-                                        <img src="img/magnitude.svg" alt="Magnitudo" class="mid-svg">
-                                        <span id="spanMagnitudo">-</span>
-                                    </h2>
-                                </div>
+            <div class="row">
+                <div class="col-lg">
+                    <div class="row row-sm mb-3">
+                        <div class="col-12">
+                            <div class="card alert alert-danger" style="border: none;" id="banner" hidden>
+                                <div class="row"><span class="text-center">Kesalahan jaringan.</span></div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row row-sm mb-3">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <span>
-                                <img src="img/location.svg" alt="Lokasi" class="small-svg">
-                                Lokasi
-                            </span>
+                    <div class="row row-sm mb-3">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="row g-0">
+                                    <div class="col-8 card-header">
+                                        <div class="row g-0">
+                                            <span>
+                                                <img src="img/time.svg" alt="Waktu" class="small-svg">
+                                                <span id="spanWaktu">HH:MM:SS</span>
+                                            </span>
+                                            <span>
+                                                <img src="img/calendar.svg" alt="Tanggal" class="small-svg">
+                                                <span id="spanTanggal">DD MM YYYY</span>
+                                            </span>
+                                        </div>
+                                        <div class="row g-0">
+                                            <span>
+                                                <img src="img/depth.svg" alt="Kedalaman" class="small-svg">
+                                                <span id="spanKedalaman">Kedalaman: - km</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 pt-2" id="warnaMagnitudo">
+                                        <div class="row g-0">
+                                            <span class="text-center">
+                                                Magnitudo
+                                            </span>
+                                        </div>
+                                        <div class="row g-0">
+                                            <h2 class="text-center align-middle">
+                                                <img src="img/magnitude.svg" alt="Magnitudo" class="mid-svg">
+                                                <span id="spanMagnitudo">-</span>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div id="map"></div>
-                            <span id="spanWilayah">
-                                -
-                            </span>
-                            <br>
-                            <span>Buka lokasi di </span>
-                            <span>
-                                <a id="linkOSM" href="https://www.openstreetmap.org/?mlat=-0.00&mlon=0.00#map=12/-0.00/0.00" target="_blank" rel="noopener noreferrer">
-                                    OpenStreetMap
-                                    <img src="img/redirect.svg" alt="Redirect" class="link-svg">
-                                </a>
-                            </span>
-                            <span>&nbsp;/&nbsp;</span>
-                            <span>
-                                <a id="linkGMap" href="https://www.google.com/maps?q=-0.00,0.00" target="_blank" rel="noopener noreferrer">
-                                    Google Maps
-                                    <img src="img/redirect.svg" alt="Redirect" class="link-svg">
-                                </a>
-                            </span>
+                    </div>
+                    <div class="row row-sm mb-3">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <span>
+                                        <img src="img/location.svg" alt="Lokasi" class="small-svg">
+                                        Lokasi
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <div id="map"></div>
+                                    <span id="spanWilayah">
+                                        -
+                                    </span>
+                                    <br>
+                                    <span>Buka lokasi di </span>
+                                    <span>
+                                        <a id="linkOSM" href="https://www.openstreetmap.org/?mlat=-0.00&mlon=0.00#map=12/-0.00/0.00" target="_blank" rel="noopener noreferrer">
+                                            OpenStreetMap
+                                            <img src="img/redirect.svg" alt="Redirect" class="link-svg">
+                                        </a>
+                                    </span>
+                                    <span>&nbsp;/&nbsp;</span>
+                                    <span>
+                                        <a id="linkGMap" href="https://www.google.com/maps?q=-0.00,0.00" target="_blank" rel="noopener noreferrer">
+                                            Google Maps
+                                            <img src="img/redirect.svg" alt="Redirect" class="link-svg">
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row row-sm mb-3" id="cardDirasakan">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header" id="warnaDirasakan">
-                            <span>
-                                <img src="img/building.svg" alt="Dirasakan" class="small-svg">
-                                Dirasakan
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <span id="spanDirasakan">
-                                -
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row row-sm mb-3" id="cardTsunami">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header" id="warnaTsunami">
-                            <span>
-                                <img src="img/tsunami.svg" alt="Tsunami" class="small-svg">
-                                Potensi Tsunami
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <span id="spanTsunami">
-                                -
-                            </span>
+
+                <div class="col-lg">
+                    <div class="row row-sm mb-3" id="cardDirasakan">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header" id="warnaDirasakan">
+                                    <span>
+                                        <img src="img/building.svg" alt="Dirasakan" class="small-svg">
+                                        Dirasakan
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <span id="spanDirasakan">
+                                        -
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row row-sm mb-3">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header" id="warnaPotensi">
-                            <span>
-                                <img src="img/info.svg" alt="Tambahan" class="small-svg">
-                                Informasi tambahan
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <span id="spanPotensi">
-                                -
-                            </span>
+                    <div class="row row-sm mb-3" id="cardTsunami">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header" id="warnaTsunami">
+                                    <span>
+                                        <img src="img/tsunami.svg" alt="Tsunami" class="small-svg">
+                                        Potensi Tsunami
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <span id="spanTsunami">
+                                        -
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row row-sm mb-3">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header" id="warnaPotensi">
-                            <span>
-                                <img src="img/link.svg" alt="Link" class="small-svg">
-                                Link ke website lain
-                            </span>
+                    <div class="row row-sm mb-3">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header" >
+                                    <span>
+                                        <img src="img/info.svg" alt="Tambahan" class="small-svg">
+                                        Informasi tambahan
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <span id="spanPotensi">
+                                        -
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <span>
-                                <span>
-                                    Website untuk informasi resmi: 
-                                    <a href="https://www.bmkg.go.id/" target="_blank" rel="noopener noreferrer">
-                                        BMKG
-                                        <img src="img/redirect.svg" alt="Redirect" class="link-svg">
-                                    </a>
-                                </span>
-                                <br>
-                                <span>
-                                    Daftar gempa dan tsunami: 
-                                    <a href="https://inatews.bmkg.go.id/" target="_blank" rel="noopener noreferrer">
-                                        InaTEWS
-                                        <img src="img/redirect.svg" alt="Redirect" class="link-svg">
-                                    </a>
-                                </span>
-                                <br>
-                                <span>
-                                    Info gempa realtime dengan peta wilayah: 
-                                    <a href="https://inatews.bmkg.go.id/wrs/index.html" target="_blank" rel="noopener noreferrer">
-                                        WRS-NTWC Indonesia
-                                        <img src="img/redirect.svg" alt="Redirect" class="link-svg">
-                                    </a>
-                                </span>
-                            </span>
+                    </div>
+                    <div class="row row-sm mb-3">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <span>
+                                        <img src="img/link.svg" alt="Link" class="small-svg">
+                                        Link ke website lain
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <span>
+                                        <span>
+                                            Website untuk informasi resmi: 
+                                            <a href="https://www.bmkg.go.id/" target="_blank" rel="noopener noreferrer">
+                                                BMKG
+                                                <img src="img/redirect.svg" alt="Redirect" class="link-svg">
+                                            </a>
+                                        </span>
+                                        <br>
+                                        <span>
+                                            Daftar gempa dan tsunami: 
+                                            <a href="https://inatews.bmkg.go.id/" target="_blank" rel="noopener noreferrer">
+                                                InaTEWS
+                                                <img src="img/redirect.svg" alt="Redirect" class="link-svg">
+                                            </a>
+                                        </span>
+                                        <br>
+                                        <span>
+                                            Info gempa realtime dengan peta wilayah: 
+                                            <a href="https://inatews.bmkg.go.id/wrs/index.html" target="_blank" rel="noopener noreferrer">
+                                                WRS-NTWC Indonesia
+                                                <img src="img/redirect.svg" alt="Redirect" class="link-svg">
+                                            </a>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-    <footer class="footer mt-auto py-3" id="below">
+    <footer class="footer bg-light mt-auto py-3" id="below">
         <div class="container">
-            <span class="text-footer">
+            <span class="text-muted">
                 Sumber data: BMKG. <a href="#below" id="linkDisc">Disclaimer & Credits.</a>
             </span>
         </div>

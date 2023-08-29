@@ -25,17 +25,14 @@ div.leaflet-bar > a.leaflet-disabled > span  {color: rgb(180, 180, 180)!importan
 #map { height: 180px; color: black;}
 .small-svg {height: 1em; width: 1em; filter: invert(var(--inverted));}
 .mid-svg {height: 1em; width: 1em;}
-.link-svg {height: 1em; width: 1em; filter: invert(var(--inverted));}
+.link-svg {height: 1em; width: 1em;}
 .card {overflow: hidden;}
-.card-body span {color: var(--my-text-color);}
-.card-header span {color: var(--my-text-color);}
-ul > li > a.active > span {padding-bottom: 1px; border-bottom: 3px solid var(--under-nav-color); font-weight: 600;}
+ul > li > a.active > span {padding-bottom: 1px; border-bottom: 3px solid black; font-weight: 600;}
 .warna-biru {background-image: var(--bs-gradient)!important; background-color: #0d6efd!important;}
 .warna-biru > div > h2 > img, .warna-biru > span > img {filter: invert(100%);}
 .warna-biru > span, .warna-biru > div > span, .warna-biru > div > h2 {color: white;}
 .warna-kuning {background-image: var(--bs-gradient)!important; background-color: #ffc107!important;}
 .warna-kuning > span, .warna-kuning > div > span, .warna-kuning > div > h2 {color: black;}
-.warna-kuning > div > h2 > img, .warna-kuning > span > img {filter: invert(0);}
 .warna-merah {background-image: var(--bs-gradient)!important; background-color: #dc3545!important;}
 .warna-merah > span, .warna-merah > div > span, .warna-merah > div > h2 {color: white;}
 .warna-merah > div > h2 > img, .warna-merah > span > img {filter: invert(100%);}
