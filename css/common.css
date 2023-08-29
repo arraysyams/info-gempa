@@ -1,5 +1,29 @@
-#map { height: 180px; }
-.small-svg {height: 1em; width: 1em;}
+[data-bs-theme=dark] {
+    color-scheme: dark;
+    --under-nav-color: white;
+    --my-text-color: white;
+    --my-card-cap-bg: rgba(173,181,189, 0.2);
+    --my-muted-color: rgba(226, 226, 226, 0.75);
+    --my-footer-bg-color: #212529;
+    --my-zoom-color: black;
+    --inverted: 1;
+}
+[data-bs-theme=light] {
+    --under-nav-color: black;
+    --my-text-color: black;
+    --my-card-cap-bg: rgba(33, 37, 41, 0.03);
+    --my-footer-bg-color: rgb(248,249,250);
+    --my-muted-color: rgba(33, 37, 41, 0.75);
+    --inverted: 0;
+}
+h2.header, span.header {color: var(--my-text-color);}
+div.card-header {background-color: var(--my-card-cap-bg);}
+footer.footer {background-color: var(--my-footer-bg-color)}
+span.text-footer {color: var(--my-text-color);}
+a.leaflet-control-zoom-out > span, a.leaflet-control-zoom-in > span, div.leaflet-control-attribution > span {color: var(--my-zoom-color);}
+div.leaflet-bar > a.leaflet-disabled > span  {color: rgb(180, 180, 180)!important}
+#map { height: 180px; color: black;}
+.small-svg {height: 1em; width: 1em; filter: invert(var(--inverted));}
 .mid-svg {height: 1em; width: 1em;}
 .link-svg {height: 1em; width: 1em;}
 .card {overflow: hidden;}
