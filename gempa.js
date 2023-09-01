@@ -47,7 +47,7 @@ L.tileLayer('https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=6uSx9gi4
 }).addTo(map);
 var marker;
 var xmark = L.icon({
-    iconUrl: 'img/point_x_wide.png',
+    iconUrl: 'assets/img/point_x_wide.png',
     iconSize: [22, 22],
     iconAnchor: [11, 11],
     popupAnchor: [0, 0],
