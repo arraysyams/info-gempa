@@ -13,13 +13,13 @@ function ubahWarna(objek, warna) {
     }
 }
 
-function tambahInfo(waktu, tanggal, kedalaman, magnitudo) {
+function tambahInfo(waktu, tanggal, kedalaman, magnitudo, lokasi) {
     let newCard = cloneCard.cloneNode(true);
     newCard.querySelector(".spanWaktu").innerText = waktu;
     newCard.querySelector(".spanTanggal").innerText = tanggal;
     newCard.querySelector(".spanKedalaman").innerText = kedalaman;
     newCard.querySelector(".spanMagnitudo").innerText = magnitudo;
-
+    newCard.querySelector(".spanLokasi").innerText = lokasi;
     let mag = parseFloat(magnitudo);
     
     if (mag >= 7) {magColor = "merah";} else
@@ -34,9 +34,10 @@ function buatDaftar(xmlGempa) {
     for (let i = 0; i < xmlGempa.length; i++) {
         let waktu = xmlGempa[i].querySelector("time").innerHTML;
         let tanggal = xmlGempa[i].querySelector("date").innerHTML;
-        let kedalaman = xmlGempa[i].querySelector("depth").innerHTML;
+        let kedalaman = "Kedalaman: " + xmlGempa[i].querySelector("depth").innerHTML;
         let magnitudo = xmlGempa[i].querySelector("magnitude").innerHTML;
-        tambahInfo(waktu, tanggal, kedalaman, magnitudo);
+        let lokasi = xmlGempa[i].querySelector("area").innerHTML;
+        tambahInfo(waktu, tanggal, kedalaman, magnitudo, lokasi);
     }
 }
 
