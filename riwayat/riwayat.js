@@ -13,10 +13,84 @@ function ubahWarna(objek, warna) {
     }
 }
 
-function tambahInfo(waktu, tanggal, kedalaman, magnitudo, lokasi) {
+function getTwoDigit(number) {
+    numstr = number.toString()
+    if (numstr.length < 2) {
+        numstr = "0" + numstr;
+    }
+    return numstr;
+}
+
+function getBulan(month) {
+    switch (month) {
+        case 0: return "Januari";
+        case 1: return "Februari";
+        case 2: return "Maret";
+        case 3: return "April";
+        case 4: return "Mei";
+        case 5: return "Juni";
+        case 6: return "Juli";
+        case 7: return "Agustus";
+        case 8: return "September";
+        case 9: return "Oktober";
+        case 10: return "November";
+        case 11: return "Desember";
+        default: return "";
+    }
+}
+
+function konversiWIB(strWaktu, strTanggal, strEventID) {
+    // Format strWaktu   "HH:MM:SS WIB"
+    // Format strTanggal "DD-MM-YY"
+    // Format strEventID "YYYYMMDDHHMMSS"
+    // return value      ["HH:MM:SS UTC", "DD MMMM YYYY"]
+
+    let waktuXML = strWaktu.split(" ")[0];
+    let tanggalXML = strTanggal.split("-")[0];
+    let bulanXML = strTanggal.split("-")[1];
+    let tahunXML = strTanggal.split("-")[2];
+    let tahunKirimXML = strEventID.slice(0, 4);
+    let tahunPerkiraan = parseFloat(tahunKirimXML.slice(0, 2) + tahunXML);
+    let tahunSelisih = parseFloat(tahunKirimXML) - tahunPerkiraan;
+    let tahunKejadian = 0;
+
+    if (tahunSelisih >= 0) {
+        tahunKejadian = tahunPerkiraan;
+    } else {
+        tahunKejadian = (parseFloat(tahunKirimXML.slice(0, 2)) - 1).toString() + tahunXML;
+    }
+
+    let waktuGempa = new Date(tahunKejadian + "-" + bulanXML + "-" + tanggalXML + "T" + waktuXML + "+07:00");
+    let offset = waktuGempa.getTimezoneOffset() / -60;
+
+    let localTime = getTwoDigit(waktuGempa.getHours()) + ":" + getTwoDigit(waktuGempa.getMinutes()) + ":" + getTwoDigit(waktuGempa.getSeconds());
+
+    switch (offset) {
+        case 7:
+            localTime += " WIB"; break;
+        case 8:
+            localTime += " WITA"; break;
+        case 9:
+            localTime += " WIT"; break;
+        default:
+            if (offset >= 0) {
+                localTime += " (UTC +" + offset + ")";
+            } else {
+                localTime += " (UTC " + offset + ")";
+            }
+            break;
+    }
+
+    let localDate = waktuGempa.getDate() + " " + getBulan(waktuGempa.getMonth()) + " " + waktuGempa.getFullYear();
+
+    return [localTime, localDate];
+}
+
+function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi) {
     let newCard = cloneCard.cloneNode(true);
-    newCard.querySelector(".spanWaktu").innerText = waktu;
-    newCard.querySelector(".spanTanggal").innerText = tanggal;
+    let datetimeConvert = konversiWIB(waktu, tanggal, eventid)
+    newCard.querySelector(".spanWaktu").innerText = datetimeConvert[0];
+    newCard.querySelector(".spanTanggal").innerText = datetimeConvert[1];
     newCard.querySelector(".spanKedalaman").innerText = kedalaman;
     newCard.querySelector(".spanMagnitudo").innerText = magnitudo;
     newCard.querySelector(".spanLokasi").innerText = lokasi;
@@ -38,7 +112,8 @@ function buatDaftar(xmlGempa) {
         let kedalaman = "Kedalaman: " + xmlGempa[i].querySelector("depth").innerHTML;
         let magnitudo = xmlGempa[i].querySelector("magnitude").innerHTML;
         let lokasi = xmlGempa[i].querySelector("area").innerHTML;
-        tambahInfo(waktu, tanggal, kedalaman, magnitudo, lokasi);
+        let eventid = xmlGempa[i].querySelector("eventid").innerHTML;
+        tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi);
     }
 }
 
