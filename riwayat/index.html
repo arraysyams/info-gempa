@@ -11,6 +11,9 @@
         .svg-dalam {content: url("../assets/img/depth.svg");}
         .svg-mag {content: url("../assets/img/magnitude.svg");}
         .svg-location {content: url("../assets/img/location.svg");}
+        card-body {
+            padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
+        }
     </style>
     <link rel="stylesheet" href="../assets/css/common.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -61,27 +64,14 @@
             <div class="row mt-3">
                 <div class="col-12">
                     <div class="alert alert-info text-center">
-                        Menampilkan daftar gempa bermagnitudo > 5
+                        Daftar gempa bermagnitudo > 5
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 card-list">
-                    <div class="card card-event mb-1">
+                    <div class="card card-event mb-2">
                         <div class="row g-0">
-                            <div class="col-4 pt-2 warna-magnitudo">
-                                <div class="row g-0">
-                                    <span class="text-center">
-                                        Magnitudo
-                                    </span>
-                                </div>
-                                <div class="row g-0">
-                                    <h2 class="text-center align-middle">
-                                        <img alt="Magnitudo" class="mid-svg svg-mag">
-                                        <span class="spanMagnitudo">-</span>
-                                    </h2>
-                                </div>
-                            </div>
                             <div class="col-8 card-header">
                                 <div class="row">
                                     <span>
@@ -96,11 +86,32 @@
                                         <img alt="Kedalaman" class="small-svg svg-dalam">
                                         <span class="spanKedalaman">-</span>
                                     </span>
-                                    <span>
+                                    <span class="d-none d-md-block">
                                         <img alt="Lokasi" class="small-svg svg-location">
                                         <span class="spanLokasi">-</span>
                                     </span>
                                 </div>
+                            </div>
+                            <div class="col-4 pt-2 warna-magnitudo">
+                                <div class="row g-0">
+                                    <span class="text-center">
+                                        Magnitudo
+                                    </span>
+                                </div>
+                                <div class="row g-0">
+                                    <h2 class="text-center align-middle">
+                                        <img alt="Magnitudo" class="mid-svg svg-mag">
+                                        <span class="spanMagnitudo">-</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0 d-block d-md-none d-lg-none">
+                            <div class="card-body" style="padding: 0.5rem 1rem;">
+                                <span>
+                                    <img alt="Lokasi" class="small-svg svg-location">
+                                    <span class="spanLokasiBawah">-</span>
+                                </span>
                             </div>
                         </div>
                     </div>

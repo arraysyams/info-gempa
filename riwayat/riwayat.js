@@ -20,6 +20,7 @@ function tambahInfo(waktu, tanggal, kedalaman, magnitudo, lokasi) {
     newCard.querySelector(".spanKedalaman").innerText = kedalaman;
     newCard.querySelector(".spanMagnitudo").innerText = magnitudo;
     newCard.querySelector(".spanLokasi").innerText = lokasi;
+    newCard.querySelector(".spanLokasiBawah").innerText = lokasi;
     let mag = parseFloat(magnitudo);
     
     if (mag >= 7) {magColor = "merah";} else
