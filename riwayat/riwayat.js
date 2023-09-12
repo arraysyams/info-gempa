@@ -6,6 +6,23 @@ const cloneCard = refCard.cloneNode(true);
 refCard.remove();
 var resultxml;
 
+document.querySelector("select").addEventListener("change", (event) => {
+    if (event.target.value == 1) {
+        sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30event.xml";
+    } else if (event.target.value == 2) {
+        sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30feltevent.xml";
+    } else {
+        return;
+    }
+    rebuildPage();
+})
+
+function rebuildPage() {
+    document.querySelector(".card-list").innerHTML = ""
+    xmlhttp.open("GET", sumberData, true);
+    xmlhttp.send();
+}
+
 function ubahWarna(objek, warna) {
     objek.classList.remove("warna-biru", "warna-kuning", "warna-merah");
     if (warna) {
@@ -123,9 +140,6 @@ function statusUpdate (text) {
     }
 }
 
-xmlhttp.open("GET", sumberData, true);
-xmlhttp.send();
-
 xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         buatDaftar(this.responseXML.getElementsByTagName("info"))
@@ -135,3 +149,5 @@ xmlhttp.onreadystatechange = function() {
         statusUpdate("Sedang mengupdate... " + this.readyState + "/" + this.status);
     }
 }
+
+rebuildPage()
