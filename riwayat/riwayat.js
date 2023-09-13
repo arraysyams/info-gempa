@@ -6,14 +6,14 @@ const cloneCard = refCard.cloneNode(true);
 refCard.remove();
 var resultxml;
 
-document.querySelector("select").addEventListener("change", (event) => {
-    if (event.target.value == 1) {
-        sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30event.xml";
-    } else if (event.target.value == 2) {
-        sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30feltevent.xml";
-    } else {
-        return;
-    }
+document.querySelector("select").addEventListener("change", function (event) {
+    let val = event.target.value
+
+    if (val == 1) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30event.xml";} else
+    if (val == 2) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30feltevent.xml";} else
+    if (val == 3) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/live30event.xml";} else
+    {return;}
+    
     rebuildPage();
 })
 
@@ -56,6 +56,30 @@ function getBulan(month) {
     }
 }
 
+function getTimezoneRegion(offset) {
+    switch (offset) {
+        case 7:
+            return "WIB";
+        case 8:
+            return "WITA";
+        case 9:
+            return "WIT";
+        default:
+            offsetDecimal = parseFloat(offset.toString().split(".")[1]);
+            offsetMins = "00";
+            if (offsetDecimal) {
+                offsetMins = getTwoDigit(parseFloat(offset.toString().split(".")[1]) / 10 * 60);
+            }
+            if (offset >= 0) {
+                offsetHour = Math.floor(offset).toString();
+                return "(UTC +" + offsetHour + ":" + offsetMins + ")";
+            } else {
+                offsetHour = Math.ceil(offset).toString();
+                return "(UTC " + offsetHour + ":" + offsetMins + ")";
+            }
+    }
+}
+
 function konversiWIB(strWaktu, strTanggal, strEventID) {
     // Format strWaktu   "HH:MM:SS WIB"
     // Format strTanggal "DD-MM-YY"
@@ -81,22 +105,23 @@ function konversiWIB(strWaktu, strTanggal, strEventID) {
     let offset = waktuGempa.getTimezoneOffset() / -60;
 
     let localTime = getTwoDigit(waktuGempa.getHours()) + ":" + getTwoDigit(waktuGempa.getMinutes()) + ":" + getTwoDigit(waktuGempa.getSeconds());
+    localTime += " " + getTimezoneRegion(offset)
 
-    switch (offset) {
-        case 7:
-            localTime += " WIB"; break;
-        case 8:
-            localTime += " WITA"; break;
-        case 9:
-            localTime += " WIT"; break;
-        default:
-            if (offset >= 0) {
-                localTime += " (UTC +" + offset + ")";
-            } else {
-                localTime += " (UTC " + offset + ")";
-            }
-            break;
-    }
+    let localDate = waktuGempa.getDate() + " " + getBulan(waktuGempa.getMonth()) + " " + waktuGempa.getFullYear();
+
+    return [localTime, localDate];
+}
+
+function konversiUTC(strWaktuTanggal) {
+    // Format "YYYY/MM/DD HH:MM:SS.000"
+    let waktuXML = strWaktuTanggal.split(" ")[1].split(".")[0];
+    let tanggalXML = strWaktuTanggal.split(" ")[0];
+    tanggalXML = tanggalXML.replaceAll("/", "-");
+    let waktuGempa = new Date(tanggalXML + "T" + waktuXML + "+00:00");
+    let offset = waktuGempa.getTimezoneOffset() / -60;
+
+    let localTime = getTwoDigit(waktuGempa.getHours()) + ":" + getTwoDigit(waktuGempa.getMinutes()) + ":" + getTwoDigit(waktuGempa.getSeconds());
+    localTime += " " + getTimezoneRegion(offset);
 
     let localDate = waktuGempa.getDate() + " " + getBulan(waktuGempa.getMonth()) + " " + waktuGempa.getFullYear();
 
@@ -105,9 +130,8 @@ function konversiWIB(strWaktu, strTanggal, strEventID) {
 
 function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi) {
     let newCard = cloneCard.cloneNode(true);
-    let datetimeConvert = konversiWIB(waktu, tanggal, eventid)
-    newCard.querySelector(".spanWaktu").innerText = datetimeConvert[0];
-    newCard.querySelector(".spanTanggal").innerText = datetimeConvert[1];
+    newCard.querySelector(".spanWaktu").innerText = waktu;
+    newCard.querySelector(".spanTanggal").innerText = tanggal;
     newCard.querySelector(".spanKedalaman").innerText = kedalaman;
     newCard.querySelector(".spanMagnitudo").innerText = magnitudo;
     newCard.querySelector(".spanLokasi").innerText = lokasi;
@@ -129,18 +153,33 @@ function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi) 
 
 function buatDaftar(xmlGempa) {
     for (let i = 0; i < xmlGempa.length; i++) {
-        let waktu = xmlGempa[i].querySelector("time").innerHTML;
-        let tanggal = xmlGempa[i].querySelector("date").innerHTML;
+        let eventid = xmlGempa[i].querySelector("eventid").innerHTML;
+        let datetimeConvert = konversiWIB(xmlGempa[i].querySelector("time").innerHTML, xmlGempa[i].querySelector("date").innerHTML, eventid);
+        let waktu = datetimeConvert[0];
+        let tanggal = datetimeConvert[1];
         let kedalaman = "Kedalaman: " + xmlGempa[i].querySelector("depth").innerHTML;
         let magnitudo = xmlGempa[i].querySelector("magnitude").innerHTML;
         let lokasi = xmlGempa[i].querySelector("area").innerHTML;
-        let eventid = xmlGempa[i].querySelector("eventid").innerHTML;
         let mmi;
         try {
             mmi = xmlGempa[i].querySelector("felt").innerHTML;
         } catch (error) {
             mmi = "";
         }
+        tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi);
+    }
+}
+
+function buatDaftarReal(xmlGempa) {
+    for (let i = 0; i < xmlGempa.length; i++) {
+        let eventid = xmlGempa[i].querySelector("eventid").innerHTML;
+        let datetimeConvert = konversiUTC(xmlGempa[i].querySelector("waktu").innerHTML.replaceAll("  ", " "));
+        let waktu = datetimeConvert[0];
+        let tanggal = datetimeConvert[1];
+        let kedalaman = "Kedalaman: " + xmlGempa[i].querySelector("dalam").innerHTML + " Km";
+        let magnitudo = xmlGempa[i].querySelector("mag").innerHTML;
+        let lokasi = xmlGempa[i].querySelector("area").innerHTML;
+        let mmi = "";
         tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi);
     }
 }
@@ -153,7 +192,11 @@ function statusUpdate (text) {
 
 xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        buatDaftar(this.responseXML.getElementsByTagName("info"))
+        if (this.responseXML.querySelector("info")) {
+            buatDaftar(this.responseXML.getElementsByTagName("info"))
+        } else {
+            buatDaftarReal(this.responseXML.getElementsByTagName("gempa"))
+        }
     } else if (this.status == 404) {
         statusUpdate("Tidak bisa mengakses file: 404");
     } else {
