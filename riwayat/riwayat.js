@@ -103,7 +103,7 @@ function konversiWIB(strWaktu, strTanggal, strEventID) {
     return [localTime, localDate];
 }
 
-function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi) {
+function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi) {
     let newCard = cloneCard.cloneNode(true);
     let datetimeConvert = konversiWIB(waktu, tanggal, eventid)
     newCard.querySelector(".spanWaktu").innerText = datetimeConvert[0];
@@ -112,6 +112,11 @@ function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi) {
     newCard.querySelector(".spanMagnitudo").innerText = magnitudo;
     newCard.querySelector(".spanLokasi").innerText = lokasi;
     newCard.querySelector(".spanLokasiBawah").innerText = lokasi;
+    if (mmi) {
+        newCard.querySelector(".spanDirasakan").innerText = mmi;
+        newCard.querySelector(".card-bawah").classList.remove("d-block", "d-md-none", "d-lg-none");
+        newCard.querySelector(".spanParentDirasakan").classList.remove("d-none");
+    }
     let mag = parseFloat(magnitudo);
     
     if (mag >= 7) {magColor = "merah";} else
@@ -130,7 +135,13 @@ function buatDaftar(xmlGempa) {
         let magnitudo = xmlGempa[i].querySelector("magnitude").innerHTML;
         let lokasi = xmlGempa[i].querySelector("area").innerHTML;
         let eventid = xmlGempa[i].querySelector("eventid").innerHTML;
-        tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi);
+        let mmi;
+        try {
+            mmi = xmlGempa[i].querySelector("felt").innerHTML;
+        } catch (error) {
+            mmi = "";
+        }
+        tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi);
     }
 }
 
