@@ -128,9 +128,9 @@ function displayUpdate (jsonGempa, sound = false) {
     let quakeTime = new Date(tahunWIB + "-" + bulanWIB + "-" + tanggalWIB + "T" + waktuWIB + "+07:00");
     let offset = quakeTime.getTimezoneOffset() / -60;
     let localTime = getTwoDigit(quakeTime.getHours()) + ":" + getTwoDigit(quakeTime.getMinutes()) + ":" + getTwoDigit(quakeTime.getSeconds());
-    let localDate = quakeTime.getDate() + " " + getBulan(quakeTime.getMonth()) + " " + quakeTime.getFullYear()
+    let localDate = quakeTime.getDate() + " " + getBulan(quakeTime.getMonth()) + " " + quakeTime.getFullYear();
 
-    map.setView([lat,lon],5)
+    map.setView([lat,lon],5);
     linkGMap.href = "https://www.google.com/maps?q=" + coordinates;
     linkOSM.href = "https://www.openstreetmap.org/?mlat=" + lat + "&mlon=" + lon + "#map=12/" + lat + "/" + lon;
     if (typeof marker !== 'undefined') {
@@ -227,9 +227,9 @@ function displayUpdate (jsonGempa, sound = false) {
             localTime += " WIT"; break;
         default:
             if (offset >= 0) {
-                localTime += " (UTC +" + offset + ")"
+                localTime += " (UTC +" + offset + ")";
             } else {
-                localTime += " (UTC " + offset + ")"
+                localTime += " (UTC " + offset + ")";
             }
             break;
     }

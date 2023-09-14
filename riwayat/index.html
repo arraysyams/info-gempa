@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Gempa Bumi</title>
+    <style>
+        .svg-waktu {content: url("../assets/img/time.svg");}
+        .svg-tanggal {content: url("../assets/img/calendar.svg");}
+        .svg-dalam {content: url("../assets/img/depth.svg");}
+        .svg-mag {content: url("../assets/img/magnitude.svg");}
+        .svg-location {content: url("../assets/img/location.svg");}
+        .svg-dirasakan {content: url("../assets/img/building.svg");}
+        .card-body {
+            padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
+        }
+        .loading-indicator {
+            display: none;
+            visibility: collapse;
+            justify-content: center;
+            padding-bottom: 1em;
+        }
+        #banner {
+            display: none;
+            visibility: collapse;
+        }
+    </style>
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon_earth.svg">
+</head>
+<body class="d-flex flex-column h-100">
+    <script type="text/javascript" src="../assets/js/theme-change.js"></script>
+    <audio src="../assets/aud/info.mp3" hidden id="audInfo"></audio>
+    <audio src="../assets/aud/alert.mp3" hidden id="audAlert"></audio>
+    <main class="flex-shrink-0">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container text-center">
+                <div class="container-fluid">
+                    <div class="row">
+                        <h2 class="header text-center d-none d-lg-block">Informasi Gempa Bumi</h2>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border-style: none;">
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="header navbar-text" style="font-weight: 500;">Riwayat Gempa Bumi</span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a href=".." class="nav-link">
+                                        <span>Terkini</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="../realtime" class="nav-link">
+                                        <span>Realtime</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link active" aria-current="page">
+                                        <span>Riwayat Kejadian</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="d-flex justify-content mb-2">
+                        <div class="dropdown">
+                            <select title="Pilih data untuk ditampilkan" class="form-select btn-secondary">
+                                <option selected>Pilih data untuk ditampilkan</option>
+                                <option value="1">Magnitudo > 5</option>
+                                <option value="2">Dirasakan</option>
+                                <option value="3">Realtime</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="loading-indicator">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12" id="banner">
+                    <div class="card alert alert-danger" style="border: none;">
+                        <div class="row"><span class="text-center">Kesalahan jaringan.</span></div>
+                    </div>
+                </div>
+                <div class="col-12 card-list">
+                    <div class="card card-event mb-2">
+                        <div class="row g-0">
+                            <div class="col-8 col-md-9 col-lg-10 card-header">
+                                <div class="row">
+                                    <span>
+                                        <img alt="Waktu" class="small-svg svg-waktu">
+                                        <span class="spanWaktu">-</span>
+                                    </span>
+                                    <span>
+                                        <img alt="Tanggal" class="small-svg svg-tanggal">
+                                        <span class="spanTanggal">-</span>
+                                    </span>
+                                    <span>
+                                        <img alt="Kedalaman" class="small-svg svg-dalam">
+                                        <span class="spanKedalaman">-</span>
+                                    </span>
+                                    <span class="d-none d-md-block">
+                                        <img alt="Lokasi" class="small-svg svg-location">
+                                        <span class="spanLokasi">-</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-4 col-md-3 col-lg-2 pt-2 warna-magnitudo">
+                                <div class="row g-0">
+                                    <span class="text-center">
+                                        Magnitudo
+                                    </span>
+                                </div>
+                                <div class="row g-0">
+                                    <h2 class="text-center align-middle">
+                                        <img alt="Magnitudo" class="mid-svg svg-mag">
+                                        <span class="spanMagnitudo">-</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-bawah row g-0 d-block d-md-none d-lg-none">
+                            <div class="card-body" style="padding: 0.5rem 1rem;">
+                                <span class="d-block d-md-none d-lg-none">
+                                    <img alt="Lokasi" class="small-svg svg-location">
+                                    <span class="spanLokasiBawah">-</span>
+                                </span>
+                                <span class="spanParentDirasakan d-none">
+                                    <img alt="Dirasakan" class="small-svg svg-dirasakan">
+                                    <span class="spanDirasakan">-</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer mt-auto py-3" id="below">
+        <div class="container">
+            <span class="text-footer">
+                Sumber data: BMKG. <a href="#below" id="linkDisc">Disclaimer & Credits.</a>
+            </span>
+        </div>
+    </footer>
+    <!-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script> -->
+    <script type="text/javascript" src="riwayat.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        var btDisc = document.getElementById("linkDisc");
+        btDisc.addEventListener("click", () => {alert("== DISCLAIMER ==\nData yang tersedia pada halaman ini bukanlah informasi resmi. Website ini tidak disponsori oleh BMKG dalam bentuk apapun.\n\n== CREDITS ==\nBootstrap (getbootstrap.com)\nBMKG (www.bmkg.go.id)\nLeaflet (leafletjs.com)\nOpenStreetMap (www.openstreetmap.org)\nMapTiler (www.maptiler.com)\n\n== SOUNDS (Freesound.org) ==\n\'Weird Buttons App Game UI\' - Eponn (bit.ly/patreon22)\n\'UI Confirmation Alert\' - InspectorJ (www.jshaw.co.uk)\n\'UIAlert_Interface.Alarm.Warning signal 6_EM\' - newlocknew")})
+    </script>
+</body>
+</html>
