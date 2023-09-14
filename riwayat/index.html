@@ -16,7 +16,8 @@
             padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
         }
         .loading-indicator {
-            display: flex;
+            display: none;
+            visibility: collapse;
             justify-content: center;
             padding-bottom: 1em;
         }
@@ -76,8 +77,8 @@
                     <div class="d-flex justify-content mb-2">
                         <div class="dropdown">
                             <select title="Pilih data untuk ditampilkan" class="form-select btn-secondary">
-                                <option>Pilih data untuk ditampilkan</option>
-                                <option value="1" selected>Magnitudo > 5</option>
+                                <option selected>Pilih data untuk ditampilkan</option>
+                                <option value="1">Magnitudo > 5</option>
                                 <option value="2">Dirasakan</option>
                                 <option value="3">Realtime</option>
                             </select>

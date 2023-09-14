@@ -1,6 +1,6 @@
 var xmlhttp = new XMLHttpRequest();
 var sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30event.xml";
-var networkDebug = true;
+var networkDebug = false;
 const refCard = document.querySelector(".card-event");
 const cloneCard = refCard.cloneNode(true);
 refCard.remove();
@@ -9,15 +9,28 @@ const loadingCircle = document.querySelector(".loading-indicator");
 var resultxml;
 
 document.querySelector("select").addEventListener("change", function (event) {
-    let val = event.target.value
+    ubahData(event.target.value)
+})
 
-    if (val == 1) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30event.xml";} else
-    if (val == 2) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30feltevent.xml";} else
-    if (val == 3) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/live30event.xml";} else
+function firstStart () {
+    let lastRiwayat = parseFloat(getCookie("lastriwayat"))
+    if (!lastRiwayat || lastRiwayat == 0) {
+        document.querySelector(".card-list").innerHTML = "<p>Silakan memilih data melalui dropdown di atas.</p>"
+    } else {
+        document.querySelector("select").selectedIndex = lastRiwayat;
+        ubahData(lastRiwayat);
+    }
+}
+
+function ubahData(value) {
+    if (value == 1) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30event.xml"} else
+    if (value == 2) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30feltevent.xml";} else
+    if (value == 3) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/live30event.xml";} else
     {return;}
     
+    setCookieForever("lastriwayat", value.toString())
     rebuildPage();
-})
+}
 
 function rebuildPage() {
     document.querySelector(".card-list").innerHTML = "";
@@ -27,6 +40,25 @@ function rebuildPage() {
     banner.style.display = "none";
     xmlhttp.open("GET", sumberData, true);
     xmlhttp.send();
+}
+
+function setCookieForever(cname, cvalue) {
+    document.cookie = cname + "=" + cvalue + ";path=/";
+}
+
+function getCookie(cname) {
+    cname = cname.toString() + "=";
+    savedCookie = decodeURIComponent(document.cookie).split(";");
+    for (let i = 0; i < savedCookie.length; i++) {
+        let valCookie = savedCookie[i];
+        // Used to remove trailing spaces
+        valCookie = valCookie.trimStart();
+        // Pick cookie value starting after "cname="
+        if (valCookie.indexOf(cname) == 0) {
+            return valCookie.substring(cname.length, valCookie.length);
+        }
+    }
+    return "";
 }
 
 function ubahWarna(objek, warna) {
@@ -220,4 +252,4 @@ xmlhttp.onerror = function() {
     loadingCircle.style.display = "none";
 }
 
-rebuildPage()
+firstStart()
