@@ -120,15 +120,16 @@ function displayUpdate (jsonGempa, sound = false) {
     let coordinates = reverseCoordinates(jsonGempa.point.coordinates);
     let lat = parseFloat(coordinates.split(",")[0]);
     let lon = parseFloat(coordinates.split(",")[1]);
-    let waktuWIB = jsonGempa.time.split(" ")[0];
-    let tanggalWIB = jsonGempa.date.split("-")[0];
-    let bulanWIB = jsonGempa.date.split("-")[1];
+    let timedateConvert = konversiWIB(jsonGempa.time, jsonGempa.date, jsonGempa.eventid);
+    // let waktuWIB = jsonGempa.time.split(" ")[0];
+    // let tanggalWIB = jsonGempa.date.split("-")[0];
+    // let bulanWIB = jsonGempa.date.split("-")[1];
     // let eventid = jsonGempa.eventid
-    let tahunWIB = jsonGempa.eventid.toString().slice(0, 2) + jsonGempa.date.split("-")[2];
-    let quakeTime = new Date(tahunWIB + "-" + bulanWIB + "-" + tanggalWIB + "T" + waktuWIB + "+07:00");
-    let offset = quakeTime.getTimezoneOffset() / -60;
-    let localTime = getTwoDigit(quakeTime.getHours()) + ":" + getTwoDigit(quakeTime.getMinutes()) + ":" + getTwoDigit(quakeTime.getSeconds());
-    let localDate = quakeTime.getDate() + " " + getBulan(quakeTime.getMonth()) + " " + quakeTime.getFullYear();
+    // let tahunWIB = jsonGempa.eventid.toString().slice(0, 2) + jsonGempa.date.split("-")[2];
+    // let quakeTime = new Date(tahunWIB + "-" + bulanWIB + "-" + tanggalWIB + "T" + waktuWIB + "+07:00");
+    // let offset = quakeTime.getTimezoneOffset() / -60;
+    let localTime = timedateConvert[0];
+    let localDate = timedateConvert[1];
 
     map.setView([lat,lon],5);
     linkGMap.href = "https://www.google.com/maps?q=" + coordinates;
@@ -218,22 +219,6 @@ function displayUpdate (jsonGempa, sound = false) {
         spanTsunami.innerText = "-";
     }
 
-    switch (offset) {
-        case 7:
-            localTime += " WIB"; break;
-        case 8:
-            localTime += " WITA"; break;
-        case 9:
-            localTime += " WIT"; break;
-        default:
-            if (offset >= 0) {
-                localTime += " (UTC +" + offset + ")";
-            } else {
-                localTime += " (UTC " + offset + ")";
-            }
-            break;
-    }
-
     spanWaktu.innerText = localTime;
     spanKedalaman.innerText = "Kedalaman: " + jsonGempa.depth;
     spanMagnitudo.innerText = jsonGempa.magnitude;
@@ -254,32 +239,6 @@ function displayUpdate (jsonGempa, sound = false) {
             audInfo.play();
         }
 
-    }
-}
-
-function getTwoDigit(number) {
-    numstr = number.toString()
-    if (numstr.length < 2) {
-        numstr = "0" + numstr;
-    }
-    return numstr;
-}
-
-function getBulan(month) {
-    switch (month) {
-        case 0: return "Januari";
-        case 1: return "Februari";
-        case 2: return "Maret";
-        case 3: return "April";
-        case 4: return "Mei";
-        case 5: return "Juni";
-        case 6: return "Juli";
-        case 7: return "Agustus";
-        case 8: return "September";
-        case 9: return "Oktober";
-        case 10: return "November";
-        case 11: return "Desember";
-        default: return "";
     }
 }
 

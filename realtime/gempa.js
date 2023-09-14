@@ -63,7 +63,6 @@ faultRequest.onreadystatechange = function() {
     }
 }
 
-
 // Variabel debug
 var networkDebug = false;
 
@@ -80,12 +79,9 @@ function displayUpdate (jsonGempa, sound = false) {
     let lat = parseFloat(coordinates[1]);
     let lon = parseFloat(coordinates[0]);
     let mag = Math.round(parseFloat(jsonGempa.properties.mag) * 10) / 10;
-    let timeUTC = jsonGempa.properties.time.split(" ")[1].split(".")[0];
-    let dateUTC = jsonGempa.properties.time.split(" ")[0];
-    let quakeTime = new Date(dateUTC + "T" + timeUTC + "+00:00");
-    let offset = quakeTime.getTimezoneOffset() / -60;
-    let localTime = getTwoDigit(quakeTime.getHours()) + ":" + getTwoDigit(quakeTime.getMinutes()) + ":" + getTwoDigit(quakeTime.getSeconds());
-    let localDate = quakeTime.getDate() + " " + getBulan(quakeTime.getMonth()) + " " + quakeTime.getFullYear()
+    let timedateConvert = konversiUTC(jsonGempa.properties.time);
+    let localTime = timedateConvert[0]
+    let localDate = timedateConvert[1]
 
     map.setView([lat,lon],5)
     linkGMap.href = "https://www.google.com/maps?q=" + lat + ", " + lon;
@@ -96,21 +92,6 @@ function displayUpdate (jsonGempa, sound = false) {
         marker = L.marker([lat,lon], {icon: xmark}).addTo(map);
     }
 
-    switch (offset) {
-        case 7:
-            localTime += " WIB"; break;
-        case 8:
-            localTime += " WITA"; break;
-        case 9:
-            localTime += " WIT"; break;
-        default:
-            if (offset >= 0) {
-                localTime += " (UTC +" + offset + ")"
-            } else {
-                localTime += " (UTC " + offset + ")"
-            }
-            break;
-    }
     spanWaktu.innerText = localTime;
     spanKedalaman.innerText = "Kedalaman: " + Math.round(parseFloat(jsonGempa.properties.depth)) + " km";
     spanMagnitudo.innerText = mag;
@@ -128,39 +109,6 @@ function displayUpdate (jsonGempa, sound = false) {
         } else {
             audInfo.play();
         }
-    }
-}
-
-function getTwoDigit(number) {
-    numstr = number.toString()
-    if (numstr.length < 2) {
-        numstr = "0" + numstr;
-    }
-    return numstr;
-}
-
-function getBulan(month) {
-    switch (month) {
-        case 0: return "Januari";
-        case 1: return "Februari";
-        case 2: return "Maret";
-        case 3: return "April";
-        case 4: return "Mei";
-        case 5: return "Juni";
-        case 6: return "Juli";
-        case 7: return "Agustus";
-        case 8: return "September";
-        case 9: return "Oktober";
-        case 10: return "November";
-        case 11: return "Desember";
-        default: return "";
-    }
-}
-
-function ubahWarna(objek, warna) {
-    objek.classList.remove("warna-biru", "warna-kuning", "warna-merah");
-    if (warna) {
-        objek.classList.add("warna-" + warna);
     }
 }
 
