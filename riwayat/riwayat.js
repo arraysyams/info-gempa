@@ -4,6 +4,8 @@ var networkDebug = true;
 const refCard = document.querySelector(".card-event");
 const cloneCard = refCard.cloneNode(true);
 refCard.remove();
+const banner = document.querySelector("#banner");
+const loadingCircle = document.querySelector(".loading-indicator");
 var resultxml;
 
 document.querySelector("select").addEventListener("change", function (event) {
@@ -18,7 +20,11 @@ document.querySelector("select").addEventListener("change", function (event) {
 })
 
 function rebuildPage() {
-    document.querySelector(".card-list").innerHTML = ""
+    document.querySelector(".card-list").innerHTML = "";
+    loadingCircle.style.visibility = "visible";
+    loadingCircle.style.display = "flex";
+    banner.style.visibility = "collapse";
+    banner.style.display = "none";
     xmlhttp.open("GET", sumberData, true);
     xmlhttp.send();
 }
@@ -197,11 +203,21 @@ xmlhttp.onreadystatechange = function() {
         } else {
             buatDaftarReal(this.responseXML.getElementsByTagName("gempa"))
         }
+        loadingCircle.style.visibility = "collapse";
+        loadingCircle.style.display = "none";
     } else if (this.status == 404) {
         statusUpdate("Tidak bisa mengakses file: 404");
     } else {
         statusUpdate("Sedang mengupdate... " + this.readyState + "/" + this.status);
     }
+}
+
+xmlhttp.onerror = function() {
+    statusUpdate("Kesalahan jaringan?");
+    banner.style.visibility = "visible";
+    banner.style.display = "block";
+    loadingCircle.style.visibility = "collapse";
+    loadingCircle.style.display = "none";
 }
 
 rebuildPage()

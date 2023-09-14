@@ -12,8 +12,17 @@
         .svg-mag {content: url("../assets/img/magnitude.svg");}
         .svg-location {content: url("../assets/img/location.svg");}
         .svg-dirasakan {content: url("../assets/img/building.svg");}
-        card-body {
+        .card-body {
             padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
+        }
+        .loading-indicator {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 1em;
+        }
+        #banner {
+            display: none;
+            visibility: collapse;
         }
     </style>
     <link rel="stylesheet" href="../assets/css/common.css">
@@ -76,7 +85,17 @@
                     </div>
                 </div>
             </div>
+            <div class="loading-indicator">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
             <div class="row">
+                <div class="col-12" id="banner">
+                    <div class="card alert alert-danger" style="border: none;">
+                        <div class="row"><span class="text-center">Kesalahan jaringan.</span></div>
+                    </div>
+                </div>
                 <div class="col-12 card-list">
                     <div class="card card-event mb-2">
                         <div class="row g-0">
