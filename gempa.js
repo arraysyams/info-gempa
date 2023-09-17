@@ -178,21 +178,21 @@ function displayUpdate (jsonGempa, sound = false) {
         }
             
         if (daerahAwas.length > 0) {
-            areaTsunami += "<span style=\"color:#B31312; font-weight:bold\">=== AWAS ===</span><br>";
+            areaTsunami += "<span class=\"badge text-bg-danger\">AWAS</span><br>";
             for (let i = 0; i < daerahAwas.length; i++) {
                 areaTsunami += (i + 1) + ". " + daerahAwas[i] + "<br>";
             }
             areaTsunami += "<br>"
         }
         if (daerahSiaga.length > 0) {
-            areaTsunami += "<span style=\"color:#E57C23; font-weight:bold\">=== SIAGA ===</span><br>";
+            areaTsunami += "<span class=\"badge text-bg-warning\">SIAGA</span><br>";
             for (let i = 0; i < daerahSiaga.length; i++) {
                 areaTsunami += (i + 1) + ". " + daerahSiaga[i] + "<br>";
             }
             areaTsunami += "<br>"
         }
         if (daerahWaspada.length > 0) {
-            areaTsunami += "<span style=\"font-weight:bold\">=== WASPADA ===</span><br>";
+            areaTsunami += "<span class=\"badge text-bg-secondary\">WASPADA</span><br>";
             for (let i = 0; i < daerahWaspada.length; i++) {
                 areaTsunami += (i + 1) + ". " + daerahWaspada[i] + "<br>";
             }
