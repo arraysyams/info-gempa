@@ -61,7 +61,7 @@ function getCookie(cname) {
     return "";
 }
 
-function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi) {
+function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi, link) {
     let newCard = cloneCard.cloneNode(true);
     newCard.querySelector(".spanWaktu").innerText = waktu;
     newCard.querySelector(".spanTanggal").innerText = tanggal;
@@ -80,6 +80,7 @@ function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi) 
     if (mag >= 5) {magColor = "kuning";} else
     {magColor = "biru";}
     
+    newCard.setAttribute("href", link)
     ubahWarna(newCard.querySelector(".warna-magnitudo"), magColor);
     document.querySelector(".card-list").appendChild(newCard);
 }
@@ -87,6 +88,7 @@ function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi) 
 function buatDaftar(xmlGempa) {
     for (let i = 0; i < xmlGempa.length; i++) {
         let eventid = xmlGempa[i].querySelector("eventid").innerHTML;
+        let link = `../detail/index.html?src=1&e=${eventid}`;
         let timedateConvert = konversiWIB(xmlGempa[i].querySelector("time").innerHTML, xmlGempa[i].querySelector("date").innerHTML, eventid);
         let waktu = timedateConvert[0];
         let tanggal = timedateConvert[1];
@@ -99,13 +101,14 @@ function buatDaftar(xmlGempa) {
         } catch (error) {
             mmi = "";
         }
-        tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi);
+        tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi, link);
     }
 }
 
 function buatDaftarReal(xmlGempa) {
     for (let i = 0; i < xmlGempa.length; i++) {
         let eventid = xmlGempa[i].querySelector("eventid").innerHTML;
+        let link = `../detail/index.html?src=2&e=${eventid}`;
         let datetimeConvert = konversiUTC(xmlGempa[i].querySelector("waktu").innerHTML.replaceAll("  ", " "));
         let waktu = datetimeConvert[0];
         let tanggal = datetimeConvert[1];
@@ -113,7 +116,7 @@ function buatDaftarReal(xmlGempa) {
         let magnitudo = xmlGempa[i].querySelector("mag").innerHTML;
         let lokasi = xmlGempa[i].querySelector("area").innerHTML;
         let mmi = "";
-        tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi);
+        tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi, link);
     }
 }
 

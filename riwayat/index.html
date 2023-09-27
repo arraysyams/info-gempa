@@ -25,6 +25,14 @@
             display: none;
             visibility: collapse;
         }
+        .card-event {
+            text-decoration: none;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+        .card-event:hover {
+            box-shadow: 0 0 7px #949494;
+        }
     </style>
     <link rel="stylesheet" href="../assets/css/common.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -99,7 +107,7 @@
                     </div>
                 </div>
                 <div class="col-12 card-list">
-                    <div class="card card-event mb-2">
+                    <a class="card card-event mb-2">
                         <div class="row g-0">
                             <div class="col-8 col-md-9 col-lg-10 card-header" style="border-top-right-radius: 0;">
                                 <div class="row">
@@ -147,7 +155,7 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
