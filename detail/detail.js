@@ -28,9 +28,12 @@ async function getXML(url) {
     let result;
     try {
         let response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(response.status);
+        }
         result = await response.text();
     } catch (error) {
-        result = `<error>${error}</error>`;
+        result = `<eventid><error>${error}</error></eventid>`;
     }
     return parser.parseFromString(result, "text/xml");
 }
@@ -41,20 +44,26 @@ async function displayStats() {
     let eventid = urlParams.get("e");
     let realxml;
 
+    if (!navigator.onLine) {
+        console.log("No internet connection");
+        return;
+    }
+
     if (parseFloat(numsrc) == 1) {
         let mag5xml = await getXML("https://bmkg-content-inatews.storage.googleapis.com/last30event.xml");
         let feltxml = await getXML("https://bmkg-content-inatews.storage.googleapis.com/last30feltevent.xml");
-        
+
         let emag5 = mag5xml.querySelectorAll("eventid");
         let efelt = feltxml.querySelectorAll("eventid");
         let detailxml;
 
-        // Search information on felt first for actual update
+        // Search information on feltxml
         for (let i = 0; i < efelt.length; i++) {
             if (efelt[i].innerHTML == eventid) {
                 detailxml = efelt[i].parentElement;
             }
         }
+        // If nothing's found, search on mag5xml
         if (typeof(detailxml) == 'undefined') {
             for (let i = 0; i < emag5.length; i++) {
                 if (emag5[i].innerHTML == eventid) {
@@ -62,7 +71,19 @@ async function displayStats() {
                 }
             }
         }
-        console.log(detailxml)
+        // Throw an error message since there's no matching eventid
+        if (typeof(detailxml) == 'undefined') {
+            errout = "";
+            err1 = emag5[0].querySelector("error").innerHTML;
+            err2 = efelt[0].querySelector("error").innerHTML;
+            if (err1 == err2) {
+                errout = err1;
+            } else {
+                errout = `${err1}\n${err2}`;
+            }
+            console.log(errout);
+        }
+        
 
     } else if (parseFloat(numsrc) == 2) {
         xmlhttp.open("GET", "https://bmkg-content-inatews.storage.googleapis.com/live30event.xml", true);
