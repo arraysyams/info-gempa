@@ -9,20 +9,6 @@ function statusUpdate (text) {
     }
 }
 
-// xmlhttp.onreadystatechange = function() {
-//     if (this.readyState == 4 && this.status == 200) {
-//         if (this.responseXML.querySelector("info")) {
-//             cachexml.push(this.responseXML.querySelector("alert"));
-//         } else {
-//             cachexml += this.responseXML.querySelector("Infogempa");
-//         }
-//     } else if (this.status == 404) {
-//         statusUpdate("Tidak bisa mengakses file: 404");
-//     } else {
-//         statusUpdate("Sedang mengupdate... " + this.readyState + "/" + this.status);
-//     }
-// }
-
 async function getXML(url) {
     const parser = new DOMParser();
     let result;
@@ -42,7 +28,6 @@ async function displayStats() {
     // const parser = new DOMParser();
     let numsrc = urlParams.get("src");
     let eventid = urlParams.get("e");
-    let realxml;
 
     if (!navigator.onLine) {
         console.log("No internet connection");
@@ -73,7 +58,7 @@ async function displayStats() {
         }
         // Throw an error message since there's no matching eventid
         if (typeof(detailxml) == 'undefined') {
-            errout = "";
+            let errout = "";
             err1 = emag5[0].querySelector("error").innerHTML;
             err2 = efelt[0].querySelector("error").innerHTML;
             if (err1 == err2) {
@@ -82,14 +67,26 @@ async function displayStats() {
                 errout = `${err1}\n${err2}`;
             }
             console.log(errout);
+        } else {
+            console.log(detailxml);
         }
-        
 
     } else if (parseFloat(numsrc) == 2) {
-        xmlhttp.open("GET", "https://bmkg-content-inatews.storage.googleapis.com/live30event.xml", true);
-        xmlhttp.send();
+        let realxml = await getXML("https://bmkg-content-inatews.storage.googleapis.com/live30event.xml");
+        let ereal = realxml.querySelectorAll("eventid");
+        
+        for (let i = 0; i < ereal.length; i++) {
+            if (ereal[i].innerHTML == eventid) {
+                detailxml = ereal[i].parentElement;
+            }
+        }
+        if (typeof(detailxml) == 'undefined') {
+            let errout = ereal[0].querySelector("error").innerHTML;
+            console.log(errout);
+        } else {
+            console.log(detailxml);
+        }
     } else {
         return;
     }
-
 }
