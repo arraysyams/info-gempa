@@ -37,7 +37,7 @@ var firstState = true;
 
 // Variabel peta
 var map = L.map('map').setView([-3,118], 3);
-L.tileLayer('https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=6uSx9gi4Qs2duIW6j3eT', {
+L.tileLayer('https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}@2x.png?key=6uSx9gi4Qs2duIW6j3eT', {
     tileSize: 512,
     minZoom: 3,
     zoomOffset: -1,
