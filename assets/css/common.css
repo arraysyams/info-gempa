@@ -16,7 +16,7 @@
     --my-muted-color: rgba(33, 37, 41, 0.75);
     --inverted: 0;
 }
-h2.header, span.header {color: var(--my-text-color);}
+h2.header, span.header, h3.header, hr, p, li {color: var(--my-text-color);}
 div.card-header {background-color: var(--my-card-cap-bg);}
 footer.footer {background-color: var(--my-footer-bg-color)}
 span.text-footer {color: var(--my-text-color);}
