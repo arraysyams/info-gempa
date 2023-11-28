@@ -39,3 +39,7 @@ ul > li > a.active > span {padding-bottom: 1px; border-bottom: 3px solid var(--u
 .warna-merah {background-image: var(--bs-gradient)!important; background-color: #dc3545!important;}
 .warna-merah > span, .warna-merah > div > span, .warna-merah > div > h2 {color: white;}
 .warna-merah > div > h2 > img, .warna-merah > span > img {filter: invert(100%);}
+@media (max-width: 350px) {
+    .card-top > .row, .card-event > .row {flex-direction: column-reverse;}
+    .card-top > .row > *, .card-event > .row  > * {width: 100%}
+}
