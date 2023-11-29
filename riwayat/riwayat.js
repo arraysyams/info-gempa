@@ -13,7 +13,8 @@ document.querySelector("select").addEventListener("change", function (event) {
 })
 
 function firstStart () {
-    let lastRiwayat = parseFloat(getCookie("lastriwayat"))
+    let lastRiwayat = parseFloat(getCookie("lastriwayat"));
+    document.querySelector(".card-list").style.visibility = "visible";
     if (!lastRiwayat || lastRiwayat == 0) {
         document.querySelector(".card-list").innerHTML = "<p>Silakan memilih data melalui dropdown di atas.</p>"
     } else {
