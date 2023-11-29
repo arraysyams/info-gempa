@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en" data-bs-theme="light" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -98,7 +98,7 @@
                         <div class="row"><span class="text-center">Kesalahan jaringan.</span></div>
                     </div>
                 </div>
-                <div class="col-12 card-list">
+                <div class="col-12 card-list" style="visibility: hidden;">
                     <div class="card card-event mb-2">
                         <div class="row g-0">
                             <div class="col-8 col-md-9 col-lg-10 card-header" style="border-top-right-radius: 0;">
@@ -126,8 +126,6 @@
                                     <span class="text-center">
                                         Magnitudo
                                     </span>
-                                </div>
-                                <div class="row g-0">
                                     <h2 class="text-center align-middle">
                                         <img alt="Magnitudo" class="mid-svg svg-mag">
                                         <span class="spanMagnitudo">-</span>
@@ -155,18 +153,11 @@
     <footer class="footer mt-auto py-3" id="below">
         <div class="container">
             <span class="text-footer">
-                Sumber data: BMKG. <a href="#below" id="linkDisc">Disclaimer & Credits.</a>
+                Sumber data: BMKG. <a href="../disclaimer">Disclaimer & Credits.</a>
             </span>
         </div>
     </footer>
-    <!-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""></script> -->
     <script type="text/javascript" src="riwayat.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript">
-        var btDisc = document.getElementById("linkDisc");
-        btDisc.addEventListener("click", () => {alert("== DISCLAIMER ==\nData yang tersedia pada halaman ini bukanlah informasi resmi. Website ini tidak disponsori oleh BMKG dalam bentuk apapun.\n\n== CREDITS ==\nBootstrap (getbootstrap.com)\nBMKG (www.bmkg.go.id)\nLeaflet (leafletjs.com)\nOpenStreetMap (www.openstreetmap.org)\nMapTiler (www.maptiler.com)\n\n== SOUNDS (Freesound.org) ==\n\'Weird Buttons App Game UI\' - Eponn (bit.ly/patreon22)\n\'UI Confirmation Alert\' - InspectorJ (www.jshaw.co.uk)\n\'UIAlert_Interface.Alarm.Warning signal 6_EM\' - newlocknew")})
-    </script>
 </body>
 </html>
