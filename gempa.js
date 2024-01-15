@@ -141,7 +141,7 @@ function displayUpdate (jsonGempa, sound = false) {
     }
 
     let mmi = jsonGempa.felt;
-    if (!mmi || mmi == "") {
+    if (!mmi || mmi.trim() == "") {
         cardDirasakan.hidden = true;
         spanDirasakan.innerText = "-";
     } else {
