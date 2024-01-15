@@ -145,34 +145,41 @@ function displayUpdate (jsonGempa, sound = false) {
         cardDirasakan.hidden = true;
         spanDirasakan.innerText = "-";
     } else {
-        const objmmi = {};
-        let splitmmi = mmi.split(",");
-        splitmmi.forEach(element => {
-            splitElem = element.trim().split(" ");
-            let intensity = splitElem[0];
-            splitElem.shift()
-            let place = splitElem.join(" ");
-            if (objmmi[intensity]) {
-                objmmi[intensity] += `, ${place}`;
+        const daftarMMI = {};
+        let splitMMI = mmi.split(",");
+        splitMMI.forEach(mmiTempat => {
+            // Format: "MMI Nama Tempat" --> "MMI", "Nama", "Tempat"
+            splitMMITempat = mmiTempat.trim().split(" ");
+            // Ambil MMI
+            let intensitas = splitMMITempat[0];
+            // Hapus variabel MMI dari array
+            splitMMITempat.shift()
+            // Ambil lokasi; "Nama", "Tempat" --> "Nama Tempat"
+            let lokasi = splitMMITempat.join(" ");
+            // Masukkan nama tempat pada intensitas yang tersedia pada daftar
+            if (daftarMMI[intensitas]) {
+                daftarMMI[intensitas] += `, ${lokasi}`;
             } else {
-                objmmi[intensity] = place;
+                // Jika intensitas tidak ada dalam daftar, tambah properti
+                daftarMMI[intensitas] = lokasi;
             }
         });
-        let listmmi = Object.keys(objmmi);
+        // Ambil properti MMI dari daftarMMI (II, III, ...)
+        let propMMI = Object.keys(daftarMMI);
         let outmmi = "";
-        listmmi.forEach(element => {
-            // Create span
+        propMMI.forEach(intensitas => {
+            // Buat span baru
             outmmi += `<span class=\"badge `;
-            // Change color based on their mmi
-            if (matchMultiple(element, ["VIII", "IX", "X", "XI", "XII"])) {
+            // Ubah warnanya sesuai tingkat intensitas
+            if (matchMultiple(intensitas, ["VIII", "IX", "X", "XI", "XII"])) {
                 outmmi += `text-bg-danger`;
-            } else if (matchMultiple(element, ["V", "VI", "VII"])) {
+            } else if (matchMultiple(intensitas, ["V", "VI", "VII"])) {
                 outmmi += `text-bg-warning`;
             } else {
                 outmmi += `text-bg-secondary`;
             }
-            // Add style, closing tags and felt location
-            outmmi += `\" style=\"margin-right: 5px; min-width: 40px\">${element}</span>${objmmi[element]}<br>`;
+            // Tambah css dan nama tempat sesuai MMI
+            outmmi += `\" style=\"margin-right: 5px; min-width: 40px\">${intensitas}</span>${daftarMMI[intensitas]}<br>`;
         })
         spanDirasakan.innerHTML = outmmi;
         ubahWarna(warnaDirasakan);
