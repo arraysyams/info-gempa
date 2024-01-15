@@ -169,17 +169,21 @@ function displayUpdate (jsonGempa, sound = false) {
         let outmmi = "";
         propMMI.forEach(intensitas => {
             // Buat span baru
-            outmmi += `<span class=\"badge `;
+            outmmi += `<span class=\"badge badge-mmi\" style=\"`;
             // Ubah warnanya sesuai tingkat intensitas
-            if (matchMultiple(intensitas, ["VIII", "IX", "X", "XI", "XII"])) {
-                outmmi += `text-bg-danger`;
-            } else if (matchMultiple(intensitas, ["V", "VI", "VII"])) {
-                outmmi += `text-bg-warning`;
+            if (matchMultiple(intensitas, ["IX", "X", "XI", "XII"])) {
+                outmmi += `--my-mmi-color: #dc3545; --my-mmi-text: white;`;
+            } else if (matchMultiple(intensitas, ["VII", "VIII"])) {
+                outmmi += `--my-mmi-color: #fd7e14; --my-mmi-text: white;`;
+            } else if (matchMultiple(intensitas, ["VI"])) {
+                outmmi += `--my-mmi-color: #ffc107; --my-mmi-text: black;`;
+            } else if (matchMultiple(intensitas, ["III", "IV", "V"])) {
+                outmmi += `--my-mmi-color: #198754; --my-mmi-text: white;`;
             } else {
-                outmmi += `text-bg-secondary`;
+                
             }
-            // Tambah css dan nama tempat sesuai MMI
-            outmmi += `\" style=\"margin-right: 5px; min-width: 40px\">${intensitas}</span>${daftarMMI[intensitas]}<br>`;
+            // Tutup tag span dan tambahkan nama tempat sesuai MMI
+            outmmi += `\">${intensitas}</span>${daftarMMI[intensitas]}<br>`;
         })
         spanDirasakan.innerHTML = outmmi;
         ubahWarna(warnaDirasakan);

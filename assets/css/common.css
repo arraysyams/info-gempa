@@ -10,6 +10,8 @@
     --my-muted-color: rgba(226, 226, 226, 0.75);
     --my-footer-bg-color: #212529;
     --my-zoom-color: black;
+    --my-mmi-color: #6c757d;
+    --my-mmi-text: white;
     --inverted: 1;
 }
 /* Variabel warna di mode terang */
@@ -19,6 +21,8 @@
     --my-card-cap-bg: rgba(33, 37, 41, 0.03);
     --my-footer-bg-color: rgb(248,249,250);
     --my-muted-color: rgba(33, 37, 41, 0.75);
+    --my-mmi-color: #e9e9e9;
+    --my-mmi-text: black;
     --inverted: 0;
 }
 
@@ -109,6 +113,17 @@ ul > li > a.active > span {
 }
 .warna-merah > div > h2 > img, .warna-merah > span > img {
     filter: invert(100%);
+}
+
+/* Badge khusus penanda MMI */
+/* Gunakan variabel --my-mmi-color dan --my-mmi-text untuk mengganti warnanya */
+.badge-mmi {
+    background-color: var(--my-mmi-color);
+    margin-right: 5px;
+    min-width: 40px;
+}
+span.badge-mmi {
+    color: var(--my-mmi-text);
 }
 
 /* Ubah urutan elemen pada .card-top jika ukuran layar terlalu kecil */
