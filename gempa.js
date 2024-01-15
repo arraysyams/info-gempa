@@ -145,7 +145,36 @@ function displayUpdate (jsonGempa, sound = false) {
         cardDirasakan.hidden = true;
         spanDirasakan.innerText = "-";
     } else {
-        spanDirasakan.innerText = mmi;
+        const objmmi = {};
+        let splitmmi = mmi.split(",");
+        splitmmi.forEach(element => {
+            splitElem = element.trim().split(" ");
+            let intensity = splitElem[0];
+            splitElem.shift()
+            let place = splitElem.join(" ");
+            if (objmmi[intensity]) {
+                objmmi[intensity] += `, ${place}`;
+            } else {
+                objmmi[intensity] = place;
+            }
+        });
+        let listmmi = Object.keys(objmmi);
+        let outmmi = "";
+        listmmi.forEach(element => {
+            // Create span
+            outmmi += `<span class=\"badge `;
+            // Change color based on their mmi
+            if (matchMultiple(element, ["VIII", "IX", "X", "XI", "XII"])) {
+                outmmi += `text-bg-danger`;
+            } else if (matchMultiple(element, ["V", "VI", "VII"])) {
+                outmmi += `text-bg-warning`;
+            } else {
+                outmmi += `text-bg-secondary`;
+            }
+            // Add style, closing tags and felt location
+            outmmi += `\" style=\"margin-right: 5px; min-width: 40px\">${element}</span>${objmmi[element]}<br>`;
+        })
+        spanDirasakan.innerHTML = outmmi;
         ubahWarna(warnaDirasakan);
         if (matchMultiple(mmi, ["V", "VI", "VII"])) {
             ubahWarna(warnaDirasakan, "kuning");
