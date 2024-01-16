@@ -149,6 +149,10 @@ function displayUpdate (jsonGempa, sound = false) {
         let splitMMI = mmi.split(",");
         splitMMI.forEach(mmiTempat => {
             // Format: "MMI Nama Tempat" --> "MMI", "Nama", "Tempat"
+            // Format MMI: "II", "II-III", "II - III"
+            // Hapus spasi agar hasil pertama split selalu MMI
+            let reg = new RegExp("\\s*-\\s*", "g");
+            mmiTempat = mmiTempat.replace(reg, "-");
             splitMMITempat = mmiTempat.trim().split(" ");
             // Ambil MMI
             let intensitas = splitMMITempat[0];
