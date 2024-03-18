@@ -58,6 +58,17 @@ function getTimezoneRegion(offset) {
     }
 }
 
+function matchMultiple(text, arraymatches) {
+    let found = false;
+    for (let i = 0; i < arraymatches.length; i++) {
+        let regex = new RegExp("\\b" + arraymatches[i] + "\\b", "gmi");
+        if(text.match(regex)) {
+            found = true;
+        }
+    }
+    return found;
+}
+
 function konversiWIB(strWaktu, strTanggal, strEventID) {
     // Format strWaktu   "HH:MM:SS WIB"
     // Format strTanggal "DD-MM-YY"
@@ -104,4 +115,52 @@ function konversiUTC(strWaktuTanggal) {
     let localDate = waktuGempa.getDate() + " " + getBulan(waktuGempa.getMonth()) + " " + waktuGempa.getFullYear();
 
     return [localTime, localDate];
+}
+
+function getMMIHTMLView(mmi) {
+    const daftarMMI = {};
+    let splitMMI = mmi.split(",");
+    splitMMI.forEach(mmiTempat => {
+        // Format: "MMI Nama Tempat" --> "MMI", "Nama", "Tempat"
+        // Format MMI: "II", "II-III", "II - III"
+        // Hapus spasi agar hasil pertama split selalu MMI
+        let reg = new RegExp("\\s*-\\s*", "g");
+        mmiTempat = mmiTempat.replace(reg, "-");
+        splitMMITempat = mmiTempat.trim().split(" ");
+        // Ambil MMI
+        let intensitas = splitMMITempat[0];
+        // Hapus variabel MMI dari array
+        splitMMITempat.shift()
+        // Ambil lokasi; "Nama", "Tempat" --> "Nama Tempat"
+        let lokasi = splitMMITempat.join(" ");
+        // Masukkan nama tempat pada intensitas yang tersedia pada daftar
+        if (daftarMMI[intensitas]) {
+            daftarMMI[intensitas] += `, ${lokasi}`;
+        } else {
+            // Jika intensitas tidak ada dalam daftar, tambah properti
+            daftarMMI[intensitas] = lokasi;
+        }
+    });
+    // Ambil properti MMI dari daftarMMI (II, III, ...)
+    let propMMI = Object.keys(daftarMMI);
+    let outmmi = "";
+    propMMI.forEach(intensitas => {
+        // Buat span baru
+        outmmi += `<span class=\"badge badge-mmi\" style=\"`;
+        // Ubah warnanya sesuai tingkat intensitas
+        if (matchMultiple(intensitas, ["IX", "X", "XI", "XII"])) {
+            outmmi += `--my-mmi-color: #dc3545; --my-mmi-text: white;`;
+        } else if (matchMultiple(intensitas, ["VII", "VIII"])) {
+            outmmi += `--my-mmi-color: #fd7e14; --my-mmi-text: white;`;
+        } else if (matchMultiple(intensitas, ["VI"])) {
+            outmmi += `--my-mmi-color: #ffc107; --my-mmi-text: black;`;
+        } else if (matchMultiple(intensitas, ["III", "IV", "V"])) {
+            outmmi += `--my-mmi-color: #198754; --my-mmi-text: white;`;
+        } else {
+
+        }
+        // Tutup tag span dan tambahkan nama tempat sesuai MMI
+        outmmi += `\">${intensitas}</span>${daftarMMI[intensitas]}<br>`;
+    })
+    return outmmi;
 }
