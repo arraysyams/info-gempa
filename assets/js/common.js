@@ -128,9 +128,9 @@ function getMMIHTMLView(mmi) {
         mmiTempat = mmiTempat.replace(reg, "-");
         splitMMITempat = mmiTempat.trim().split(" ");
         // Ambil MMI
-        let intensitas = splitMMITempat[0];
+        let intensitas = splitMMITempat[0].toUpperCase();
         // Hapus variabel MMI dari array
-        splitMMITempat.shift()
+        splitMMITempat.shift();
         // Ambil lokasi; "Nama", "Tempat" --> "Nama Tempat"
         let lokasi = splitMMITempat.join(" ");
         // Masukkan nama tempat pada intensitas yang tersedia pada daftar
