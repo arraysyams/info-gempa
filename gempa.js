@@ -136,10 +136,10 @@ function displayUpdate (jsonGempa, sound = false) {
     } else {
         spanDirasakan.innerHTML = getMMIHTMLView(mmi);
         ubahWarna(warnaDirasakan);
-        if (matchMultiple(mmi, ["V", "VI", "VII"])) {
+        if (matchMultiple(mmi, ["VI", "VII", "VIII"])) {
             ubahWarna(warnaDirasakan, "kuning");
         }
-        if (matchMultiple(mmi, ["VIII", "IX", "X", "XI", "XII"])) {
+        if (matchMultiple(mmi, ["IX", "X", "XI", "XII"])) {
             ubahWarna(warnaDirasakan, "merah");
             triggerAlert = true;
         }
