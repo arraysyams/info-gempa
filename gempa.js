@@ -103,17 +103,6 @@ function statusUpdate (text) {
     }
 }
 
-function matchMultiple(text, arraymatches) {
-    let found = false;
-    for (let i = 0; i < arraymatches.length; i++) {
-        let regex = new RegExp("\\b" + arraymatches[i] + "\\b", "gmi");
-        if(text.match(regex)) {
-            found = true;
-        }
-    }
-    return found;
-}
-
 function displayUpdate (jsonGempa, sound = false) {
     let triggerAlert = false;
     let magColor = "biru";
@@ -141,16 +130,16 @@ function displayUpdate (jsonGempa, sound = false) {
     }
 
     let mmi = jsonGempa.felt;
-    if (!mmi || mmi == "") {
+    if (!mmi || mmi.trim() == "") {
         cardDirasakan.hidden = true;
         spanDirasakan.innerText = "-";
     } else {
-        spanDirasakan.innerText = mmi;
+        spanDirasakan.innerHTML = getMMIHTMLView(mmi);
         ubahWarna(warnaDirasakan);
-        if (matchMultiple(mmi, ["V", "VI", "VII"])) {
+        if (matchMultiple(mmi, ["VI", "VII", "VIII"])) {
             ubahWarna(warnaDirasakan, "kuning");
         }
-        if (matchMultiple(mmi, ["VIII", "IX", "X", "XI", "XII"])) {
+        if (matchMultiple(mmi, ["IX", "X", "XI", "XII"])) {
             ubahWarna(warnaDirasakan, "merah");
             triggerAlert = true;
         }
