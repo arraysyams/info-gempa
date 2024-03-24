@@ -70,10 +70,12 @@ function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi) 
     newCard.querySelector(".spanMagnitudo").innerText = magnitudo;
     newCard.querySelector(".spanLokasi").innerText = lokasi;
     newCard.querySelector(".spanLokasiBawah").innerText = lokasi;
-    if (mmi) {
-        newCard.querySelector(".spanDirasakan").innerText = mmi;
+    if (mmi || mmi.trim() != "") {
+        newCard.querySelector(".spanDirasakan").innerHTML = getMMIHTMLView(mmi);
         newCard.querySelector(".card-bawah").classList.remove("d-block", "d-md-none", "d-lg-none");
-        newCard.querySelector(".spanParentDirasakan").classList.remove("d-none");
+    } else {
+        newCard.querySelector(".spanParentDirasakan").remove();
+        newCard.querySelector("hr").remove();
     }
     let mag = parseFloat(magnitudo);
     

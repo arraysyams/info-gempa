@@ -58,6 +58,17 @@ function getTimezoneRegion(offset) {
     }
 }
 
+function matchMultiple(text, arraymatches) {
+    let found = false;
+    for (let i = 0; i < arraymatches.length; i++) {
+        let regex = new RegExp("\\b" + arraymatches[i] + "\\b", "gmi");
+        if(text.match(regex)) {
+            found = true;
+        }
+    }
+    return found;
+}
+
 function konversiWIB(strWaktu, strTanggal, strEventID) {
     // Format strWaktu   "HH:MM:SS WIB"
     // Format strTanggal "DD-MM-YY"
@@ -104,4 +115,111 @@ function konversiUTC(strWaktuTanggal) {
     let localDate = waktuGempa.getDate() + " " + getBulan(waktuGempa.getMonth()) + " " + waktuGempa.getFullYear();
 
     return [localTime, localDate];
+}
+
+function getMMIValue (mmi) {
+    const romanVal = {
+        "I": 1,
+        "V": 5,
+        "X": 10,
+        "": 0,
+    }
+    if (typeof mmi == "string") {
+        const mmiConv = mmi.toUpperCase();
+        let mmiNum = 0;
+        for (let i = 0; i < mmiConv.length; i++) {
+            const nextChar = mmiConv.charAt(i + 1);
+            const prevChar = mmiConv.charAt(i - 1);
+            const currChar = mmiConv.charAt(i);
+            // Jika huruf romawi selanjutnya memiliki nilai yang lebih besar
+            // nilai huruf romawi sekarang (current) tidak perlu ditambahkan
+            if (romanVal[nextChar] <= romanVal[currChar]) {
+                mmiNum = mmiNum + romanVal[currChar];
+            }
+            // Kurangi nilai huruf romawi sekarang dengan huruf sebelumnya
+            // jika nilai sekarang lebih besar
+            // Contoh kasus: IV dan IX
+            if (romanVal[prevChar] < romanVal[currChar]) {
+                mmiNum = mmiNum - romanVal[prevChar];
+            }
+        }
+        return mmiNum;
+    } else {
+        return 0;
+    }
+}
+
+function getMMIHTMLView(mmi) {
+    const daftarMMI = {};
+    let splitMMI = mmi.split(",");
+    splitMMI.forEach(mmiTempat => {
+        // Format: "MMI Nama Tempat" --> "MMI", "Nama", "Tempat"
+        // Format MMI: "II", "II-III", "II - III"
+        // Hapus spasi agar hasil pertama split selalu MMI
+        let reg = new RegExp("\\s*-\\s*", "g");
+        mmiTempat = mmiTempat.replace(reg, "-");
+        splitMMITempat = mmiTempat.trim().split(" ");
+        // Ambil MMI
+        let intensitas = splitMMITempat[0].toUpperCase();
+        // Hapus variabel MMI dari array
+        splitMMITempat.shift();
+        // Ambil lokasi; "Nama", "Tempat" --> "Nama Tempat"
+        let lokasi = splitMMITempat.join(" ");
+        // Masukkan nama tempat pada intensitas yang tersedia pada daftar
+        if (daftarMMI[intensitas]) {
+            daftarMMI[intensitas] += `, ${lokasi}`;
+        } else {
+            // Jika intensitas tidak ada dalam daftar, tambah properti
+            daftarMMI[intensitas] = lokasi;
+        }
+    });
+    
+    // Konversi MMI yang menggunakan angka romawi menjadi angka biasa
+    // supaya bisa diurutkan
+    let nilaiAngkaMMI = {};
+    Object.keys(daftarMMI).forEach(keyMMI => {
+        const mmiGroup = keyMMI.split("-");
+        if (mmiGroup.length == 1) {
+            nilaiAngkaMMI[getMMIValue(keyMMI)] = keyMMI;
+        } else {
+            // Menggunakan rerata jika mmi lebih dari satu
+            // Misalnya II-III --> 2-3 --> 2,5
+            let mmiTotal = 0;
+            let mmiCount = 0;
+            mmiGroup.forEach(mmiRomawi => {
+                mmiTotal += getMMIValue(mmiRomawi);
+                mmiCount++
+            });
+            let mmiVal = mmiTotal / mmiCount;
+            nilaiAngkaMMI[mmiVal] = keyMMI;
+        }
+    })
+    
+    // Mengurutkan mmi dari yang terbesar ke terkecil
+    let nilaiUrutMMI = Object.keys(nilaiAngkaMMI).sort((a, b) => b - a);
+
+    let outmmi = "";
+    nilaiUrutMMI.forEach(mmiAngka => {
+        // Ambil mmi asli (yang menggunakan sistem romawi)
+        // sebagai key untuk mengambil data dari daftarMMI
+        const mmiRomawi = nilaiAngkaMMI[mmiAngka];
+        const mmiAngkaBulat = Math.ceil(parseFloat(mmiAngka));
+        // Buat span baru
+        outmmi += `<span class=\"badge badge-mmi\" style=\"`;
+        // Ubah warnanya sesuai tingkat intensitas
+        if (mmiAngkaBulat >= 9) {
+            outmmi += `--my-mmi-color: #dc3545; --my-mmi-text: white;`;
+        } else if (mmiAngkaBulat >= 7) {
+            outmmi += `--my-mmi-color: #fd7e14; --my-mmi-text: white;`;
+        } else if (mmiAngkaBulat >= 6) {
+            outmmi += `--my-mmi-color: #ffc107; --my-mmi-text: black;`;
+        } else {
+            if (mmiAngkaBulat >= 3) {
+                outmmi += `--my-mmi-color: #198754; --my-mmi-text: white;`;
+            }
+        }
+        // Tutup tag span dan tambahkan nama tempat sesuai MMI
+        outmmi += `\">${mmiRomawi}</span>${daftarMMI[mmiRomawi]}<br>`;
+    })
+    return outmmi;
 }
