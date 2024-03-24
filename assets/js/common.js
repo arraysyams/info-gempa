@@ -206,16 +206,16 @@ function getMMIHTMLView(mmi) {
         // Buat span baru
         outmmi += `<span class=\"badge badge-mmi\" style=\"`;
         // Ubah warnanya sesuai tingkat intensitas
-        if (matchMultiple(intensitas, ["IX", "X", "XI", "XII"])) {
+        if (mmiAngka > 9) {
             outmmi += `--my-mmi-color: #dc3545; --my-mmi-text: white;`;
-        } else if (matchMultiple(intensitas, ["VII", "VIII"])) {
+        } else if (mmiAngka > 7) {
             outmmi += `--my-mmi-color: #fd7e14; --my-mmi-text: white;`;
-        } else if (matchMultiple(intensitas, ["VI"])) {
+        } else if (mmiAngka > 6) {
             outmmi += `--my-mmi-color: #ffc107; --my-mmi-text: black;`;
-        } else if (matchMultiple(intensitas, ["III", "IV", "V"])) {
-            outmmi += `--my-mmi-color: #198754; --my-mmi-text: white;`;
         } else {
-
+            if (mmiAngka > 3) {
+                outmmi += `--my-mmi-color: #198754; --my-mmi-text: white;`;
+            }
         }
         // Tutup tag span dan tambahkan nama tempat sesuai MMI
         outmmi += `\">${intensitas}</span>${daftarMMI[intensitas]}<br>`;
