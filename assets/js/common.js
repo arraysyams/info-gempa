@@ -202,23 +202,24 @@ function getMMIHTMLView(mmi) {
     nilaiUrutMMI.forEach(mmiAngka => {
         // Ambil mmi asli (yang menggunakan sistem romawi)
         // sebagai key untuk mengambil data dari daftarMMI
-        let intensitas = nilaiAngkaMMI[mmiAngka];
+        const mmiRomawi = nilaiAngkaMMI[mmiAngka];
+        const mmiAngkaBulat = Math.ceil(parseFloat(mmiAngka));
         // Buat span baru
         outmmi += `<span class=\"badge badge-mmi\" style=\"`;
         // Ubah warnanya sesuai tingkat intensitas
-        if (mmiAngka > 9) {
+        if (mmiAngkaBulat >= 9) {
             outmmi += `--my-mmi-color: #dc3545; --my-mmi-text: white;`;
-        } else if (mmiAngka > 7) {
+        } else if (mmiAngkaBulat >= 7) {
             outmmi += `--my-mmi-color: #fd7e14; --my-mmi-text: white;`;
-        } else if (mmiAngka > 6) {
+        } else if (mmiAngkaBulat >= 6) {
             outmmi += `--my-mmi-color: #ffc107; --my-mmi-text: black;`;
         } else {
-            if (mmiAngka > 3) {
+            if (mmiAngkaBulat >= 3) {
                 outmmi += `--my-mmi-color: #198754; --my-mmi-text: white;`;
             }
         }
         // Tutup tag span dan tambahkan nama tempat sesuai MMI
-        outmmi += `\">${intensitas}</span>${daftarMMI[intensitas]}<br>`;
+        outmmi += `\">${mmiRomawi}</span>${daftarMMI[mmiRomawi]}<br>`;
     })
     return outmmi;
 }
