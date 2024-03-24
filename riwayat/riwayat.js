@@ -73,7 +73,9 @@ function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi) 
     if (mmi || mmi.trim() != "") {
         newCard.querySelector(".spanDirasakan").innerHTML = getMMIHTMLView(mmi);
         newCard.querySelector(".card-bawah").classList.remove("d-block", "d-md-none", "d-lg-none");
-        newCard.querySelector(".spanParentDirasakan").classList.remove("d-none");
+    } else {
+        newCard.querySelector(".spanParentDirasakan").remove();
+        newCard.querySelector("hr").remove();
     }
     let mag = parseFloat(magnitudo);
     
