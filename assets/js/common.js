@@ -117,6 +117,38 @@ function konversiUTC(strWaktuTanggal) {
     return [localTime, localDate];
 }
 
+function getMMIValue (mmi) {
+    const romanVal = {
+        "I": 1,
+        "V": 5,
+        "X": 10,
+        "": 0,
+    }
+    if (typeof mmi == "string") {
+        const mmiConv = mmi.toUpperCase();
+        let mmiNum = 0;
+        for (let i = 0; i < mmiConv.length; i++) {
+            const nextChar = mmiConv.charAt(i + 1);
+            const prevChar = mmiConv.charAt(i - 1);
+            const currChar = mmiConv.charAt(i);
+            // Jika huruf romawi selanjutnya memiliki nilai yang lebih besar
+            // nilai huruf romawi sekarang (current) tidak perlu ditambahkan
+            if (romanVal[nextChar] <= romanVal[currChar]) {
+                mmiNum = mmiNum + romanVal[currChar];
+            }
+            // Kurangi nilai huruf romawi sekarang dengan huruf sebelumnya
+            // jika nilai sekarang lebih besar
+            // Contoh kasus: IV dan IX
+            if (romanVal[prevChar] < romanVal[currChar]) {
+                mmiNum = mmiNum - romanVal[prevChar];
+            }
+        }
+        return mmiNum;
+    } else {
+        return 0;
+    }
+}
+
 function getMMIHTMLView(mmi) {
     const daftarMMI = {};
     let splitMMI = mmi.split(",");
@@ -141,10 +173,36 @@ function getMMIHTMLView(mmi) {
             daftarMMI[intensitas] = lokasi;
         }
     });
-    // Ambil properti MMI dari daftarMMI (II, III, ...)
-    let propMMI = Object.keys(daftarMMI);
+    
+    // Konversi MMI yang menggunakan angka romawi menjadi angka biasa
+    // supaya bisa diurutkan
+    let nilaiAngkaMMI = {};
+    Object.keys(daftarMMI).forEach(keyMMI => {
+        const mmiGroup = keyMMI.split("-");
+        if (mmiGroup.length == 1) {
+            nilaiAngkaMMI[getMMIValue(keyMMI)] = keyMMI;
+        } else {
+            // Menggunakan rerata jika mmi lebih dari satu
+            // Misalnya II-III --> 2-3 --> 2,5
+            let mmiTotal = 0;
+            let mmiCount = 0;
+            mmiGroup.forEach(mmiRomawi => {
+                mmiTotal += getMMIValue(mmiRomawi);
+                mmiCount++
+            });
+            let mmiVal = mmiTotal / mmiCount;
+            nilaiAngkaMMI[mmiVal] = keyMMI;
+        }
+    })
+    
+    // Mengurutkan mmi dari yang terbesar ke terkecil
+    let nilaiUrutMMI = Object.keys(nilaiAngkaMMI).sort((a, b) => b - a);
+
     let outmmi = "";
-    propMMI.forEach(intensitas => {
+    nilaiUrutMMI.forEach(mmiAngka => {
+        // Ambil mmi asli (yang menggunakan sistem romawi)
+        // sebagai key untuk mengambil data dari daftarMMI
+        let intensitas = nilaiAngkaMMI[mmiAngka];
         // Buat span baru
         outmmi += `<span class=\"badge badge-mmi\" style=\"`;
         // Ubah warnanya sesuai tingkat intensitas
