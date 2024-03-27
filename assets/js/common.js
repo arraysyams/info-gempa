@@ -223,3 +223,44 @@ function getMMIHTMLView(mmi) {
     })
     return outmmi;
 }
+
+function getTsunamiHTMLView(wzarea) {
+    let areaTsunami = "";
+    let daerahAwas = [];
+    let daerahSiaga = [];
+    let daerahWaspada = [];
+    // ubahWarna(warnaTsunami, "kuning");
+    for (let i = 0; i < wzarea.length; i++) {
+        if (wzarea[i]["level"].match(/\bWASPADA\b/gmi)) {
+            daerahWaspada.push("(" + wzarea[i]["province"] + ") " + wzarea[i]["district"]);
+        } else if (wzarea[i]["level"].match(/\bSIAGA\b/gmi)) {
+            daerahSiaga.push("(" + wzarea[i]["province"] + ") " + wzarea[i]["district"]);
+        } else {
+            if (wzarea[i]["level"].match(/\bAWAS\b/gmi)) {
+                daerahAwas.push("(" + wzarea[i]["province"] + ") " + wzarea[i]["district"]);
+            }
+        }
+    }
+        
+    if (daerahAwas.length > 0) {
+        areaTsunami += "<span class=\"badge text-bg-danger\">AWAS</span><br>";
+        for (let i = 0; i < daerahAwas.length; i++) {
+            areaTsunami += (i + 1) + ". " + daerahAwas[i] + "<br>";
+        }
+        areaTsunami += "<br>"
+    }
+    if (daerahSiaga.length > 0) {
+        areaTsunami += "<span class=\"badge text-bg-warning\">SIAGA</span><br>";
+        for (let i = 0; i < daerahSiaga.length; i++) {
+            areaTsunami += (i + 1) + ". " + daerahSiaga[i] + "<br>";
+        }
+        areaTsunami += "<br>"
+    }
+    if (daerahWaspada.length > 0) {
+        areaTsunami += "<span class=\"badge text-bg-secondary\">WASPADA</span><br>";
+        for (let i = 0; i < daerahWaspada.length; i++) {
+            areaTsunami += (i + 1) + ". " + daerahWaspada[i] + "<br>";
+        }
+    }
+    return areaTsunami;
+}

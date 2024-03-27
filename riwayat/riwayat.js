@@ -27,6 +27,7 @@ function ubahData(value) {
     if (value == 1) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30event.xml"} else
     if (value == 2) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30feltevent.xml";} else
     if (value == 3) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/live30event.xml";} else
+    if (value == 4) {sumberData = "https://bmkg-content-inatews.storage.googleapis.com/last30tsunamievent.xml";} else
     {return;}
     
     setCookieForever("lastriwayat", value.toString())
@@ -62,7 +63,7 @@ function getCookie(cname) {
     return "";
 }
 
-function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi) {
+function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi, wzarea, obsarea) {
     let newCard = cloneCard.cloneNode(true);
     newCard.querySelector(".spanWaktu").innerText = waktu;
     newCard.querySelector(".spanTanggal").innerText = tanggal;
@@ -70,13 +71,24 @@ function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi) 
     newCard.querySelector(".spanMagnitudo").innerText = magnitudo;
     newCard.querySelector(".spanLokasi").innerText = lokasi;
     newCard.querySelector(".spanLokasiBawah").innerText = lokasi;
-    if (mmi || mmi.trim() != "") {
-        newCard.querySelector(".spanDirasakan").innerHTML = getMMIHTMLView(mmi);
-        newCard.querySelector(".card-bawah").classList.remove("d-block", "d-md-none", "d-lg-none");
+    if (mmi) {
+        if (typeof mmi == 'string' && mmi.trim() != "") {
+            newCard.querySelector(".spanDirasakan").innerHTML = getMMIHTMLView(mmi);
+            newCard.querySelector(".card-bawah").classList.remove("d-block", "d-md-none", "d-lg-none");
+        }
     } else {
         newCard.querySelector(".spanParentDirasakan").remove();
-        newCard.querySelector("hr").remove();
+        newCard.querySelector("hr.mmi").remove();
     }
+    
+    if ((Array.isArray(wzarea) && wzarea.length > 0) || (Array.isArray(obsarea) && obsarea.length > 0)) {
+        newCard.querySelector(".spanInfoTsunami").innerHTML = getTsunamiHTMLView(wzarea);
+        newCard.querySelector(".card-bawah").classList.remove("d-block", "d-md-none", "d-lg-none");
+    } else {
+        newCard.querySelector(".spanParentInfoTsunami").remove();
+        newCard.querySelector("hr.tsunami").remove();
+    }
+
     let mag = parseFloat(magnitudo);
     
     if (mag >= 7) {magColor = "merah";} else
@@ -102,7 +114,37 @@ function buatDaftar(xmlGempa) {
         } catch (error) {
             mmi = "";
         }
-        tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi);
+
+        let wzarealist = [];
+        let wzareaxml = xmlGempa[i].querySelectorAll("wzarea");
+        wzareaxml.length > 0 && wzareaxml.forEach((wz) => {
+            let wzarea = {};
+            wzarea["province"] = wz.querySelector("province").innerHTML;
+            wzarea["district"] = wz.querySelector("district").innerHTML;
+            wzarea["level"] = wz.querySelector("level").innerHTML;
+            wzarea["date"] = wz.querySelector("date").innerHTML;
+            wzarea["time"] = wz.querySelector("time").innerHTML;
+            if (Object.keys(wzarea).length > 0) {
+                wzarealist.push(wzarea);
+            }
+        })
+
+        let obsarealist = [];
+        let obsareaxml = xmlGempa[i].querySelectorAll("obsarea");
+        obsareaxml.length > 0 && obsareaxml.forEach((obs) => {
+            let obsarea = {};
+            obsarea["location"] = obs.querySelector("location").innerHTML;
+            obsarea["loclatitude"] = obs.querySelector("loclatitude").innerHTML;
+            obsarea["loclongitude"] = obs.querySelector("loclongitude").innerHTML;
+            obsarea["height"] = obs.querySelector("height").innerHTML;
+            obsarea["date"] = obs.querySelector("date").innerHTML;
+            obsarea["time"] = obs.querySelector("time").innerHTML;
+            if (Object.keys(obsarea).length > 0) {
+                obsarealist.push(obsarea);
+            }
+        })
+
+        tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi, wzarealist, obsarealist);
     }
 }
 
@@ -115,8 +157,7 @@ function buatDaftarReal(xmlGempa) {
         let kedalaman = "Kedalaman: " + xmlGempa[i].querySelector("dalam").innerHTML + " Km";
         let magnitudo = xmlGempa[i].querySelector("mag").innerHTML;
         let lokasi = xmlGempa[i].querySelector("area").innerHTML;
-        let mmi = "";
-        tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi);
+        tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi);
     }
 }
 
