@@ -225,42 +225,49 @@ function getMMIHTMLView(mmi) {
 }
 
 function getTsunamiHTMLView(wzarea) {
-    let areaTsunami = "";
-    let daerahAwas = [];
-    let daerahSiaga = [];
-    let daerahWaspada = [];
-    // ubahWarna(warnaTsunami, "kuning");
+    let areaTsunamiHTML = "";
+    let statusDaerah = {
+        "AWAS": [],
+        "SIAGA": [],
+        "WASPADA": [],
+    }
+    const temaStatus = {
+        "AWAS": "text-bg-danger",
+        "SIAGA": "text-bg-warning",
+        "WASPADA": "text-bg-secondary",
+    }
+    
+    // Masukkan data tiap wilayah yang terdampak pada statusnya masing-masing
     for (let i = 0; i < wzarea.length; i++) {
-        if (wzarea[i]["level"].match(/\bWASPADA\b/gmi)) {
-            daerahWaspada.push("(" + wzarea[i]["province"] + ") " + wzarea[i]["district"]);
-        } else if (wzarea[i]["level"].match(/\bSIAGA\b/gmi)) {
-            daerahSiaga.push("(" + wzarea[i]["province"] + ") " + wzarea[i]["district"]);
-        } else {
-            if (wzarea[i]["level"].match(/\bAWAS\b/gmi)) {
-                daerahAwas.push("(" + wzarea[i]["province"] + ") " + wzarea[i]["district"]);
+        const wzLevel = wzarea[i]["level"];
+        let wzStatus = "";
+        Object.keys(statusDaerah).forEach((status) => {
+            const regex = new RegExp("\\b" + status + "\\b", "gmi");
+            if (wzLevel.match(regex)) {
+                statusDaerah[status].push(wzarea[i])
             }
-        }
+        })
     }
-        
-    if (daerahAwas.length > 0) {
-        areaTsunami += "<span class=\"badge text-bg-danger\">AWAS</span><br>";
-        for (let i = 0; i < daerahAwas.length; i++) {
-            areaTsunami += (i + 1) + ". " + daerahAwas[i] + "<br>";
+    
+    Object.keys(statusDaerah).forEach((status) => {
+        if (statusDaerah[status].length > 0) {
+            areaTsunamiHTML += `<table class="table table-sm table-striped table-hover caption-top">
+                                <tr><th>Kab/Kota (Provinsi)</th><th>Perkiraan tiba</th></tr>`
+            areaTsunamiHTML += `<caption class="px-2 rounded-3 text-center ${temaStatus[status]}"><b>${status}</b></caption>`;
+            statusDaerah[status].forEach((daerahTsunami, i) => {
+                // Konversi waktu (tanpa eventid)
+                const tanggalSplit = daerahTsunami.date.split("-");
+                const tahun = tanggalSplit[2]; const bulan = tanggalSplit[1]; const hari = tanggalSplit[0];
+                const waktuPerkiraan = new Date(`${tahun}-${bulan}-${hari}T${daerahTsunami.time.split(" ")[0]}+07:00`);
+                const offset = waktuPerkiraan.getTimezoneOffset() / -60;
+                let localTime = `${getTwoDigit(waktuPerkiraan.getHours())}:${getTwoDigit(waktuPerkiraan.getMinutes())} ${getTimezoneRegion(offset)}`;
+                const localDate = `${getTwoDigit(waktuPerkiraan.getDate())}-${getTwoDigit(waktuPerkiraan.getMonth() + 1)}-${waktuPerkiraan.getFullYear()}`;
+
+                areaTsunamiHTML += `<tr><th>${daerahTsunami.district} (${daerahTsunami.province})</th><th>${localDate}<br>${localTime}</th></tr>`;
+            })
+            areaTsunamiHTML += "</table>"
         }
-        areaTsunami += "<br>"
-    }
-    if (daerahSiaga.length > 0) {
-        areaTsunami += "<span class=\"badge text-bg-warning\">SIAGA</span><br>";
-        for (let i = 0; i < daerahSiaga.length; i++) {
-            areaTsunami += (i + 1) + ". " + daerahSiaga[i] + "<br>";
-        }
-        areaTsunami += "<br>"
-    }
-    if (daerahWaspada.length > 0) {
-        areaTsunami += "<span class=\"badge text-bg-secondary\">WASPADA</span><br>";
-        for (let i = 0; i < daerahWaspada.length; i++) {
-            areaTsunami += (i + 1) + ". " + daerahWaspada[i] + "<br>";
-        }
-    }
-    return areaTsunami;
+    })
+    
+    return areaTsunamiHTML;
 }
