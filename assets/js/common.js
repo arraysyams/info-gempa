@@ -249,21 +249,22 @@ function getTsunamiHTMLView(wzarea) {
         })
     }
     
+    // Buat tabel untuk setiap status daerah
     Object.keys(statusDaerah).forEach((status) => {
         if (statusDaerah[status].length > 0) {
             areaTsunamiHTML += `<table class="table table-sm table-striped table-hover caption-top">
                                 <tr><th>Kab/Kota (Provinsi)</th><th>Perkiraan tiba</th></tr>`
             areaTsunamiHTML += `<caption class="px-2 rounded-3 text-center ${temaStatus[status]}"><b>${status}</b></caption>`;
             statusDaerah[status].forEach((daerahTsunami, i) => {
-                // Konversi waktu (tanpa eventid)
+                // Konversi WIB (tanpa eventid)
                 const tanggalSplit = daerahTsunami.date.split("-");
                 const tahun = tanggalSplit[2]; const bulan = tanggalSplit[1]; const hari = tanggalSplit[0];
                 const waktuPerkiraan = new Date(`${tahun}-${bulan}-${hari}T${daerahTsunami.time.split(" ")[0]}+07:00`);
                 const offset = waktuPerkiraan.getTimezoneOffset() / -60;
-                let localTime = `${getTwoDigit(waktuPerkiraan.getHours())}:${getTwoDigit(waktuPerkiraan.getMinutes())} ${getTimezoneRegion(offset)}`;
+                const localTime = `${getTwoDigit(waktuPerkiraan.getHours())}:${getTwoDigit(waktuPerkiraan.getMinutes())} ${getTimezoneRegion(offset)}`;
                 const localDate = `${getTwoDigit(waktuPerkiraan.getDate())}-${getTwoDigit(waktuPerkiraan.getMonth() + 1)}-${waktuPerkiraan.getFullYear()}`;
 
-                areaTsunamiHTML += `<tr><th>${daerahTsunami.district} (${daerahTsunami.province})</th><th>${localDate}<br>${localTime}</th></tr>`;
+                areaTsunamiHTML += `<tr><td>${daerahTsunami.district} (${daerahTsunami.province})</td><td>${localDate}<br>${localTime}</td></tr>`;
             })
             areaTsunamiHTML += "</table>"
         }
