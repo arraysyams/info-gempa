@@ -252,7 +252,7 @@ function getTsunamiHTMLView(wzarea) {
     // Buat tabel untuk setiap status daerah
     Object.keys(statusDaerah).forEach((status) => {
         if (statusDaerah[status].length > 0) {
-            areaTsunamiHTML += `<table class="table table-sm table-striped table-hover caption-top">
+            areaTsunamiHTML += `<div class="table-responsive-md"><table class="table table-sm table-striped table-hover caption-top">
                                 <tr><th>Kab/Kota (Provinsi)</th><th>Perkiraan tiba</th></tr>`
             areaTsunamiHTML += `<caption class="px-2 rounded-3 text-center ${temaStatus[status]}"><b>${status}</b></caption>`;
             statusDaerah[status].forEach((daerahTsunami, i) => {
@@ -266,7 +266,7 @@ function getTsunamiHTMLView(wzarea) {
 
                 areaTsunamiHTML += `<tr><td>${daerahTsunami.district} (${daerahTsunami.province})</td><td>${localDate}<br>${localTime}</td></tr>`;
             })
-            areaTsunamiHTML += "</table>"
+            areaTsunamiHTML += "</table></div>"
         }
     })
     
