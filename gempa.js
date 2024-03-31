@@ -146,12 +146,19 @@ function displayUpdate (jsonGempa, sound = false) {
         cardDirasakan.hidden = false;
     }
 
-    let tsunamiStatus = jsonGempa.subject.split(".")[0]
-    if (matchMultiple(tsunamiStatus, ["PD-1", "PD-2", "PD-3"])) {
-        const wzarea = jsonGempa.wzarea;
-        const tsunamiHTML = getTsunamiHTMLView(wzarea)
-
+    let tsunamiStatus = getPDT(jsonGempa.subject).split(".")[0];
+    const wzarea = jsonGempa.wzarea;
+    if (tsunamiStatus == "1" || tsunamiStatus == "2" || tsunamiStatus == "3") {
+        let tsunamiHTML = "-";
+        switch (tsunamiStatus) {
+            case "1": 
+                tsunamiHTML = getTsunamiHTMLView(wzarea, false); break;
+            case "2":
+            case "3":
+                tsunamiHTML = getTsunamiHTMLView(wzarea, true); break;
+        };
         spanTsunami.innerHTML = tsunamiHTML;
+        
         if (tsunamiHTML.match(/\bWASPADA\b/gmi)) {
             ubahWarna(warnaTsunami, "kuning");
             triggerAlert = true;
@@ -162,7 +169,7 @@ function displayUpdate (jsonGempa, sound = false) {
         }
 
         cardTsunami.hidden = false;
-    } else if(tsunamiStatus.match(/\bPD-4\b/gmi)) {
+    } else if(tsunamiStatus == "4") {
         ubahWarna(warnaTsunami, "biru");
         spanTsunami.innerHTML = "Peringatan dini tsunami telah dinyatakan <span style=\"font-weight:bold\">BERAKHIR</span> untuk seluruh wilayah Indonesia";
         cardTsunami.hidden = false;

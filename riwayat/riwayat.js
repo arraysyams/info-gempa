@@ -81,19 +81,19 @@ function tambahInfo(waktu, tanggal, eventid, kedalaman, magnitudo, lokasi, mmi, 
         newCard.querySelector("hr.mmi").remove();
     }
     
-    const pdt = (subject && subject.match(/\bTSUNAMI\b/gmi)) ? subject.split(" ")[2].split("-")[1].split(".")[0] : "";
-    let infoPDT = "-"
-    switch (pdt) {
+    const pdt = getPDT(subject);
+    let infoPDT = "-";
+    switch (pdt.split(".")[0]) {
         case "1": infoPDT = "Peringatan dini tsunami (PDT-1)"; break;
         case "2": infoPDT = "Pemutakhiran peringatan dini tsunami (PDT-2)"; break;
-        case "3": infoPDT = "Pemutakhiran peringatan tsunami serta pengamatan tinggi muka laut (PDT-3)"; break;
+        case "3": infoPDT = `Pemutakhiran peringatan tsunami serta pengamatan tinggi muka laut (PDT-${pdt})`; break;
         case "4": infoPDT = "Peringatan dini tsunami telah berakhir"; break;
         default: break;
     }
 
     if (pdt || (Array.isArray(wzarea) && wzarea.length > 0) || (Array.isArray(obsarea) && obsarea.length > 0)) {
         newCard.querySelector(".spanInfoPDT").innerHTML = infoPDT;
-        newCard.querySelector(".spanInfoTsunami").innerHTML = getTsunamiHTMLView(wzarea);
+        newCard.querySelector(".spanInfoTsunami").innerHTML = getTsunamiHTMLView(wzarea, (pdt == "1" ? false : true));
         newCard.querySelector(".card-bawah").classList.remove("d-block", "d-md-none", "d-lg-none");
     } else {
         newCard.querySelector(".spanParentInfoTsunami").remove();
