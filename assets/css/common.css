@@ -27,7 +27,7 @@
 }
 
 /* Warna teks (judul, paragraf dan baris) */
-h2.header, span.header, h3.header, hr, p, li {
+h2.header, span.header, h3.header, hr, p, li, select.form-select, table.table td, table.table th {
     color: var(--my-text-color);
 }
 
