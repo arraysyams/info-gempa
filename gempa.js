@@ -146,59 +146,30 @@ function displayUpdate (jsonGempa, sound = false) {
         cardDirasakan.hidden = false;
     }
 
-    let tsunamiStatus = jsonGempa.subject.split(".")[0]
-    if (matchMultiple(tsunamiStatus, ["PD-1", "PD-2", "PD-3"])) {
-        let wzarea = jsonGempa.wzarea;
-        let areaTsunami = "";
-        let daerahAwas = [];
-        let daerahSiaga = [];
-        let daerahWaspada = [];
-        // ubahWarna(warnaTsunami, "kuning");
-        for (let i = 0; i < wzarea.length; i++) {
-            if (wzarea[i]["level"].match(/\bWASPADA\b/gmi)) {
-                daerahWaspada.push("(" + wzarea[i]["province"] + ") " + wzarea[i]["district"]);
-            } else if (wzarea[i]["level"].match(/\bSIAGA\b/gmi)) {
-                daerahSiaga.push("(" + wzarea[i]["province"] + ") " + wzarea[i]["district"]);
-            } else {
-                if (wzarea[i]["level"].match(/\bAWAS\b/gmi)) {
-                    daerahAwas.push("(" + wzarea[i]["province"] + ") " + wzarea[i]["district"]);
-                }
-            }
-        }
-            
-        if (daerahAwas.length > 0) {
-            areaTsunami += "<span class=\"badge text-bg-danger\">AWAS</span><br>";
-            for (let i = 0; i < daerahAwas.length; i++) {
-                areaTsunami += (i + 1) + ". " + daerahAwas[i] + "<br>";
-            }
-            areaTsunami += "<br>"
-        }
-        if (daerahSiaga.length > 0) {
-            areaTsunami += "<span class=\"badge text-bg-warning\">SIAGA</span><br>";
-            for (let i = 0; i < daerahSiaga.length; i++) {
-                areaTsunami += (i + 1) + ". " + daerahSiaga[i] + "<br>";
-            }
-            areaTsunami += "<br>"
-        }
-        if (daerahWaspada.length > 0) {
-            areaTsunami += "<span class=\"badge text-bg-secondary\">WASPADA</span><br>";
-            for (let i = 0; i < daerahWaspada.length; i++) {
-                areaTsunami += (i + 1) + ". " + daerahWaspada[i] + "<br>";
-            }
-        }
-
-        spanTsunami.innerHTML = areaTsunami;
-        if (areaTsunami.match(/\bWASPADA\b/gmi)) {
+    let tsunamiStatus = getPDT(jsonGempa.subject).split(".")[0];
+    const wzarea = jsonGempa.wzarea;
+    if (tsunamiStatus == "1" || tsunamiStatus == "2" || tsunamiStatus == "3") {
+        let tsunamiHTML = "-";
+        switch (tsunamiStatus) {
+            case "1": 
+                tsunamiHTML = getTsunamiHTMLView(wzarea, false); break;
+            case "2":
+            case "3":
+                tsunamiHTML = getTsunamiHTMLView(wzarea, true); break;
+        };
+        spanTsunami.innerHTML = tsunamiHTML;
+        
+        if (tsunamiHTML.match(/\bWASPADA\b/gmi)) {
             ubahWarna(warnaTsunami, "kuning");
             triggerAlert = true;
         } 
-        if (matchMultiple(areaTsunami, ["SIAGA", "AWAS"])) {
+        if (matchMultiple(tsunamiHTML, ["SIAGA", "AWAS"])) {
             ubahWarna(warnaTsunami, "merah");
             triggerAlert = true;
         }
 
         cardTsunami.hidden = false;
-    } else if(tsunamiStatus.match(/\bPD-4\b/gmi)) {
+    } else if(tsunamiStatus == "4") {
         ubahWarna(warnaTsunami, "biru");
         spanTsunami.innerHTML = "Peringatan dini tsunami telah dinyatakan <span style=\"font-weight:bold\">BERAKHIR</span> untuk seluruh wilayah Indonesia";
         cardTsunami.hidden = false;

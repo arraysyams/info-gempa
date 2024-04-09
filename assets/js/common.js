@@ -223,3 +223,61 @@ function getMMIHTMLView(mmi) {
     })
     return outmmi;
 }
+
+function getPDT(subject = "") {
+    const pdt = (subject && subject.match(/\bTSUNAMI\b/gmi)) ? subject.split(" ")[2].split("-")[1] : "";
+    return pdt;
+}
+
+function getTsunamiHTMLView(wzarea, showPerkiraan = true) {
+    let areaTsunamiHTML = "";
+    let statusDaerah = {
+        "AWAS": [],
+        "SIAGA": [],
+        "WASPADA": [],
+    }
+    const temaStatus = {
+        "AWAS": "text-bg-danger",
+        "SIAGA": "text-bg-warning",
+        "WASPADA": "text-bg-secondary",
+    }
+    
+    // Masukkan data tiap wilayah yang terdampak pada statusnya masing-masing
+    for (let i = 0; i < wzarea.length; i++) {
+        const wzLevel = wzarea[i]["level"];
+        let wzStatus = "";
+        Object.keys(statusDaerah).forEach((status) => {
+            const regex = new RegExp("\\b" + status + "\\b", "gmi");
+            if (wzLevel.match(regex)) {
+                statusDaerah[status].push(wzarea[i])
+            }
+        })
+    }
+    
+    // Buat tabel untuk setiap status daerah
+    Object.keys(statusDaerah).forEach((status) => {
+        if (statusDaerah[status].length > 0) {
+            areaTsunamiHTML += `<div class="table-responsive-md mt-2"><table class="table table-sm table-striped table-hover caption-top">
+                                <tr><th>Kab/Kota (Provinsi)</th>${showPerkiraan ? "<th>Perkiraan tiba</th>" : ""}</tr>`
+            areaTsunamiHTML += `<caption class="px-2 rounded-top-3 text-center ${temaStatus[status]}"><b>${status}</b></caption>`;
+            statusDaerah[status].forEach((daerahTsunami, i) => {
+                if (showPerkiraan) {
+                    // Konversi WIB (tanpa eventid)
+                    const tanggalSplit = daerahTsunami.date.split("-");
+                    const tahun = tanggalSplit[2]; const bulan = tanggalSplit[1]; const hari = tanggalSplit[0];
+                    const waktuPerkiraan = new Date(`${tahun}-${bulan}-${hari}T${daerahTsunami.time.split(" ")[0]}+07:00`);
+                    const offset = waktuPerkiraan.getTimezoneOffset() / -60;
+                    const localTime = `${getTwoDigit(waktuPerkiraan.getHours())}:${getTwoDigit(waktuPerkiraan.getMinutes())} ${getTimezoneRegion(offset)}`;
+                    const localDate = `${getTwoDigit(waktuPerkiraan.getDate())}-${getTwoDigit(waktuPerkiraan.getMonth() + 1)}-${waktuPerkiraan.getFullYear()}`;
+    
+                    areaTsunamiHTML += `<tr><td>${daerahTsunami.district} (${daerahTsunami.province})</td><td>${localDate}<br>${localTime}</td></tr>`;
+                } else {
+                    areaTsunamiHTML += `<tr><td>${daerahTsunami.district} (${daerahTsunami.province})</td></tr>`;
+                }
+            })
+            areaTsunamiHTML += "</table></div>"
+        }
+    })
+    
+    return areaTsunamiHTML;
+}
