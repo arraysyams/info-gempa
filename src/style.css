@@ -13,6 +13,35 @@
 	}
 }
 
+/* ===== Variabel responsive design ===== */
+/* Di bawah sm */
+:root {
+	--h1-size: 1.5rem;
+}
+/* Ukuran >=sm */
+@media screen and (min-width: 576px) {
+	:root {
+		--h1-size: 2rem;
+	}
+}
+/* >=md */
+@media screen and (min-width: 768px) {
+	:root {
+		--h1-size: 2.5rem;
+	}
+}
+/* >=lg */
+@media screen and (min-width: 992px) {
+	:root {
+		--h1-size: 3rem;
+	}
+}
+/* >=xl */
+@media screen and (min-width: 1200px) {
+	:root {
+	}
+}
+
 html {
 	font-family: Arial, Helvetica, sans-serif;
 }
@@ -36,5 +65,5 @@ main {
 }
 
 h1 {
-	font-size: 1.5rem;
+	font-size: var(--h1-size);
 }
