@@ -80,18 +80,25 @@ main {
 	align-items: center;
 	height: 100%;
 	width: 100%;
-	padding: 0 0.5rem;
+	padding: 0.5rem;
+	margin-left: auto;
+	margin-right: auto;
 
 	@media @sm {
-		padding: 0 1rem;
+		padding: 1rem;
 	}
 	@media @md {
-		padding: 0 1.5rem;
+		padding: 1.5rem;
+	}
+	@media @lg {
+		max-width: 1200px;
 	}
 }
 
 h1 {
 	font-size: 1.5rem;
+	margin: 0;
+	margin-bottom: 1rem;
 
 	@media @sm {
 		font-size: 2rem;
@@ -118,7 +125,7 @@ a {
 		gap: 1rem;
 	}
 
-	@media @lg {
+	@media @md {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
