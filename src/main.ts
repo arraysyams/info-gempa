@@ -141,7 +141,9 @@ async function updateTampilan({
 	}
 
 	spanDirasakan.textContent = dirasakan;
-	spanKedalaman.textContent = kedalaman;
+	spanKedalaman.textContent = kedalaman
+		? `Kedalaman: ${kedalaman}`
+		: "Kedalaman: -";
 	spanLokasi.textContent = lokasi;
 
 	const [latString, lngString] = koordinat.split(",");
