@@ -19,8 +19,9 @@ L.tileLayer(
 ).addTo(map);
 
 // ======= Function update marker =======
+import epicenterImage from "./images/epicenter_mark.png";
 const markerImage = L.icon({
-	iconUrl: "src/images/epicenter_mark.png",
+	iconUrl: epicenterImage,
 	iconSize: [22, 22],
 	iconAnchor: [11, 11],
 	popupAnchor: [0, 0],
