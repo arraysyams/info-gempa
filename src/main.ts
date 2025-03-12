@@ -140,17 +140,22 @@ async function updateTampilan({
 		spanTanggal.textContent = "-";
 	}
 
-	spanDirasakan.textContent = dirasakan;
 	spanKedalaman.textContent = kedalaman
 		? `Kedalaman: ${kedalaman}`
 		: "Kedalaman: -";
-	spanLokasi.textContent = lokasi;
 
+	// Lokasi dan titik gempa (episenter)
+	spanLokasi.textContent = lokasi ?? "-";
 	const [latString, lngString] = koordinat.split(",");
 	const lat = parseFloat(latString.trim());
 	const lng = parseFloat(lngString.trim());
-	updateMarker(lat, lng);
-	map.setView([lat, lng], 5);
+	if (!isNaN(lat) && !isNaN(lng)) {
+		updateMarker(lat, lng);
+		map.setView([lat, lng], 5);
+	}
+
+	// Dirasakan
+	spanDirasakan.textContent = dirasakan ?? "-";
 }
 
 // ======= Fetch API =======
@@ -171,7 +176,7 @@ async function ambilDataGempa() {
 					datetime: dataGempa?.DateTime ?? "",
 					kedalaman: dataGempa?.Kedalaman ?? "",
 					lokasi: dataGempa?.Wilayah ?? "",
-					koordinat: dataGempa?.Coordinates ?? "0,0",
+					koordinat: dataGempa?.Coordinates ?? "-,-",
 					dirasakan: dataGempa?.Dirasakan ?? "",
 				});
 			}
