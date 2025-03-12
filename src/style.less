@@ -12,6 +12,13 @@
 	--card-shadow: 0 2px 1px var(--card-border);
 	--card-header: hsl(0, 0%, 30%);
 	--card-header-foreground: var(--card-foreground);
+	/* Magnitudo */
+	--magnitude-low: hsl(216, 97%, 32%);
+	--magnitude-low-foreground: hsl(0, 0%, 100%);
+	--magnitude-medium: hsl(24, 100%, 35%);
+	--magnitude-medium-foreground: hsl(0, 0%, 100%);
+	--magnitude-high: hsl(348, 83%, 75%);
+	--magnitude-high-foreground: hsl(0, 0%, 0%);
 }
 /* Variabel warna cerah */
 @media (prefers-color-scheme: light) {
@@ -26,6 +33,13 @@
 		--card-shadow: 0 3px 1px var(--card-border);
 		--card-header: hsl(0, 0%, 100%);
 		--card-header-foreground: var(--card-foreground);
+		/* Magnitudo */
+		--magnitude-low: hsl(216, 97%, 85%);
+		--magnitude-low-foreground: hsl(0, 0%, 0%);
+		--magnitude-medium: hsl(43, 100%, 75%);
+		--magnitude-medium-foreground: hsl(0, 0%, 0%);
+		--magnitude-high: hsl(348, 83%, 47%);
+		--magnitude-high-foreground: hsl(0, 0%, 100%);
 	}
 }
 
@@ -165,8 +179,22 @@ h1 {
 			align-items: center;
 			justify-content: center;
 			gap: var(--card-inner-gap);
-			background-color: crimson;
-			color: white;
+			border-right: 1px solid var(--card-border);
+
+			&.low {
+				background-color: var(--magnitude-low);
+				color: var(--magnitude-low-foreground);
+			}
+
+			&.medium {
+				background-color: var(--magnitude-medium);
+				color: var(--magnitude-medium-foreground);
+			}
+
+			&.high {
+				background-color: var(--magnitude-high);
+				color: var(--magnitude-high-foreground);
+			}
 
 			#magnitude {
 				font-size: 2rem;
