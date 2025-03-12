@@ -2,22 +2,30 @@
 /* Variabel warna gelap */
 /* Gunakan warna gelap secara bawaan agar tidak terjadi flashbang */
 :root {
+	/* Warna umum */
 	--background: hsl(0, 0%, 10%);
 	--foreground: hsl(0, 0%, 90%);
+	/* Card */
 	--card-background: hsl(0, 0%, 20%);
 	--card-foreground: hsl(0, 0%, 100%);
 	--card-border: hsla(0, 0%, 81%, 0.2);
 	--card-shadow: 0 2px 1px var(--card-border);
+	--card-header: hsl(0, 0%, 30%);
+	--card-header-foreground: var(--card-foreground);
 }
 /* Variabel warna cerah */
 @media (prefers-color-scheme: light) {
 	:root {
+		/* Warna umum */
 		--background: hsl(0, 0%, 95%);
 		--foreground: hsl(0, 0%, 10%);
+		/* Card */
 		--card-background: hsl(0, 0%, 100%);
 		--card-foreground: hsl(0, 0%, 0%);
 		--card-border: hsla(0, 0%, 0%, 0.2);
 		--card-shadow: 0 3px 1px var(--card-border);
+		--card-header: hsl(0, 0%, 100%);
+		--card-header-foreground: var(--card-foreground);
 	}
 }
 
@@ -95,13 +103,36 @@ h1 {
 }
 
 .card {
+	--card-inner-padding: 0.5rem;
+	--card-inner-gap: 0.2rem;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-	padding: 0.5rem;
 	border-radius: 0.5rem;
 	background-color: var(--card-background);
 	color: var(--card-foreground);
 	border: 1px solid var(--card-border);
 	box-shadow: var(--card-shadow);
+
+	* {
+		word-break: break-all;
+	}
+
+	&--header {
+		background-color: var(--card-header);
+		color: var(--card-header-foreground);
+		border-bottom: 1px solid var(--card-border);
+		width: 100%;
+		display: flex;
+		align-items: center;
+		gap: var(--card-inner-gap);
+		padding: var(--card-inner-padding);
+	}
+
+	&--content {
+		display: flex;
+		flex-direction: column;
+		gap: var(--card-inner-gap);
+		padding: var(--card-inner-padding);
+	}
 }
