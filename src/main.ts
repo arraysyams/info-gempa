@@ -44,6 +44,9 @@ const spanTanggal = document.querySelector("span#tanggal")!;
 const spanKedalaman = document.querySelector("span#kedalaman")!;
 const spanLokasi = document.querySelector("span#lokasi")!;
 const spanDirasakan = document.querySelector("span#dirasakan")!;
+const divMagnitudoContainer = document.querySelector(
+	".card--parameters--magnitude-container"
+)!;
 // Array nama bulan
 const daftarBulan = [
 	"Januari",
@@ -105,12 +108,20 @@ async function updateTampilan({
 	dirasakan: string;
 }) {
 	// Magnitudo
+	const magnitudoNumber = parseFloat(magnitudo);
 	spanMagnitude.textContent = magnitudo
 		? new Intl.NumberFormat("id-ID", {
 				style: "decimal",
 				minimumFractionDigits: 1,
-		  }).format(parseFloat(magnitudo))
+		  }).format(magnitudoNumber)
 		: "?";
+
+	divMagnitudoContainer.classList.remove("low", "medium", "high");
+	if (magnitudoNumber >= 7) {
+		divMagnitudoContainer.classList.add("high");
+	} else if (magnitudoNumber >= 5) {
+		divMagnitudoContainer.classList.add("medium");
+	}
 
 	// Waktu dan tanggal
 	const kejadian = new Date(datetime);
