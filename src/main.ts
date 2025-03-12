@@ -47,6 +47,7 @@ const spanDirasakan = document.querySelector("span#dirasakan")!;
 const divMagnitudoContainer = document.querySelector(
 	".card--parameters--magnitude-container"
 )!;
+const divCardDirasakan = document.querySelector(".card.dirasakan")!;
 // Array nama bulan
 const daftarBulan = [
 	"Januari",
@@ -155,7 +156,12 @@ async function updateTampilan({
 	}
 
 	// Dirasakan
-	spanDirasakan.textContent = dirasakan ?? "-";
+	if (dirasakan && dirasakan.trim() !== "-") {
+		divCardDirasakan.classList.remove("hidden");
+		spanDirasakan.textContent = dirasakan;
+	} else {
+		divCardDirasakan.classList.add("hidden");
+	}
 }
 
 // ======= Fetch API =======
