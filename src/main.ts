@@ -18,6 +18,24 @@ L.tileLayer(
 	}
 ).addTo(map);
 
+// ======= Function update marker =======
+const markerImage = L.icon({
+	iconUrl: "src/images/epicenter_mark.png",
+	iconSize: [22, 22],
+	iconAnchor: [11, 11],
+	popupAnchor: [0, 0],
+	shadowUrl: "",
+	shadowSize: [0, 0],
+	shadowAnchor: [0, 0],
+});
+let marker = L.marker([0, 0], { icon: markerImage });
+async function updateMarker(lat: number, lng: number) {
+	marker.setLatLng([lat, lng]);
+	if (!marker.getElement()) {
+		marker.addTo(map);
+	}
+}
+
 // ======= Update tampilan =======
 // Elemen HTML
 const spanMagnitude = document.querySelector("span#magnitude")!;
@@ -106,6 +124,9 @@ async function updateTampilan({
 			.concat(`${getTimezone(kejadian.getTimezoneOffset())}`);
 		spanWaktu.textContent = waktu;
 		spanTanggal.textContent = tanggal;
+	} else {
+		spanWaktu.textContent = "-";
+		spanTanggal.textContent = "-";
 	}
 
 	spanDirasakan.textContent = dirasakan;
@@ -115,10 +136,11 @@ async function updateTampilan({
 	const [latString, lngString] = koordinat.split(",");
 	const lat = parseInt(latString.trim());
 	const lng = parseInt(lngString.trim());
-
-	map.setView([lat, lng]);
+	updateMarker(lat, lng);
+	map.setView([lat, lng], 5);
 }
 
+// ======= Fetch API =======
 let currentData = "";
 async function ambilDataGempa() {
 	try {
