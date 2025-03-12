@@ -143,4 +143,35 @@ h1 {
 		gap: var(--card-inner-gap);
 		padding: var(--card-inner-padding);
 	}
+
+	/* Elemen khusus */
+	&--parameters {
+		display: flex;
+		flex-direction: row;
+
+		&--content {
+			display: flex;
+			flex-direction: column;
+			flex-grow: 1;
+			gap: var(--card-inner-gap);
+			padding: var(--card-inner-padding);
+		}
+
+		&--magnitude {
+			width: 100px;
+			display: flex;
+			flex-direction: column;
+			flex-shrink: 0;
+			align-items: center;
+			justify-content: center;
+			gap: var(--card-inner-gap);
+			background-color: crimson;
+			color: white;
+
+			#span-magnitude {
+				font-size: 2rem;
+				font-weight: bold;
+			}
+		}
+	}
 }
