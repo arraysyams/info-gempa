@@ -1,1 +1,1 @@
-document.querySelector("span")!.textContent = "Informasi Gempa Bumi";
+// document.querySelector("span")!.textContent = "Informasi Gempa Bumi";
