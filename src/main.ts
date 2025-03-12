@@ -147,8 +147,8 @@ async function updateTampilan({
 	spanLokasi.textContent = lokasi;
 
 	const [latString, lngString] = koordinat.split(",");
-	const lat = parseInt(latString.trim());
-	const lng = parseInt(lngString.trim());
+	const lat = parseFloat(latString.trim());
+	const lng = parseFloat(lngString.trim());
 	updateMarker(lat, lng);
 	map.setView([lat, lng], 5);
 }
