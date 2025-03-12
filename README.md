@@ -16,3 +16,7 @@ Proyek ini dibangun menggunakan [Vite](https://vite.dev/). Untuk mengembangkan p
    `npm i`
 5. Jalankan _website_ proyek\
    `npx vite`
+
+## Credits
+
+[Lucide Icons](https://lucide.dev/icons/)

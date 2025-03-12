@@ -5,6 +5,7 @@
 	/* Warna umum */
 	--background: hsl(0, 0%, 10%);
 	--foreground: hsl(0, 0%, 90%);
+	--link: hsl(203, 100%, 83%);
 	/* Card */
 	--card-background: hsl(0, 0%, 20%);
 	--card-foreground: hsl(0, 0%, 100%);
@@ -26,6 +27,7 @@
 		/* Warna umum */
 		--background: hsl(0, 0%, 95%);
 		--foreground: hsl(0, 0%, 10%);
+		--link: hsl(240, 98%, 45%);
 		/* Card */
 		--card-background: hsl(0, 0%, 100%);
 		--card-foreground: hsl(0, 0%, 0%);
@@ -100,6 +102,10 @@ h1 {
 	@media @lg {
 		font-size: 3rem;
 	}
+}
+
+a {
+	color: var(--link);
 }
 
 .cards-container {
