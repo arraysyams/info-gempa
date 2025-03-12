@@ -43,6 +43,9 @@
 	}
 }
 
+/* ===== Variabel tambahan skema warna ===== */
+@light: ~"(prefers-color-scheme: light)";
+
 /* ===== Variabel responsive design ===== */
 @sm: ~"(min-width: 576px)";
 @md: ~"(min-width: 768px)";
@@ -145,9 +148,6 @@ h1 {
 		color: var(--card-header-foreground);
 		border-bottom: 1px solid var(--card-border);
 		width: 100%;
-		display: flex;
-		align-items: center;
-		gap: var(--card-inner-gap);
 		padding: var(--card-inner-padding);
 	}
 
@@ -199,6 +199,27 @@ h1 {
 			#magnitude {
 				font-size: 2rem;
 				font-weight: bold;
+			}
+		}
+	}
+
+	/* class untuk label beserta logo/icon */
+	.logo-span {
+		display: flex;
+		gap: var(--card-inner-gap);
+		align-items: center;
+
+		span {
+			word-break: break-all;
+		}
+
+		img {
+			height: 1.2rem;
+			width: 1.2rem;
+			filter: invert(1);
+
+			@media @light {
+				filter: invert(0);
 			}
 		}
 	}
