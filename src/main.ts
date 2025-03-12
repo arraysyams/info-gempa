@@ -91,7 +91,7 @@ async function updateTampilan({
 		? new Intl.NumberFormat("id-ID", {
 				style: "decimal",
 				minimumFractionDigits: 1,
-		  }).format(parseInt(magnitudo))
+		  }).format(parseFloat(magnitudo))
 		: "?";
 
 	// Waktu dan tanggal
