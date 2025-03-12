@@ -7,6 +7,7 @@
 	--card-background: hsl(0, 0%, 20%);
 	--card-foreground: hsl(0, 0%, 100%);
 	--card-border: hsla(0, 0%, 81%, 0.2);
+	--card-shadow: 0 2px 1px var(--card-border);
 }
 /* Variabel warna cerah */
 @media (prefers-color-scheme: light) {
@@ -16,6 +17,7 @@
 		--card-background: hsl(0, 0%, 100%);
 		--card-foreground: hsl(0, 0%, 0%);
 		--card-border: hsla(0, 0%, 0%, 0.2);
+		--card-shadow: 0 3px 1px var(--card-border);
 	}
 }
 
@@ -101,5 +103,5 @@ h1 {
 	background-color: var(--card-background);
 	color: var(--card-foreground);
 	border: 1px solid var(--card-border);
-	box-shadow: 0 3px 1px var(--card-border);
+	box-shadow: var(--card-shadow);
 }
