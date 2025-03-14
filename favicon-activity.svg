@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   class="lucide lucide-square-activity"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="favicon-activity-square.svg"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="22.916667"
+     inkscape:cx="12"
+     inkscape:cy="12"
+     inkscape:window-width="1299"
+     inkscape:window-height="810"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1" />
+  <circle
+     style="fill:#007074;fill-opacity:1;stroke:#007074;stroke-width:1.96898;stroke-opacity:1"
+     id="path2"
+     cx="12"
+     cy="12"
+     r="9.5155096" />
+  <path
+     d="M 18.345455,12 H 15.807273 L 13.269091,18.345455 10.730909,5.6545455 8.1927273,12 H 5.6545455"
+     id="path1"
+     style="stroke:#ffffff;stroke-width:2.53818;stroke-opacity:1" />
+</svg>
