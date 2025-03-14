@@ -11,29 +11,38 @@
 	<body>
 		<main>
 			<h1>Informasi Gempa Bumi</h1>
-			<div class="cards-container">
-				<div class="cards-group">
+			<div class="container">
+				<!-- Sebelah kiri -->
+				<div class="container__group">
+					<!-- Card parameter -->
 					<div class="card">
-						<div class="card--parameters">
-							<div class="card--parameters--magnitude-container">
+						<div class="card__content card__content--flex-row card__content--no-padding">
+							<!-- Magnitudo -->
+							<div class="card__magnitude" id="card-magnitude">
 								<span>Magnitudo</span>
-								<span id="magnitude">?</span>
+								<span class="card__magnitude-text" id="magnitude">?</span>
 							</div>
-							<div class="card--parameters--content">
-								<div class="logo-span">
-									<img src="src/images/history.svg" alt="Waktu" title="Waktu" />
+							<!-- Parameter lainnya -->
+							<div class="card__parameter">
+								<!-- Waktu -->
+								<div class="card__parameter-line">
+									<img class="card__icon" src="src/images/history.svg" alt="Waktu" title="Waktu" />
 									<span id="waktu">-</span>
 								</div>
-								<div class="logo-span">
+								<!-- Tanggal -->
+								<div class="card__parameter-line">
 									<img
+										class="card__icon"
 										src="src/images/calendar.svg"
 										alt="Tanggal"
 										title="Tanggal"
 									/>
 									<span id="tanggal">-</span>
 								</div>
-								<div class="logo-span">
+								<!-- Kedalaman -->
+								<div class="card__parameter-line">
 									<img
+										class="card__icon"
 										src="src/images/ruler.svg"
 										alt="Kedalaman"
 										title="Kedalaman"
@@ -44,51 +53,52 @@
 							</div>
 						</div>
 					</div>
+					<!-- Card peta wilayah -->
 					<div class="card">
-						<div class="card--header">
-							<div class="logo-span">
-								<img
-									src="src/images/map-pin.svg"
-									alt="Peta wilayah"
-									aria-hidden="true"
-								/>
-								<span>Peta wilayah</span>
-							</div>
+						<div class="card__header">
+							<img
+								class="card__icon"
+								src="src/images/map-pin.svg"
+								alt="Peta wilayah"
+								aria-hidden="true"
+							/>
+							<span>Peta wilayah</span>
 						</div>
-						<div id="map"></div>
-						<div class="card--content">
+						<div class="card__map" id="map"></div>
+						<div class="card__content">
 							<span id="lokasi">-</span>
 						</div>
 					</div>
 				</div>
-				<div class="cards-group">
-					<div class="card dirasakan">
-						<div class="card--header">
-							<div class="logo-span">
-								<img
-									src="src/images/building-2.svg"
-									alt="Dirasakan"
-									aria-hidden="true"
-								/>
-								<span>Dirasakan</span>
-							</div>
+				<!-- Sebelah kanan -->
+				<div class="container__group">
+					<!-- Dirasakan -->
+					<div class="card" id="card-dirasakan">
+						<div class="card__header">
+							<img
+							class="card__icon"
+								src="src/images/building-2.svg"
+								alt="Dirasakan"
+								aria-hidden="true"
+							/>
+							<span>Dirasakan</span>
 						</div>
-						<div class="card--content">
+						<div class="card__content">
 							<span id="dirasakan">-</span>
 						</div>
 					</div>
+					<!-- Credits -->
 					<div class="card">
-						<div class="card--header">
-							<div class="logo-span">
-								<img
-									src="src/images/link.svg"
-									alt="Credits"
-									aria-hidden="true"
-								/>
-								<span>Credits</span>
-							</div>
+						<div class="card__header">
+							<img
+							class="card__icon"
+								src="src/images/link.svg"
+								alt="Credits"
+								aria-hidden="true"
+							/>
+							<span>Credits</span>
 						</div>
-						<div class="card--content">
+						<div class="card__content">
 							<span>
 								Sumber data:
 								<a

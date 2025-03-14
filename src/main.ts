@@ -45,10 +45,8 @@ const spanTanggal = document.querySelector("span#tanggal")!;
 const spanKedalaman = document.querySelector("span#kedalaman")!;
 const spanLokasi = document.querySelector("span#lokasi")!;
 const spanDirasakan = document.querySelector("span#dirasakan")!;
-const divMagnitudoContainer = document.querySelector(
-	".card--parameters--magnitude-container"
-)!;
-const divCardDirasakan = document.querySelector(".card.dirasakan")!;
+const cardMagnitudo = document.querySelector("#card-magnitude")!;
+const cardDirasakan = document.querySelector("#card-dirasakan")!;
 // Array nama bulan
 const daftarBulan = [
 	"Januari",
@@ -118,11 +116,15 @@ async function updateTampilan({
 		  }).format(magnitudoNumber)
 		: "?";
 
-	divMagnitudoContainer.classList.remove("low", "medium", "high");
+	cardMagnitudo.classList.remove(
+		"card__magnitude--low",
+		"card__magnitude--medium",
+		"card__magnitude--high"
+	);
 	if (magnitudoNumber >= 7) {
-		divMagnitudoContainer.classList.add("high");
+		cardMagnitudo.classList.add("card__magnitude--high");
 	} else if (magnitudoNumber >= 5) {
-		divMagnitudoContainer.classList.add("medium");
+		cardMagnitudo.classList.add("card__magnitude--medium");
 	}
 
 	// Waktu dan tanggal
@@ -158,10 +160,10 @@ async function updateTampilan({
 
 	// Dirasakan
 	if (dirasakan && dirasakan.trim() !== "-") {
-		divCardDirasakan.classList.remove("hidden");
+		cardDirasakan.classList.remove("card--hidden");
 		spanDirasakan.textContent = dirasakan;
 	} else {
-		divCardDirasakan.classList.add("hidden");
+		cardDirasakan.classList.add("card--hidden");
 	}
 }
 

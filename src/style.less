@@ -115,7 +115,7 @@ a {
 	color: var(--link);
 }
 
-.cards-container {
+.container {
 	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
@@ -128,15 +128,15 @@ a {
 	@media @md {
 		grid-template-columns: repeat(2, 1fr);
 	}
-}
 
-.cards-group {
-	display: flex;
-	flex-direction: column;
-	gap: 0.7rem;
+	&__group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.7rem;
 
-	@media @sm {
-		gap: 1rem;
+		@media @sm {
+			gap: 1rem;
+		}
 	}
 }
 
@@ -156,92 +156,95 @@ a {
 		word-break: normal;
 	}
 
-	&.hidden {
-		display: none !important;
+	&--hidden {
+		display: none;
 	}
 
-	&--header {
+	&__header {
 		background-color: var(--card-header);
 		color: var(--card-header-foreground);
 		border-bottom: 1px solid var(--card-border);
 		width: 100%;
 		padding: var(--card-inner-padding);
+		display: flex;
+		flex-direction: row;
+		gap: var(--card-inner-gap);
+		align-items: center;
 	}
 
-	&--content {
+	&__content {
 		display: flex;
 		flex-direction: column;
 		gap: var(--card-inner-gap);
 		padding: var(--card-inner-padding);
+
+		&--flex-row {
+			display: flex;
+			flex-direction: row;
+		}
+
+		&--no-padding {
+			padding: 0;
+		}
 	}
 
-	/* Elemen khusus */
-	&--parameters {
+	&__magnitude {
+		width: 100px;
+		display: flex;
+		flex-direction: column;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		gap: var(--card-inner-gap);
+		border-right: 1px solid var(--card-border);
+
+		&--low {
+			background-color: var(--magnitude-low);
+			color: var(--magnitude-low-foreground);
+		}
+
+		&--medium {
+			background-color: var(--magnitude-medium);
+			color: var(--magnitude-medium-foreground);
+		}
+
+		&--high {
+			background-color: var(--magnitude-high);
+			color: var(--magnitude-high-foreground);
+		}
+	}
+
+	&__magnitude-text {
+		font-size: 2rem;
+		font-weight: bold;
+	}
+
+	&__parameter {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		gap: var(--card-inner-gap);
+		padding: var(--card-inner-padding);
+	}
+
+	&__parameter-line {
 		display: flex;
 		flex-direction: row;
-
-		&--content {
-			display: flex;
-			flex-direction: column;
-			flex-grow: 1;
-			gap: var(--card-inner-gap);
-			padding: var(--card-inner-padding);
-		}
-
-		&--magnitude-container {
-			width: 100px;
-			display: flex;
-			flex-direction: column;
-			flex-shrink: 0;
-			align-items: center;
-			justify-content: center;
-			gap: var(--card-inner-gap);
-			border-right: 1px solid var(--card-border);
-
-			&.low {
-				background-color: var(--magnitude-low);
-				color: var(--magnitude-low-foreground);
-			}
-
-			&.medium {
-				background-color: var(--magnitude-medium);
-				color: var(--magnitude-medium-foreground);
-			}
-
-			&.high {
-				background-color: var(--magnitude-high);
-				color: var(--magnitude-high-foreground);
-			}
-
-			#magnitude {
-				font-size: 2rem;
-				font-weight: bold;
-			}
-		}
-	}
-
-	/* class untuk label beserta logo/icon */
-	.logo-span {
-		display: flex;
 		gap: var(--card-inner-gap);
 		align-items: center;
+	}
 
-		span {
-			word-break: normal;
-		}
+	&__icon {
+		height: 1.2rem;
+		width: 1.2rem;
+		filter: invert(1);
 
-		img {
-			height: 1.2rem;
-			width: 1.2rem;
-			filter: invert(1);
-
-			@media @light {
-				filter: invert(0);
-			}
+		@media @light {
+			filter: invert(0);
 		}
 	}
-}
 
-#map {
-	height: 200px;
+	&__map {
+		height: 200px;
+	}
 }
