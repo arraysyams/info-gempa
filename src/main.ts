@@ -47,6 +47,7 @@ const spanTanggal = document.querySelector("span#tanggal")!;
 const spanKedalaman = document.querySelector("span#kedalaman")!;
 const spanLokasi = document.querySelector("span#lokasi")!;
 const spanDirasakan = document.querySelector("span#dirasakan")!;
+const spanInformasi = document.querySelector("span#informasi")!;
 const cardMagnitudo = document.querySelector("#card-magnitude")!;
 const cardDirasakan = document.querySelector("#card-dirasakan")!;
 // Array nama bulan
@@ -101,6 +102,7 @@ async function updateTampilan({
 	koordinat,
 	lokasi,
 	dirasakan,
+	informasi,
 }: {
 	magnitudo: string;
 	datetime: string;
@@ -108,6 +110,7 @@ async function updateTampilan({
 	koordinat: string;
 	lokasi: string;
 	dirasakan: string;
+	informasi: string;
 }) {
 	// Magnitudo
 	const magnitudoNumber = parseFloat(magnitudo);
@@ -167,6 +170,10 @@ async function updateTampilan({
 	} else {
 		cardDirasakan.classList.add("card--hidden");
 	}
+
+	// Informasi tambahan
+	spanInformasi.textContent =
+		informasi.trim() || "Tidak ada informasi tambahan";
 }
 
 // ======= Fetch API =======
@@ -189,6 +196,7 @@ async function ambilDataGempa() {
 					lokasi: dataGempa?.Wilayah ?? "",
 					koordinat: dataGempa?.Coordinates ?? "-,-",
 					dirasakan: dataGempa?.Dirasakan ?? "",
+					informasi: dataGempa?.Potensi ?? "",
 				});
 			}
 		}
