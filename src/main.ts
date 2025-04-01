@@ -6,7 +6,9 @@ var map = L.map("map", {
 	zoom: 3,
 });
 L.tileLayer(
-	"https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}@2x.png?key=cO4vR8Ki0m3QDbUAVhiK",
+	`https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}@2x.png?key=${
+		import.meta.env.VITE_TILE_API_KEY
+	}`,
 	{
 		tileSize: 512,
 		minZoom: 3,
