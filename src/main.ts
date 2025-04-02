@@ -1,4 +1,5 @@
 import * as L from "leaflet";
+import { splitMMIPlace } from "./mmi";
 
 // ======= Inisialisasi leaflet =======
 var map = L.map("map", {
@@ -164,16 +165,76 @@ async function updateTampilan({
 	}
 
 	// Dirasakan
-	if (dirasakan && dirasakan.trim() !== "-") {
-		cardDirasakan.classList.remove("card--hidden");
-		spanDirasakan.textContent = dirasakan;
-	} else {
-		cardDirasakan.classList.add("card--hidden");
-	}
+	updateDirasakan(dirasakan);
 
 	// Informasi tambahan
 	spanInformasi.textContent =
 		informasi.trim() || "Tidak ada informasi tambahan";
+}
+// Function khusus update MMI
+async function updateDirasakan(dirasakan: string) {
+	const dirasakanTrimmed = dirasakan.trim();
+	if (dirasakanTrimmed.length < 1 || dirasakanTrimmed == "-") {
+		cardDirasakan.classList.add("card--hidden");
+		return;
+	}
+
+	const dirasakanSplit = dirasakanTrimmed.split(",");
+	const kelompokIntensitas: {
+		mmiIdentifier: string;
+		mmiList: {
+			text: string;
+			value: number;
+		}[];
+		mmiAverage: number;
+		locations: string;
+	}[] = [];
+
+	for (let i = 0; i < dirasakanSplit.length; i++) {
+		const mmiPlaceString = dirasakanSplit[i];
+		const daftarIntensitas = splitMMIPlace(mmiPlaceString);
+
+		const mmiSorted = daftarIntensitas.mmi
+			.slice()
+			.sort((a, b) => a.value - b.value);
+		let mmiAverage = null;
+		let mmiIdentifier = "";
+		// Hanya digunakan sebagai sarana perhitungan
+		let mmiTotal = 0;
+		let mmiLength = mmiSorted.length;
+
+		mmiSorted.forEach((mmi) => {
+			mmiIdentifier = mmiIdentifier ? mmiIdentifier + "-" + mmi.text : mmi.text;
+			mmiTotal += mmi.value;
+		});
+		mmiAverage = mmiTotal / mmiLength;
+		if (isNaN(mmiAverage)) {
+			mmiAverage = 0;
+		}
+
+		const existingIntensity = kelompokIntensitas.find(
+			(intensitas) => intensitas.mmiIdentifier == mmiIdentifier
+		);
+		if (existingIntensity) {
+			existingIntensity.locations += ", " + daftarIntensitas.place;
+		} else {
+			kelompokIntensitas.push({
+				mmiList: mmiSorted,
+				mmiAverage: mmiAverage,
+				mmiIdentifier: mmiIdentifier,
+				locations: daftarIntensitas.place,
+			});
+		}
+	}
+
+	const dirasakanOutput = kelompokIntensitas
+		.sort((a, b) => b.mmiAverage - a.mmiAverage)
+		.map((intensitas) => {
+			const text = intensitas.mmiList.map((mmi) => mmi.text).join("-");
+			return `${text}: ${intensitas.locations}`;
+		});
+	cardDirasakan.classList.remove("card--hidden");
+	spanDirasakan.textContent = dirasakanOutput.join("; ");
 }
 
 // ======= Fetch API =======
