@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="32"
+   height="32"
+   viewBox="0 0 8.4666665 8.4666666"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="11.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="16"
+     inkscape:cx="18.59375"
+     inkscape:cy="13.46875"
+     inkscape:window-width="1920"
+     inkscape:window-height="974"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#a40052;stroke:none;stroke-width:217.839;stroke-linejoin:round;fill-opacity:1"
+       id="rect1"
+       width="8.4666662"
+       height="8.4666662"
+       x="2.2252401e-07"
+       y="2.2252401e-07" />
+    <path
+       d="M 4.840883,6.0585561 3.8845252,4.3608143 2.9088749,6.0585561 H 2.432074 L 3.6419907,4.0411097 2.5230245,2.1752474 H 2.9998254 L 3.8872813,3.6993565 4.7471765,2.1752474 H 5.2239773 L 4.135328,4.0218172 5.3176838,6.0585561 Z m 1.0004549,0 V 2.1752474 h 0.4327037 v 3.8833087 z"
+       id="text1"
+       style="font-size:5.64444px;line-height:1.2;font-family:'Liberation Sans Narrow';-inkscape-font-specification:'Liberation Sans Narrow, Normal';letter-spacing:0px;word-spacing:0px;fill:#ffffff;stroke-width:10.1231;stroke-linejoin:round"
+       transform="scale(0.97249644,1.0282814)"
+       aria-label="XI" />
+  </g>
+</svg>
