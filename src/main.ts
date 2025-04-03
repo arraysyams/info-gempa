@@ -1,5 +1,6 @@
 import * as L from "leaflet";
 import { splitMMIPlace } from "./mmi";
+import { getMMIAssetURL } from "./mmi-assets";
 
 // ======= Inisialisasi leaflet =======
 var map = L.map("map", {
@@ -47,10 +48,9 @@ const spanWaktu = document.querySelector("span#waktu")!;
 const spanTanggal = document.querySelector("span#tanggal")!;
 const spanKedalaman = document.querySelector("span#kedalaman")!;
 const spanLokasi = document.querySelector("span#lokasi")!;
-const spanDirasakan = document.querySelector("span#dirasakan")!;
 const spanInformasi = document.querySelector("span#informasi")!;
 const cardMagnitudo = document.querySelector("#card-magnitude")!;
-const cardDirasakan = document.querySelector("#card-dirasakan")!;
+
 // Array nama bulan
 const daftarBulan = [
 	"Januari",
@@ -171,13 +171,21 @@ async function updateTampilan({
 	spanInformasi.textContent =
 		informasi.trim() || "Tidak ada informasi tambahan";
 }
-// Function khusus update MMI
+
+// ======= Function khusus update MMI =======
+const cardDirasakan = document.querySelector("#card-dirasakan")!;
+const contentDirasakan = document.querySelector("#content-dirasakan")!;
+const feltItemReference = document.querySelector("#felt-item-reference")!;
+const feltItemTemplate = feltItemReference.cloneNode(true);
+feltItemReference.remove();
+
 async function updateDirasakan(dirasakan: string) {
 	const dirasakanTrimmed = dirasakan.trim();
 	if (dirasakanTrimmed.length < 1 || dirasakanTrimmed == "-") {
 		cardDirasakan.classList.add("card--hidden");
 		return;
 	}
+	contentDirasakan.innerHTML = "";
 
 	const dirasakanSplit = dirasakanTrimmed.split(",");
 	const kelompokIntensitas: {
@@ -227,14 +235,50 @@ async function updateDirasakan(dirasakan: string) {
 		}
 	}
 
-	const dirasakanOutput = kelompokIntensitas
+	kelompokIntensitas
 		.sort((a, b) => b.mmiAverage - a.mmiAverage)
-		.map((intensitas) => {
-			const text = intensitas.mmiList.map((mmi) => mmi.text).join("-");
-			return `${text}: ${intensitas.locations}`;
+		.forEach((intensitas) => {
+			const feltItem = feltItemTemplate.cloneNode(true) as Element;
+
+			// Set lokasi intensitas
+			const feltLocationElement = feltItem.querySelector(
+				".card__felt-location"
+			)!;
+			feltLocationElement.textContent = intensitas.locations;
+
+			// Set gambar mmi
+			const feltMMIContainer = feltItem.querySelector(
+				".card__felt-mmi-container"
+			)!;
+			const feltMMIImageReference = feltItem.querySelector(".card__felt-mmi")!;
+			const feltMMIImageTemplate = feltMMIImageReference.cloneNode(true);
+			feltMMIImageReference.remove();
+
+			if (intensitas.mmiList.length > 0) {
+				intensitas.mmiList.forEach((mmi) => {
+					const feltMMIImage = feltMMIImageTemplate.cloneNode(
+						true
+					) as HTMLImageElement;
+					feltMMIImage.src = getMMIAssetURL(mmi.value);
+					feltMMIImage.alt =
+						mmi.value > 0 && mmi.value < 13
+							? `${mmi.value}`
+							: "Tidak diketahui";
+					feltMMIContainer.appendChild(feltMMIImage);
+				});
+			} else {
+				const feltMMIImage = feltMMIImageTemplate.cloneNode(
+					true
+				) as HTMLImageElement;
+				feltMMIImage.src = getMMIAssetURL(0);
+				feltMMIImage.alt = "Tidak diketahui";
+				feltMMIContainer.appendChild(feltMMIImage);
+			}
+
+			contentDirasakan.appendChild(feltItem);
 		});
+
 	cardDirasakan.classList.remove("card--hidden");
-	spanDirasakan.textContent = dirasakanOutput.join("; ");
 }
 
 // ======= Fetch API =======
