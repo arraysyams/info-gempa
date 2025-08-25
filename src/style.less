@@ -130,15 +130,15 @@ a {
 	@media @md {
 		grid-template-columns: repeat(2, 1fr);
 	}
+}
 
-	&__group {
-		display: flex;
-		flex-direction: column;
-		gap: 0.7rem;
+.container __group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.7rem;
 
-		@media @sm {
-			gap: 1rem;
-		}
+	@media @sm {
+		gap: 1rem;
 	}
 }
 
@@ -153,119 +153,119 @@ a {
 	color: var(--card-foreground);
 	border: 1px solid var(--card-border);
 	box-shadow: var(--card-shadow);
+}
 
-	* {
-		word-break: normal;
+.card * {
+	word-break: normal;
+}
+
+.card--hidden {
+	display: none;
+}
+
+.card__header {
+	background-color: var(--card-header);
+	color: var(--card-header-foreground);
+	border-bottom: 1px solid var(--card-border);
+	width: 100%;
+	padding: var(--card-inner-padding);
+	display: flex;
+	flex-direction: row;
+	gap: var(--card-inner-gap);
+	align-items: center;
+}
+
+.card__content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--card-inner-gap);
+	padding: var(--card-inner-padding);
+}
+
+.card__content--flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.card__content--no-padding {
+	padding: 0;
+}
+
+.card__magnitude {
+	width: 100px;
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	gap: var(--card-inner-gap);
+	border-right: 1px solid var(--card-border);
+}
+
+.card__magnitude--low {
+	background-color: var(--magnitude-low);
+	color: var(--magnitude-low-foreground);
+}
+
+.card__magnitude--medium {
+	background-color: var(--magnitude-medium);
+	color: var(--magnitude-medium-foreground);
+}
+
+.card__magnitude--high {
+	background-color: var(--magnitude-high);
+	color: var(--magnitude-high-foreground);
+}
+
+.card__magnitude-text {
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.card__parameter {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	gap: var(--card-inner-gap);
+	padding: var(--card-inner-padding);
+}
+
+.card__parameter-line {
+	display: flex;
+	flex-direction: row;
+	gap: var(--card-inner-gap);
+	align-items: center;
+}
+
+.card__icon {
+	height: 1.2rem;
+	width: 1.2rem;
+	filter: invert(1);
+
+	@media @light {
+		filter: invert(0);
 	}
+}
 
-	&--hidden {
-		display: none;
-	}
+.card__map {
+	height: 200px;
+}
 
-	&__header {
-		background-color: var(--card-header);
-		color: var(--card-header-foreground);
-		border-bottom: 1px solid var(--card-border);
-		width: 100%;
-		padding: var(--card-inner-padding);
-		display: flex;
-		flex-direction: row;
-		gap: var(--card-inner-gap);
-		align-items: center;
-	}
+.card__felt-item {
+	display: flex;
+	flex-direction: row;
+	gap: var(--card-inner-gap);
+	align-items: center;
+}
 
-	&__content {
-		display: flex;
-		flex-direction: column;
-		gap: var(--card-inner-gap);
-		padding: var(--card-inner-padding);
+.card__felt-mmi-container {
+	display: flex;
+	align-items: center;
+	gap: var(--card-inner-gap);
+}
 
-		&--flex-row {
-			display: flex;
-			flex-direction: row;
-		}
-
-		&--no-padding {
-			padding: 0;
-		}
-	}
-
-	&__magnitude {
-		width: 100px;
-		display: flex;
-		flex-direction: column;
-		flex-shrink: 0;
-		align-items: center;
-		justify-content: center;
-		gap: var(--card-inner-gap);
-		border-right: 1px solid var(--card-border);
-
-		&--low {
-			background-color: var(--magnitude-low);
-			color: var(--magnitude-low-foreground);
-		}
-
-		&--medium {
-			background-color: var(--magnitude-medium);
-			color: var(--magnitude-medium-foreground);
-		}
-
-		&--high {
-			background-color: var(--magnitude-high);
-			color: var(--magnitude-high-foreground);
-		}
-	}
-
-	&__magnitude-text {
-		font-size: 2rem;
-		font-weight: bold;
-	}
-
-	&__parameter {
-		display: flex;
-		flex-direction: column;
-		flex-grow: 1;
-		gap: var(--card-inner-gap);
-		padding: var(--card-inner-padding);
-	}
-
-	&__parameter-line {
-		display: flex;
-		flex-direction: row;
-		gap: var(--card-inner-gap);
-		align-items: center;
-	}
-
-	&__icon {
-		height: 1.2rem;
-		width: 1.2rem;
-		filter: invert(1);
-
-		@media @light {
-			filter: invert(0);
-		}
-	}
-
-	&__map {
-		height: 200px;
-	}
-
-	&__felt-item {
-		display: flex;
-		flex-direction: row;
-		gap: var(--card-inner-gap);
-		align-items: center;
-	}
-
-	&__felt-mmi-container {
-		display: flex;
-		align-items: center;
-		gap: var(--card-inner-gap);
-	}
-
-	&__felt-mmi {
-		height: 1.5rem;
-		overflow: hidden;
-		border-radius: 0.1rem;
-	}
+.card__felt-mmi {
+	height: 1.5rem;
+	overflow: hidden;
+	border-radius: 0.1rem;
 }
