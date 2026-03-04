@@ -176,6 +176,7 @@ async function updateTampilan({
 const cardDirasakan = document.querySelector("#card-dirasakan")!;
 const contentDirasakan = document.querySelector("#content-dirasakan")!;
 const feltItemReference = document.querySelector("#felt-item-reference")!;
+feltItemReference.removeAttribute("id");
 const feltItemTemplate = feltItemReference.cloneNode(true);
 feltItemReference.remove();
 
